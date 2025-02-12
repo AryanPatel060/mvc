@@ -21,7 +21,7 @@ class Mage
     }
     public static function getBaseDir()
     {
-        return "C:/xampp/htdocs/mvc/";
+        return "C:/xampp/htdocs/MVC/";
     }
     public static function getBaseUrl()
     {

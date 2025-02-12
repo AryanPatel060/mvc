@@ -40,4 +40,14 @@ class Core_Block_Template
         $this->_template = $template;
         return $this;
     }
+    // public function addJs($path)
+    // {
+    //     echo($path);
+    //     return $this;
+    // }
+    // public function addCss($path)
+    // {
+    //     echo($path);
+    //     return $this;
+    // }
 }

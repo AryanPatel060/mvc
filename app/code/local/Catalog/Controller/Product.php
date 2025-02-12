@@ -13,6 +13,13 @@ class Catalog_Controller_Product
     public function viewAction()
     {
         $layout = Mage::getBlock('core/layout');
+        $product = Mage::getModel('catalog/product');
+        $resource = $product->getResourceModel();
+        
+        echo"<pre>";
+        print_r($product);
+        print_r($resource);
+
         $view = $layout->createBlock('catalog/product_view')
                        ->setTemplate('catalog/product/view.phtml');
                     //    print_r($view);
