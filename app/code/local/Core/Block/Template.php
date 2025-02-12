@@ -24,8 +24,15 @@ class Core_Block_Template
     }
     public function getChildHtml($key)
     {
-        echo "<pre>";
-        print_r($this->_child);
+        if($key == "" && count($this->_child))
+        {
+            $html = "";
+            foreach($this->_child as $child)
+            {
+                $html .= $child->toHtml();
+            }
+            return $html;
+        }
         return isset($this->_child[$key]) ? $this->_child[$key]->toHtml() : "";
     }
     public function setTemplate($template)

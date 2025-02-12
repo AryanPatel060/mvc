@@ -3,18 +3,38 @@ class Checkout_Controller_Cart
 {
     public function indexAction()
     {
-        echo __CLASS__ ." ".__FUNCTION__;
+        $layout = Mage::getBlock('core/layout');
+        $index = $layout->createBlock('Checkout/Cart_Index')
+                       ->setTemplate('Checkout/Cart/Index.phtml');
+                    //    print_r($view);
+        $layout->getChild('content')->addChild('index',$index);
+        $layout->toHtml();
     }
     public function updateAction()
     {
-        echo __CLASS__ ." ".__FUNCTION__;
+        $layout = Mage::getBlock('core/layout');
+        $update = $layout->createBlock('Checkout/Cart_Update')
+                       ->setTemplate('Checkout/Cart/Update.phtml');
+                    //    print_r($view);
+        $layout->getChild('content')->addChild('update',$update);
+        $layout->toHtml();
     }
     public function removeAction()
     {
-        echo __CLASS__ ." ".__FUNCTION__;
+        $layout = Mage::getBlock('core/layout');
+        $remove = $layout->createBlock('Checkout/Cart_Remove')
+                       ->setTemplate('Checkout/Cart/Remove.phtml');
+                    //    print_r($view);
+        $layout->getChild('content')->addChild('remove',$remove);
+        $layout->toHtml();
     }
     public function addAction()
     {
-        echo __CLASS__ ." ".__FUNCTION__;
+        $layout = Mage::getBlock('core/layout');
+        $add = $layout->createBlock('Checkout/Cart_Add')
+                       ->setTemplate('Checkout/Cart/Add.phtml');
+                    //    print_r($view);
+        $layout->getChild('content')->addChild('Add',$add);
+        $layout->toHtml();
     }
 }
