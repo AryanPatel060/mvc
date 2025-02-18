@@ -1,1 +1,65 @@
-<h1>list</h1>
+<?php $products = $this->getProductData();?>
+
+<table border="1" class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Rating</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Brand</th>
+            <th>Warranty</th>
+            <th>Weight</th>
+            <th>Made In</th>
+            <th>Model</th>
+            <th>Manufacturing Date</th>
+            <th>Material</th>
+            <th>Description</th>
+            <th>Terms & Conditions</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+              
+        <?php foreach ($products as $product): ?>
+            <tr>
+                <td><?php echo $product->getProductId(); ?></td>
+                <td><?php echo htmlspecialchars($product->getName()); ?></td>
+                <td><?php echo htmlspecialchars($product->getCategoryId()); ?></td>
+                <td><?php echo number_format($product->getPrice()); ?></td>
+                <td>
+                    <?php if ($product->getImage()): ?>
+                        <img src="<?php echo $product->getImage(); ?>" width="80px" height="80px">
+                    <?php else: ?>
+                        No Image
+                    <?php endif; ?>
+                </td>
+                <td><?php echo $product->getRating(); ?></td>
+                <td><?php echo htmlspecialchars($product->getColor()); ?></td>
+                <td><?php echo $product->getSize(); ?></td>
+                <td><?php echo htmlspecialchars($product->getBrand()); ?></td>
+                <td><?php echo $product->getWarranty(); ?> Years</td>
+                <td><?php echo $product->getWeight(); ?> Kg</td>
+                <td><?php echo htmlspecialchars($product->getMadeIn()); ?></td>
+                <td><?php echo htmlspecialchars($product->getModel()); ?></td>
+                <td><?php echo $product->getmfg_date(); ?></td>
+                <td><?php echo htmlspecialchars($product->getMaterial()); ?></td>
+                <td><?php echo htmlspecialchars($product->getDescription()); ?></td>
+                <td><?php echo htmlspecialchars($product->getTAndC()); ?></td>
+                <td>
+                  
+                    <a href="new/?id=<?php echo $product->getProductId(); ?>">edit</a>
+
+                    <form action="?m=admin&v=product&a=deleteProduct" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                        <input type="hidden" name="catlog_product[product_id]" value="<?php echo $product->getProductId(); ?>">
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>

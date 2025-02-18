@@ -1,13 +1,79 @@
 <?php
-class Core_Model_Abstract{
+class Core_Model_Abstract
+{
     protected $_resourceClassName;
+    protected $_collectionClassName;
 
+    protected $_data = null;
     public function __construct()
     {
-        // $this->init();
+        // echo $this->_resourceClassName;
+        $this->init();
     }
-    public function getResourceModel()
+    public function init() {}
+    public function getResource()
     {
         return new $this->_resourceClassName();
+    }
+
+    public function __set($name, $value)
+    {
+        $this->_data[$name] = $value;
+    }
+
+    public function setData($data)
+    {
+        $this->_data = $data;
+        return $this;
+    }
+    public function getData()
+    {
+        return $this->_data;
+    }
+
+    public function __get($name)
+    {
+        return isset($this->_data[$name]) ? $this->_data[$name] : "";
+    }
+
+    public function __call($method, $value)
+    {
+        $get = substr($method, 0, 3);
+        $field = substr($method, 3);
+        $field = $this->camelToSnake($field);
+        if ($get == "get" ) {
+            return isset($this->_data[$field]) ? $this->_data[$field] : "";
+        } else if ($get == 'set') {
+            $this->_data[$field] = $value;
+            return $this;
+        }
+        throw new Exception('error function not found');
+    }
+    private function camelToSnake($input)
+    {
+       
+        $snakeCase = preg_replace_callback(
+            '/[A-Z]/',
+            function ($matches) {
+                return '_' . strtolower($matches[0]);
+            },
+            $input
+        );
+
+        return ltrim($snakeCase, '_');
+    }
+
+    public function load($value)
+    {
+        $this->_data = $this->getResource()->load($value);
+        return $this;
+    }
+    public function getCollection()
+    {
+        $collection = new $this->_collectionClassName();
+        $collection->setResource($this->getResource())
+            ->setModel($this)
+            ->select();
+        return $collection;
     }
 }

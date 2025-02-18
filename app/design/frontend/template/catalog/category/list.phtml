@@ -1,1 +1,41 @@
 <h1>list cgh</h1>
+<?php $categories = $this->getCategoryData();?>
+<a href="?m=admin&v=category&a=view">Add Category</a>
+    <table border="1" class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Product Count</th>
+                <th>Visibility</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($categories as $value): ?>
+                <tr>
+                    <td><?php echo $value->getCategoryId() ?></td>
+                    <td><?php echo $value->getName() ?></td>
+                    <td><?php echo $value->getDescription() ?></td>
+                    <td><img src="<?php echo $value->getImage() ?>" width="100px" height="100px"> </td>
+                    <td><?php echo $value->getProductCount() ?></td>
+                    <td><?php $visarray  = explode("_", $value->getVisibility()); ?>
+                        <span><?php echo implode(',', $visarray) ?> </span>
+                    </td>
+                    <td>
+                        <form action="?m=admin&v=category&a=updatecategory" method="POST">
+                            <input type="hidden" name="catlog_category[category_id]" value="<?php echo $value->getCategoryId() ?>">
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                        </form>
+                        <form action="?m=admin&v=category&a=deleteCategory" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                            <input type="hidden" name="catlog_category[category_id]" value="<?php echo $value->getCategoryId() ?>" >
+                            <button class="btn btn-danger btn-sm" >Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+
+        </tbody>
+    </table>
