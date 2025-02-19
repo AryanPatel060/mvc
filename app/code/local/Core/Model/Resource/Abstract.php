@@ -29,6 +29,7 @@ class Core_Model_Resource_Abstract
     {
         $data = $model->getData();
         $primaryId = 0;
+ 
         if (isset($data[$this->_primaryKey]) &&  $data[$this->_primaryKey]) {
             $primaryId = $data[$this->_primaryKey];
         }
@@ -45,20 +46,20 @@ class Core_Model_Resource_Abstract
             $sql .= " WHERE {$this->_primaryKey} = {$primaryId} ";
             return $this->getAdapter()->query($sql);
         } else {
-
+            
             $sql = "INSERT INTO {$this->_tableName}  ";
             $columns = [];
             $values = [];
             foreach ($data as $field => $value) {
                 $columns[] = "`{$field}`";
-                $values[] = sprintf("'%s'",addslashes($value));
+                $values[] = sprintf("'%s'", addslashes($value));
             }
-            $sql .= "(". implode(',',$columns) .") VALUES";
-            $sql .= "(". implode(',',$values) .")";
+            $sql .= "(" . implode(',', $columns) . ") VALUES";
+            $sql .= "(" . implode(',', $values) . ")";
             $insertId = $this->getAdapter()->insert($sql);
-            
-            $model->load($insertId);
 
+            $model->load($insertId);
+            return $insertId;
         }
     }
     public function delete($model)
@@ -66,14 +67,12 @@ class Core_Model_Resource_Abstract
         $data = $model->getData();
         $sql = "DELETE FROM {$this->_tableName} WHERE {$this->_primaryKey} = '{$data[$this->_primaryKey]}'";
         $result = $this->getAdapter()->query($sql);
-        if($result)
-        {
+        if ($result) {
             $model->removeData();
-            print_r($model);
-        }
-        else {
+        } else {
             echo "delete error";
         }
+        return $result;
     }
     public function getTableName()
     {

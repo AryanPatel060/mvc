@@ -30,11 +30,14 @@ class Catalog_Controller_Product
     {
         // $layout = Mage::getBlock('core/layout');
         echo "<pre>";
-        $product = Mage::getModel('catalog/product')->load(8);
-        $product->setName('cvgubhnjim') ;
-        print_r($product);
+        $product = Mage::getModel('catalog/product')
+                        ->getCollection()
+                        ->addFieldToFilter('product_id',15)
+                        ->joinLeft('catlog_category','catlog_category.category_id  = catlog_product.category_id',['category_name'=>'name']);
+        print_r($product->getData());
+        die();
 
-        $product->save();
+        
 
         // print_r($data);
         //     ->getCollection();

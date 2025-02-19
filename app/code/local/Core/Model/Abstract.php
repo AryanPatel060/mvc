@@ -46,7 +46,7 @@ class Core_Model_Abstract
         $get = substr($method, 0, 3);
         $field = substr($method, 3);
         $field = $this->camelToSnake($field);
-        if ($get == "get" ) {
+        if ($get == "get") {
             return isset($this->_data[$field]) ? $this->_data[$field] : "";
         } else if ($get == 'set') {
             $this->_data[$field] = $value[0];
@@ -56,7 +56,7 @@ class Core_Model_Abstract
     }
     private function camelToSnake($input)
     {
-       
+
         $snakeCase = preg_replace_callback(
             '/[A-Z]/',
             function ($matches) {
@@ -80,8 +80,12 @@ class Core_Model_Abstract
     }
     public function delete()
     {
-        $this->getResource()->delete($this);
-        return $this;
+        $result = $this->getResource()->delete($this);
+        if ($result) {
+            return $this;
+        } else {
+            return false;
+        }
     }
     public function getCollection()
     {
@@ -89,7 +93,8 @@ class Core_Model_Abstract
         $collection->setResource($this->getResource())
             ->setModel($this)
             ->select();
+       
         return $collection;
     }
-   
+  
 }
