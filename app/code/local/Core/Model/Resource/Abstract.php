@@ -25,6 +25,56 @@ class Core_Model_Resource_Abstract
         $sql = "SELECT * FROM {$this->_tableName} WHERE {$this->_primaryKey} = '{$value}' LIMIT 1";
         return $this->getAdapter()->fetchRow($sql);
     }
+    public function save($model)
+    {
+        $data = $model->getData();
+        $primaryId = 0;
+        if (isset($data[$this->_primaryKey]) &&  $data[$this->_primaryKey]) {
+            $primaryId = $data[$this->_primaryKey];
+        }
+        if ($primaryId) {
+            $sql = "UPDATE {$this->_tableName} SET ";
+            unset($data[$this->_primaryKey]);
+            $columns = [];
+            foreach ($data as $field => $value) {
+                // echo($value);
+                $value = ($value != null) ? $value : "";
+                $columns[] = sprintf("`{$field}` = '%s'", addslashes($value));
+            }
+            $sql .= implode(', ', $columns);
+            $sql .= " WHERE {$this->_primaryKey} = {$primaryId} ";
+            return $this->getAdapter()->query($sql);
+        } else {
+
+            $sql = "INSERT INTO {$this->_tableName}  ";
+            $columns = [];
+            $values = [];
+            foreach ($data as $field => $value) {
+                $columns[] = "`{$field}`";
+                $values[] = sprintf("'%s'",addslashes($value));
+            }
+            $sql .= "(". implode(',',$columns) .") VALUES";
+            $sql .= "(". implode(',',$values) .")";
+            $insertId = $this->getAdapter()->insert($sql);
+            
+            $model->load($insertId);
+
+        }
+    }
+    public function delete($model)
+    {
+        $data = $model->getData();
+        $sql = "DELETE FROM {$this->_tableName} WHERE {$this->_primaryKey} = '{$data[$this->_primaryKey]}'";
+        $result = $this->getAdapter()->query($sql);
+        if($result)
+        {
+            $model->removeData();
+            print_r($model);
+        }
+        else {
+            echo "delete error";
+        }
+    }
     public function getTableName()
     {
         return $this->_tableName;

@@ -21,20 +21,27 @@ class Admin_Controller_Product_Index
     }
     public function deleteAction()
     {
-        $layout = Mage::getBlock('core/layout');
-        $delete = $layout->createBlock('Admin/Product_Index_Delete')
-            ->setTemplate('Admin/Product/Index/Delete.phtml');
-        //    print_r($view);
-        $layout->getChild('content')->addChild('delete', $delete);
-        $layout->toHtml();
+        $request = Mage::getModel('core/request');
+        $id = $request->getQuery('deleteid');
+
+        $product = Mage::getModel('catalog/product');
+        $product->load($id);
+        $product->delete();
+   
+
+        header("location:http://localhost/MVC/admin/product_index/list");
+      
     }
     public function saveAction()
     {
-        $layout = Mage::getBlock('core/layout');
-        $save = $layout->createBlock('Admin/Product_Index_Save')
-            ->setTemplate('Admin/Product/Index/Save.phtml');
-        //    print_r($view);
-        $layout->getChild('content')->addChild('save', $save);
-        $layout->toHtml();
+        $request = Mage::getModel('core/request');
+        $data = $request->getParam('catlog_product');
+        $product = Mage::getModel('catalog/product');
+        $product->setData($data);
+
+        echo "<pre>";
+        print_r($data);
+        $product->save();
+        header("location:http://localhost/MVC/admin/product_index/list");
     }
 }

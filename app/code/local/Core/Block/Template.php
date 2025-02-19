@@ -2,7 +2,7 @@
 class Core_Block_Template
 {
     protected $_child = [];
-    protected $_template ;
+    protected $_template;
 
     public function toHtml()
     {
@@ -24,11 +24,9 @@ class Core_Block_Template
     }
     public function getChildHtml($key)
     {
-        if($key == "" && count($this->_child))
-        {
+        if ($key == "" && count($this->_child)) {
             $html = "";
-            foreach($this->_child as $child)
-            {
+            foreach ($this->_child as $child) {
                 $html .= $child->toHtml();
             }
             return $html;
@@ -39,6 +37,17 @@ class Core_Block_Template
     {
         $this->_template = $template;
         return $this;
+    }
+    public function getUrl($url)
+    {
+        $url = explode('/', $url);
+        $request = Mage::getModel('core/request');
+
+        $_url = [];
+        $_url[] = ($url[0] == '*') ? $request->getModuleName() : $url[0];
+        $_url[] = ($url[1] == '*') ? $request->getControllerName() : $url[1];
+        $_url[] = ($url[2] == '*') ?  $request->getActionName() : $url[2];
+        return Mage::getBaseUrl() . implode("/", $_url);
     }
     // public function addJs($path)
     // {

@@ -1,7 +1,8 @@
     <?php $data = $this->getProductData();?>
     <?php $categories = $this->getCategoryData();?>
+    <?php ?>
     <div class="form-container">
-        <form action="?m=admin&v=product&a=view" method="post" enctype="multipart/form-data">
+        <form action="<?= $this->getUrl('*/*/save')?>" method="post" enctype="multipart/form-data">
 
             <input type="hidden" name="catlog_product[product_id]" value="<?php echo $data->getProductId() ; ?>">
 

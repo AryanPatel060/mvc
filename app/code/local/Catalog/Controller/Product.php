@@ -30,15 +30,19 @@ class Catalog_Controller_Product
     {
         // $layout = Mage::getBlock('core/layout');
         echo "<pre>";
-        $product = Mage::getModel('catalog/category')
-            ->getCollection();
-        $data = $product->getData();
+        $product = Mage::getModel('catalog/product')->load(8);
+        $product->setName('cvgubhnjim') ;
+        print_r($product);
 
-        print_r($data);
-        foreach ($data as  $d) {
-            print_r($d);
-        }
-        // print_r($product);
+        $product->save();
+
+        // print_r($data);
+        //     ->getCollection();
+        // $data = $product->getData();
+
+        // foreach ($data as  $d) {
+        //     print_r($d);
+        // }
 
 
 

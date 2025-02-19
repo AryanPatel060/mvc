@@ -30,6 +30,11 @@ class Core_Model_Abstract
     {
         return $this->_data;
     }
+    public function removeData()
+    {
+        $this->_data = null;
+        return $this;
+    }
 
     public function __get($name)
     {
@@ -44,7 +49,7 @@ class Core_Model_Abstract
         if ($get == "get" ) {
             return isset($this->_data[$field]) ? $this->_data[$field] : "";
         } else if ($get == 'set') {
-            $this->_data[$field] = $value;
+            $this->_data[$field] = $value[0];
             return $this;
         }
         throw new Exception('error function not found');
@@ -68,6 +73,16 @@ class Core_Model_Abstract
         $this->_data = $this->getResource()->load($value);
         return $this;
     }
+    public function save()
+    {
+        $this->getResource()->save($this);
+        return $this;
+    }
+    public function delete()
+    {
+        $this->getResource()->delete($this);
+        return $this;
+    }
     public function getCollection()
     {
         $collection = new $this->_collectionClassName();
@@ -76,4 +91,5 @@ class Core_Model_Abstract
             ->select();
         return $collection;
     }
+   
 }

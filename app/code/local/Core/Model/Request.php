@@ -28,7 +28,7 @@ class Core_Model_Request
     {
         return $this->_actionName;
     }
-    public static function getparam($field)
+    public function getparam($field)
     {
         if (isset($_POST[$field])) {
             return $_POST[$field];
@@ -36,7 +36,7 @@ class Core_Model_Request
             return '';
         }
     }
-    public static function getQuery($field)
+    public function getQuery($field)
     {
         if (isset($_GET[$field])) {
             return $_GET[$field];
