@@ -1,4 +1,8 @@
-    <?php $data = $this->getProductData(); ?>
+    <?php
+
+    use function PHPSTORM_META\type;
+
+    $data = $this->getProductData(); ?>
     <?php $categories = $this->getCategoryData(); ?>
     <?php ?>
     <div class="form-container">
@@ -12,10 +16,7 @@
                     <input type="text" name="catlog_product[name]" id="name" value="<?php echo $data->getName(); ?>" required>
 
                 </div>
-    <div>
-        <?php echo $this->getHtmlField('text',['id'=>'hello','class'=>"new basic"]) ?>
-        <?php echo $this->getHtmlField('text',['id'=>'hello2','class'=>"alpha gama"]) ?>
-    </div>
+               
 
                 <div>
                     <label for="category">Select Category:</label>
@@ -102,15 +103,15 @@
                     <label for="status">Status</label>
                     <select name="catlog_product[status]" id="status" required>
                         <option value="">-- Select Status --</option>
-                        <option value="0" <?php $data->getStatus() ? "" :$selected; ?>>
+                        <option value="0" <?php echo $data->getStatus() ? "" : "selected"; ?>>
                             Disable
                         </option>
-                        <option value="1" <?php $data->getStatus() ? $selected : "" ?>>
+                        <option value="1" <?php echo $data->getStatus() ? "selected" : "" ?>>
                             Enable
                         </option>
                     </select>
                 </div>
-                
+
             </div>
 
             <label for="description">Description:</label>

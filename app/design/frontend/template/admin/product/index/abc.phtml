@@ -1,1 +1,55 @@
-<h1>abc</h1>
+<div class="radiobtn">
+    <label for="">Gender</label>
+    <?php echo $this->getHtmlField(
+        'choice',
+        [
+            'type' => 'radio',
+            'name' => 'gender',
+            'value' => 'male',
+            'options' => [
+                'male' => 'Male',
+                'female' => 'Female',
+                'other' => 'Other'
+            ]
+        ]
+    ) ?>
+        </div>
+    <div>
+    <label for="">Name:</label>
+    <?php echo $this->getHtmlField(
+        'text',
+        [
+            'id' => 'hello2',
+            'class' => "alpha gama"
+        ]
+    ) ?>
+          </div>
+    <div>
+        
+    <?php echo $this->getHtmlField(
+        'textarea',
+        [
+            'id' => 'bio',
+            'name' => 'user[bio]',
+            'class' => 'form-control',
+            'value' => 'Write your bio here...'
+        ]
+    ) ?>
+          </div>
+    <div>
+        
+    <?php echo $this->getHtmlField(
+        'select',
+        [
+            'name' => 'user[gender]',
+            'class' => 'form-select',
+            'value' => 'male',
+            'options' => [
+                'male' => 'Male',
+                'female' => 'Female',
+                'other' => 'Other'
+            ]
+        ]
+    ) ?>
+
+</div>

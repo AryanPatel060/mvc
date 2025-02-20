@@ -49,6 +49,13 @@ class Core_Block_Template
         $_url[] = ($url[2] == '*') ?  $request->getActionName() : $url[2];
         return Mage::getBaseUrl() . implode("/", $_url);
     }
+    public function getHtmlField($field, $data)
+    {
+        $field = ucfirst(strtolower($field));
+        $className = sprintf("Core_Block_Html_Element_%s", $field);
+        $element = new $className($data);
+        return $element->render();
+    }
     // public function addJs($path)
     // {
     //     echo($path);

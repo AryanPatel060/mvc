@@ -7,6 +7,7 @@ class Catalog_Controller_Product
         $view = $layout->createBlock('catalog/product_list')
             ->setTemplate('catalog/product/list.phtml');
         //    print_r($view);
+        
         $layout->getChild('content')->addChild('list', $view);
         $layout->toHtml();
     }
@@ -31,13 +32,20 @@ class Catalog_Controller_Product
         // $layout = Mage::getBlock('core/layout');
         echo "<pre>";
         $product = Mage::getModel('catalog/product')
-                        ->getCollection()
-                        ->addFieldToFilter('product_id',15)
-                        ->joinLeft('catlog_category','catlog_category.category_id  = catlog_product.category_id',['category_name'=>'name']);
+            ->getCollection()
+
+            // ->addFieldToFilter('product_id',15)
+            ->leftJoin('catlog_category', 'catlog_category.category_id  = catlog_product.category_id', ['category_name' => 'name']);
+        // ->orderBy(['product_id DESC','price'])
+        // ->groupBy(['product_id','price'])
+        // ->having('product_id',['>'=>34])
+        // ->having('columnname',15);
+    
+        print_r($product);
         print_r($product->getData());
         die();
 
-        
+
 
         // print_r($data);
         //     ->getCollection();

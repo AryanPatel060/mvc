@@ -1,5 +1,5 @@
 <?php
-class Admin_Block_Html_Elements_Text
+class Core_Block_Html_Element_Text extends Core_Block_Html_Element_Abstract
 {
     protected $_data = [];
     public function __construct($data) {
@@ -16,7 +16,7 @@ class Admin_Block_Html_Elements_Text
         {
             $html.= sprintf("class='%s'" ,$this->_data['class']);
         }
-        $html .= "/>";
+        $html .= "/>\n";
         return $html;
     }
 }

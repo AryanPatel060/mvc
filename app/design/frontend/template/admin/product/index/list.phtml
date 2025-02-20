@@ -31,7 +31,7 @@
             <tr>
                 <td><?php echo $product->getProductId(); ?></td>
                 <td><?php echo htmlspecialchars($product->getName()); ?></td>
-                <td><?php echo htmlspecialchars($product->getCategoryId()); ?></td>
+                <td><?php echo htmlspecialchars($product->getCategoryName()); ?></td>
                 <td><?php echo number_format($product->getPrice()); ?></td>
                 <td>
                     <?php if ($product->getImage()): ?>

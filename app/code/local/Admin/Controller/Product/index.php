@@ -7,7 +7,6 @@ class Admin_Controller_Product_Index
         $layout = Mage::getBlock('core/layout');
         $new = $layout->createBlock('Admin/Product_Index_New');
         $layout->getChild('content')->addChild('new', $new);
-        $layout->getChild('head')->addCss('main2.css');
         $layout->toHtml();    
     }
     public function listAction()
@@ -18,6 +17,8 @@ class Admin_Controller_Product_Index
         //    print_r($view);
         
         $layout->getChild('content')->addChild('list', $list);
+        $layout->getChild('head')->addCss('admin/main.css');
+
         $layout->toHtml();
     }
     public function deleteAction()
