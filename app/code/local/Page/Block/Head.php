@@ -3,6 +3,8 @@ class Page_Block_Head extends Core_Block_Template
 {
     protected $_js = [];
     protected $_css = [];
+    protected $_link = [];
+    protected $_script = [];
     public function __construct()
     {
         $this->setTemplate('page/head.phtml');
@@ -15,6 +17,14 @@ class Page_Block_Head extends Core_Block_Template
     public function getCss()
     {
         return $this->_css;
+    }
+    public function getLink()
+    {
+        return $this->_link;
+    }
+    public function getScript()
+    {
+        return $this->_link;
     }
     public function addJs($js)
     {
@@ -35,5 +45,17 @@ class Page_Block_Head extends Core_Block_Template
     {
         $this->_css = [];
         return $this;
+    }
+    public function addLink($link)
+    {
+        $this->_link[] = $link;
+        return $this;
+
+    }
+    public function addScript($script)
+    {
+        $this->_script[] = $script;
+        return $this;
+
     }
 }

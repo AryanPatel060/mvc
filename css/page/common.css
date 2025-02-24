@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --primary-color: #6793af;
   --primary-hover: #021844;
   --background-color: #eceff1;
@@ -246,7 +246,6 @@ select:focus {
   outline: none;
 }
 
-/* Submit Button */
 button {
   width: 100%;
   background: var(--primary-color);
@@ -264,7 +263,6 @@ button:hover {
   background: var(--primary-hover);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .form-group {
     flex-direction: column;
@@ -280,4 +278,5 @@ button:hover {
   align-items: center;
   width: 500px;
   gap: 5px;
-}
+} */
+

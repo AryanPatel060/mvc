@@ -24,7 +24,11 @@ class Core_Block_Layout extends Core_Block_Template
     public function prepareJsCss(){
         $head = $this->getChild('head')
                 ->addJs('page/common.js')
-                ->addCss('page/common.css');
+                ->addJs('page/bootstrap.js')
+                ->addCss('page/bootstrap.css')
+                ->addLink('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
+                ->addLink('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
+                // ->addCss('page/common.css');
     }
     // public function addJs($js)
     // {

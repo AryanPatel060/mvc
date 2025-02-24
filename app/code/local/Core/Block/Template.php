@@ -56,6 +56,11 @@ class Core_Block_Template
         $element = new $className($data);
         return $element->render();
     }
+    public function getImageUrl($url)
+    {
+        return  Mage::getBaseUrl() ."/".$url;
+    }
+
     // public function addJs($path)
     // {
     //     echo($path);

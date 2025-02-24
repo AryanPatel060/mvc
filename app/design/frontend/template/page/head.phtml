@@ -6,5 +6,7 @@
     <?php foreach ($this->getCss() as $css): ?>
         <link rel="stylesheet" href="<?php echo Mage::getBaseUrl().'css/'.$css ?>">
     <?php endforeach; ?>
-
+    <?php foreach ($this->getLink() as $link): ?>
+        <link rel="stylesheet" href="<?php echo $link ?>">
+    <?php endforeach; ?>
 </head>

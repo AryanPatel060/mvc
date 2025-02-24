@@ -11,6 +11,7 @@ class Catalog_Controller_Product
         $layout->getChild('content')->addChild('list', $view);
         $layout->toHtml();
     }
+    
     public function viewAction()
     {
         $layout = Mage::getBlock('core/layout');
