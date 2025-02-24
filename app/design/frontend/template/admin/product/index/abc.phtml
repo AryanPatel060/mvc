@@ -1,55 +1,82 @@
-<div class="radiobtn">
-    <label for="">Gender</label>
-    <?php echo $this->getHtmlField(
-        'choice',
-        [
-            'type' => 'radio',
-            'name' => 'gender',
-            'value' => 'male',
-            'options' => [
-                'male' => 'Male',
-                'female' => 'Female',
-                'other' => 'Other'
-            ]
-        ]
-    ) ?>
-        </div>
-    <div>
-    <label for="">Name:</label>
-    <?php echo $this->getHtmlField(
-        'text',
-        [
-            'id' => 'hello2',
-            'class' => "alpha gama"
-        ]
-    ) ?>
-          </div>
-    <div>
-        
-    <?php echo $this->getHtmlField(
-        'textarea',
-        [
-            'id' => 'bio',
-            'name' => 'user[bio]',
-            'class' => 'form-control',
-            'value' => 'Write your bio here...'
-        ]
-    ) ?>
-          </div>
-    <div>
-        
-    <?php echo $this->getHtmlField(
-        'select',
-        [
-            'name' => 'user[gender]',
-            'class' => 'form-select',
-            'value' => 'male',
-            'options' => [
-                'male' => 'Male',
-                'female' => 'Female',
-                'other' => 'Other'
-            ]
-        ]
-    ) ?>
+<?php
+$data = $this->getProductData();
+$categories = $this->getCategoryData();
+?>
 
+<div class="form-container">
+    <form action="<?= $this->getUrl('*/*/save') ?>" method="post" enctype="multipart/form-data">
+        <?= $this->getHtmlField('input', ['type'=>'hidden','name' => 'catlog_product[product_id]', 'value' => $data->getProductId()]) ?>
+
+        <div class="form-group">
+            <div>
+                <label for="name">Product Name:</label>
+                <?= $this->getHtmlField('text', ['name' => 'catlog_product[name]', 'id' => 'name', 'value' => $data->getName(), 'required' => true]) ?>
+            </div>
+            <div>
+                <label for="category">Select Category:</label>
+                <?= $this->getHtmlField('select', [
+                    'name' => 'catlog_product[category_id]',
+                    'id' => 'category',
+                    'required' => true,
+                    'options' => array_reduce($categories, function ($carry, $category) use ($data) {
+                        $carry[$category->getCategoryId()] = $category->getName();
+                        return $carry;
+                    }, []),
+                    'value' => $data->getCategoryId()
+                ]) ?>
+            </div>
+
+            <div>
+                <label for="price">Price:</label>
+                <?= $this->getHtmlField('input', ['type'=>'number','name' => 'catlog_product[price]', 'id' => 'price', 'value' => $data->getPrice(), 'required' => true]) ?>
+            </div>
+
+            <div>
+                <label for="image">Image:</label>
+                <?= $this->getHtmlField('input', ['type'=>"file",'name' => 'catlog_product[image]', 'id' => 'image']) ?>
+                <?php if (!empty($data) && $data->getImage()): ?>
+                    <?= $this->getHtmlField('hidden', ['name' => 'catlog_product[image]', 'value' => $data->getImage()]) ?>
+                    <img src="<?= Mage::getBaseUrl() . $data->getImage(); ?>" width="100px" height="100px">
+                <?php endif; ?>
+            </div>
+
+            <div>
+                <label for="rating">Rating:</label>
+                <?= $this->getHtmlField('input', ['type'=>'number','name' => 'catlog_product[rating]', 'id' => 'rating', 'step' => '0.1', 'value' => $data->getRating()]) ?>
+            </div>
+
+            <div>
+                <label for="color">Color:</label>
+                <?= $this->getHtmlField('input', ['type'=>'color','name' => 'catlog_product[color]', 'id' => 'color', 'value' => $data->getColor()]) ?>
+            </div>
+
+            <div>
+                <label for="size">Size:</label>
+                <?= $this->getHtmlField('input', ['type'=>'number','name' => 'catlog_product[size]', 'id' => 'size', 'value' => $data->getSize()]) ?>
+            </div>
+
+            <div>
+                <label for="status">Status</label>
+                <?= $this->getHtmlField('select', [
+                    'name' => 'catlog_product[status]',
+                    'id' => 'status',
+                    'required' => true,
+                    'options' => [
+                        '0' => 'Disable',
+                        '1' => 'Enable'
+                    ],
+                    'value' => $data->getStatus()
+                ]) ?>
+            </div>
+        </div>
+
+        <label for="description">Description:</label>
+        <?= $this->getHtmlField('textarea', ['name' => 'catlog_product[description]', 'id' => 'description', 'value' => $data->getDescription()]) ?>
+
+        <label for="t_and_c">Terms & Conditions:</label>
+        <?= $this->getHtmlField('textarea', ['name' => 'catlog_product[t_and_c]', 'id' => 't_and_c', 'value' => $data->getTAndC()]) ?>
+
+        <button type="submit">Submit</button>
+    </form>
+    <a href="<?= MAGE::getBaseUrl() ?>admin/product_index/list">Product List</a>
 </div>

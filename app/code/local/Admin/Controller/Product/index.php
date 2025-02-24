@@ -7,6 +7,11 @@ class Admin_Controller_Product_Index
         $layout = Mage::getBlock('core/layout');
         $new = $layout->createBlock('Admin/Product_Index_New');
         $layout->getChild('content')->addChild('new', $new);
+
+        $layout->getChild('head')
+        ->removeJs()
+        ->addJs('admin/new.js');
+
         $layout->toHtml();    
     }
     public function listAction()

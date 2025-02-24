@@ -26,4 +26,14 @@ class Page_Block_Head extends Core_Block_Template
         $this->_css[] = $css;
         return $this;
     }
+    public function removeJs()
+    {
+        $this->_js = [];
+        return $this;
+    }
+    public function removeCss($css)
+    {
+        $this->_css = [];
+        return $this;
+    }
 }
