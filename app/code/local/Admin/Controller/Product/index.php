@@ -49,22 +49,48 @@ class Admin_Controller_Product_Index
     {
         $request = Mage::getModel('core/request');
         $data = $request->getParam('catlog_product');
-        $product = Mage::getModel('catalog/product');
-        if(!isset($data['image']))
-        {
 
-            if(isset($_FILES['catlog_product']['name']['image']))
-            {
-                echo "<pre>";
-                print_r($_FILES);
-                $media = 'media';
-                $imagepath = $media.'/'.$_FILES['catlog_product']['name']['image'];
-                $data['image'] = $imagepath;
-                print_r($data);            
+        echo "<pre>";
+        print_r($data);
+        print_r($_FILES);
+
+        if (!isset($data['image'])) {
+            if (isset($_FILES['catlog_product']['name']['image'])) {
+                
+                $media = 'media/';
+                $imagePaths = []; // Array to store uploaded image paths
+                
+                foreach ($_FILES['catlog_product']['name']['image'] as $key => $imageName) {
+                    if ($_FILES['catlog_product']['error']['image'][$key] === 0) { // No upload errors
+                        $tmpName = $_FILES['catlog_product']['tmp_name']['image'][$key];
+                        $imageType = $_FILES['catlog_product']['type']['image'][$key];
+        
+                        // Generate a unique name to avoid conflicts
+                        $uniqueName = (($key == 'thumbnail')?'thumbnail_':"" ).uniqid() . '_' . basename($imageName);
+                        $targetPath = $media . $uniqueName;
+                        
+                        // Move uploaded file to the media directory
+                        if (move_uploaded_file($tmpName, $targetPath)) {
+                            $imagePaths[] = $targetPath; // Store path for database
+                        }
+                        }
+                    }
+                    
+                    print_r($imagePaths);
+                    // die();
+        
+                // Save image paths as JSON in the database for multiple images
+                if (!empty($imagePaths)) {
+                    $data['image'] = json_encode($imagePaths);
+                }
+        
+                print_r($data);
             }
-            
-            // if(isset($_FILES) && )
         }
+        die();
+
+
+        $product = Mage::getModel('catalog/product');
         $product->setData($data);
         echo "<pre>";
         print_r($data);

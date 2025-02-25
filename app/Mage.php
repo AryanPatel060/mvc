@@ -1,6 +1,7 @@
 <?php
 class Mage
 {
+    private static $registry = [];
     public static function init()
     {
         $front = new Core_Controller_Front();
@@ -19,6 +20,16 @@ class Mage
         $className = ucwords($className, "_");
         return new $className();
     }
+    public static function getSingleton($className)
+    {
+        $className = str_replace("/", "_Model_", $className);
+        $className = ucwords($className, "_");
+        if (isset(self::$registry[$className])) {
+            return self::$registry[$className];
+        } else {
+            return self::$registry[$className] = new $className;
+        }
+    }
     public static function getBaseDir()
     {
         return "C:/xampp/htdocs/MVC/";
@@ -27,5 +38,4 @@ class Mage
     {
         return "http://localhost/MVC/";
     }
-
 }

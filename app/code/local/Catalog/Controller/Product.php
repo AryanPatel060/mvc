@@ -33,18 +33,28 @@ class Catalog_Controller_Product
         // $layout = Mage::getBlock('core/layout');
         echo "<pre>";
         $product = Mage::getModel('catalog/product')
-            ->getCollection()
-
-            // ->addFieldToFilter('product_id',15)
-            ->leftJoin('catlog_category', 'catlog_category.category_id  = catlog_product.category_id', ['category_name' => 'name']);
+            ->load(35);
+       
+            // ->addFieldToFilter('product_id',15);
+            // ->leftJoin('catlog_category', 'catlog_category.category_id  = catlog_product.category_id', ['category_name' => 'name']);
         // ->orderBy(['product_id DESC','price'])
         // ->groupBy(['product_id','price'])
         // ->having('product_id',['>'=>34])
         // ->having('columnname',15);
-    
+        
         print_r($product);
-        print_r($product->getData());
-        die();
+        $product = Mage::getModel('catalog/product');
+        print_r($product);
+
+        $sin = Mage::getSingleton('catalog/product')->load(35);
+        $product = Mage::getSingleton('catalog/product');
+        print_r($product);
+        print_r($sin);
+        $product->setName( 'hyy');
+        echo $sin->getName();
+
+        
+        // die();
 
 
 
@@ -59,4 +69,7 @@ class Catalog_Controller_Product
 
 
     }
+
 }
+
+ 

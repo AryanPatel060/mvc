@@ -60,6 +60,7 @@ class Core_Block_Template
     {
         return  Mage::getBaseUrl() ."/".$url;
     }
+    
 
     // public function addJs($path)
     // {

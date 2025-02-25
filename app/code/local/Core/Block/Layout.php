@@ -26,6 +26,7 @@ class Core_Block_Layout extends Core_Block_Template
                 ->addJs('page/common.js')
                 ->addJs('page/bootstrap.js')
                 ->addCss('page/bootstrap.css')
+                ->addCss('page/common.css')
                 ->addLink('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
                 ->addLink('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
                 // ->addCss('page/common.css');

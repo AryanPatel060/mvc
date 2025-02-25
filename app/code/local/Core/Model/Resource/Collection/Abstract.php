@@ -111,6 +111,7 @@ class Core_Model_Resource_Collection_Abstract
                 $query = $query . " OFFSET " . $this->_select['OFFSET'];
             }
         }
+        // echo $query;
         return $query;
     }
     public function preparecondition($field, $value)
