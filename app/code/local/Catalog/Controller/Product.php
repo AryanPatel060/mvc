@@ -3,10 +3,17 @@ class Catalog_Controller_Product
 {
     public function listAction()
     {
+       
+
         $layout = Mage::getBlock('core/layout');
-        $view = $layout->createBlock('catalog/product_list')
-            ->setTemplate('catalog/product/list.phtml');
+        $view = $layout->createBlock('catalog/product_list');
         //    print_r($view);
+
+        // $product = Mage::getModel('catalog/product')
+        //                 ->getCollection()
+        //                 ->addFieldToFilter('category_id',$categoryId);
+
+        // $product->getData();
         
         $layout->getChild('content')->addChild('list', $view);
         $layout->toHtml();
@@ -15,19 +22,12 @@ class Catalog_Controller_Product
     public function viewAction()
     {
         $layout = Mage::getBlock('core/layout');
-        $product = Mage::getModel('catalog/product');
-        $resource = $product->getResourceModel();
-
-        echo "<pre>";
-        print_r($product);
-        print_r($resource);
-
-        $view = $layout->createBlock('catalog/product_view')
-            ->setTemplate('catalog/product/view.phtml');
-        //    print_r($view);
+        $view = $layout->createBlock('catalog/product_view');
+    
         $layout->getChild('content')->addChild('view', $view);
         $layout->toHtml();
     }
+
     public function testAction()
     {
         // $layout = Mage::getBlock('core/layout');

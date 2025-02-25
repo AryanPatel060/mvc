@@ -67,10 +67,9 @@
         color: rgba(0, 0,0,0.1 );
     }
 </style>
-
 <div class="swiper mySwiper">
     <div class="swiper-wrapper">
-        <?php foreach($this->sliderproduct as $product): ?>
+        <?php foreach($this->getBannerProduct() as $product): ?>
         <div class="swiper-slide">
             <div class="swiper-slide-content">
                 <div class="product-info">
@@ -78,7 +77,7 @@
                     <p class="desc"><?= $product->getDescription(); ?></p>
                 </div>
                 <div class="product-image">
-                    <img src="<?= $this->getImageUrl($product->getImage()) ?>" alt="<?= $product->getName(); ?>">
+                    <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" alt="<?= $product->getName(); ?>">
                 </div>
             </div>
         </div>

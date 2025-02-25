@@ -1,15 +1,13 @@
 <h1>list cgh</h1>
 <?php $categories = $this->getCategoryData();?>
-<a href="?m=admin&v=category&a=view">Add Category</a>
+<a href="<?= $this->getUrl('*/*/new')?>">Add Category</a>
     <table border="1" class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Category Name</th>
                 <th>Description</th>
-                <th>Image</th>
-                <th>Product Count</th>
-                <th>Visibility</th>
+                <th>Parent Id</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,11 +17,7 @@
                     <td><?php echo $value->getCategoryId() ?></td>
                     <td><?php echo $value->getName() ?></td>
                     <td><?php echo $value->getDescription() ?></td>
-                    <td><img src="<?php echo $value->getImage() ?>" width="100px" height="100px"> </td>
-                    <td><?php echo $value->getProductCount() ?></td>
-                    <td><?php $visarray  = explode("_", $value->getVisibility()); ?>
-                        <span><?php echo implode(',', $visarray) ?> </span>
-                    </td>
+                    <td><?php echo $value->getParentId() ?></td>
                     <td>
                         <form action="?m=admin&v=category&a=updatecategory" method="POST">
                             <input type="hidden" name="catlog_category[category_id]" value="<?php echo $value->getCategoryId() ?>">

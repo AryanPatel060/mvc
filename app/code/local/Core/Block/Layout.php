@@ -47,6 +47,31 @@ class Core_Block_Layout extends Core_Block_Template
     {
         return Mage::getBlock($block);
     }
+    public function getImage($productID)
+    {
+        $media = Mage::getModel('catalog/media')
+        ->getCollection()
+        ->addFieldToFilter('product_id',$productID);
+        $images = $media->getData();
+   
+        $files = [];
+        foreach($images as $image)
+        {   
+            $image = $image->getData();
 
+            if(strstr($image['file_path'] , 'thumbnail'))
+            {
+                $files['thumbnail'] = $image['file_path'];
+            }
+            else {
+                $files[] = $image['file_path'];
+            }
+        }
+        // print_r($files);
+        // die();
+        return $files;
+
+        
+    }
 
 }

@@ -11,20 +11,11 @@ class Cms_Controller_Index extends Core_Controller_Front_Action{
         $layout = Mage::getBlock('core/layout');
         $home = $layout->createBlock('cms/Home')
                          ->setTemplate('cms/home.phtml');
+
         $slidebar = $layout->createBlock('cms/slidebar')
-                         ->setTemplate('cms/slidebar.phtml');
-        
-        $product = Mage::getModel('catalog/product')
-                        ->getCollection();
-        $product->limit(3);
-        $data = $product->getData();
-        $home->setSliderProduct($data); 
-        
-        $product->limit(10);
-        $products = $product->getData();
-        $slidebar->setProducts($products);
-            
-        
+                         ->setTemplate('cms/slidebar.phtml');   
+
+
         $layout->getChild('content')->addChild('home', $home)
                                     ->addChild('slidebar',$slidebar);
         

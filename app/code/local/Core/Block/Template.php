@@ -58,7 +58,7 @@ class Core_Block_Template
     }
     public function getImageUrl($url)
     {
-        return  Mage::getBaseUrl() ."/".$url;
+        return  Mage::getBaseUrl() .$url;
     }
     
 

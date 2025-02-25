@@ -9,6 +9,31 @@ class Admin_Controller_Category_Index extends Core_Controller_Front
         $layout->getChild('content')->addChild('newcategory',$new);
         $layout->toHtml();
     }   
+
+    public function listAction()
+    {
+        $layout = Mage::getBlock('core/layout');
+        $list = $layout->createBlock('Admin/Category_list');
+        $layout->getChild('content')->addChild('list',$list);
+        $layout->toHtml();
+    }   
+    public function deleteAction()
+    {
+        $request = Mage::getModel('core/request');
+        $id = $request->getQuery('deleteid');
+
+        $category = Mage::getModel('catalog/category');
+        $category->load($id);   
+        $result = $category->delete();
+        if($result)
+        {
+            header("location:http://localhost/MVC/admin/product_index/list");
+        }
+        else 
+        {
+            echo "error in deletion !";
+        }
+    }
     public function saveAction()
     {
         $request = Mage::getModel('core/request');
