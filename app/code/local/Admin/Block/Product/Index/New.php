@@ -22,4 +22,10 @@ class Admin_Block_Product_Index_New extends Core_Block_Template
         return $product->getData();
     }
 
+    public function getAttributeData()
+    {
+        $attribute = Mage::getModel('catalog/attribute')
+            ->getCollection();
+        return $attribute->getData();
+    }
 }
