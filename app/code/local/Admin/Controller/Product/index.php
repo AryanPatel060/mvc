@@ -47,38 +47,12 @@ class Admin_Controller_Product_Index
     {
         $request = Mage::getModel('core/request');
         $data = $request->getParam('catlog_product');
-<<<<<<< Updated upstream
         
         // echo "<pre>";
         // print_r($data);
         // print_r($_FILES);
         
         $product = Mage::getModel('catalog/product');
-=======
-
-        echo "<pre>";
-        print_r($data);
-        print_r($_FILES);
-        die();
-        $product = Mage::getModel('catalog/product');
-
-
-        if(!isset($data['image']))
-        {
-
-            if(isset($_FILES['catlog_product']['name']['image']))
-            {
-                echo "<pre>";
-                print_r($_FILES);
-                $media = 'media';
-                $imagepath = $media.'/'.$_FILES['catlog_product']['name']['image'];
-                $data['image'] = $imagepath;
-                print_r($data);            
-            }
-            
-            // if(isset($_FILES) && )
-        }
->>>>>>> Stashed changes
         $product->setData($data);
         echo "<pre>";
         // print_r($data);
