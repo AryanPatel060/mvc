@@ -19,4 +19,21 @@ class Catalog_Model_Product extends Core_Model_Abstract
         }
         
     }
+    protected function _afterload()
+    {
+        if($this->getProductId())
+        {
+            $data = Mage::getModel('catalog/productAttribute')
+            ->getCollection()
+            ->leftJoin(["attr"=>"catalog_attribute"],"attr.attribute_id = main_table.attribute_id",["name"=>"name"]);
+            print_r($data->getData());
+
+            foreach($data->getData() as $_data)
+            {
+                $this->{$_data->getName()} = $_data->getValue();
+            }
+
+        }
+        return $this;
+    }
 }

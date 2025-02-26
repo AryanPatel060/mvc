@@ -68,9 +68,10 @@ class Core_Model_Abstract
         return ltrim($snakeCase, '_');
     }
 
-    public function load($value)
+    public function load($value,$field = null)
     {
-        $this->_data = $this->getResource()->load($value);
+        $this->_data = $this->getResource()->load($value,$field);
+        $this->_afterload();
         return $this;
     }
     public function save()
@@ -96,5 +97,10 @@ class Core_Model_Abstract
        
         return $collection;
     }
+
+    // protected function _afterload()
+    // {
+
+    // }
   
 }

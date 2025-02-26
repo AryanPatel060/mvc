@@ -17,8 +17,13 @@ class Core_Model_Resource_Collection_Abstract
     }
     public function select($columns = ['*'])
     {
-        $this->_select['FROM'] = $this->_resource->getTableName();
-        $this->_select['COLUMNS'] = is_array($columns) ? $columns : [$columns];
+        $this->_select['FROM'] = ['main_table'=>$this->_resource->getTableName()];
+        // $this->_select['COLUMNS'] = is_array($columns) ? $columns : [$columns];
+        $columns = is_array($columns) ? $columns : [$columns];
+        foreach($columns as $column)
+        {
+            $this->_select['COLUMNS'][] = "main_table.".$column;
+        }
         return $this;
     }
 
@@ -41,12 +46,12 @@ class Core_Model_Resource_Collection_Abstract
     }
     public function prepareQuery()
     {
-        $query = sprintf("SELECT %s FROM %s", implode(',', $this->_select['COLUMNS']), $this->_select['FROM']);
+        $query = sprintf("SELECT %s FROM %s AS %s", implode(',', $this->_select['COLUMNS']), array_values($this->_select['FROM'])[0], array_keys($this->_select['FROM'])[0]);
 
         if (isset($this->_select['LEFT_JOIN'])) {
             $joinsql = "";
             foreach ($this->_select['LEFT_JOIN'] as $joinLeft) {
-                $joinsql .= sprintf(" LEFT JOIN  %s ON %s ", $joinLeft['tableName'], $joinLeft['condition']);
+                $joinsql .= sprintf(" LEFT JOIN  %s AS %s ON %s ", array_values($joinLeft['tableName'])[0], array_keys($joinLeft['tableName'])[0],  $joinLeft['condition']);
             }
             $query = $query . " " . $joinsql;
         }
@@ -111,7 +116,8 @@ class Core_Model_Resource_Collection_Abstract
                 $query = $query . " OFFSET " . $this->_select['OFFSET'];
             }
         }
-        // echo $query;
+        echo $query;
+        // die();
         return $query;
     }
     public function preparecondition($field, $value)
@@ -170,7 +176,7 @@ class Core_Model_Resource_Collection_Abstract
     {
         $this->_select['LEFT_JOIN'][] = ['tableName' => $tableName, 'condition' => $condition, 'columns' => $columns];
         foreach ($columns as $alias => $columnName) {
-            $this->_select['COLUMNS'][] = sprintf("%s.%s AS %s", $tableName, $columnName, $alias);
+            $this->_select['COLUMNS'][] = sprintf("%s.%s AS %s", array_keys($tableName)[0], $columnName, $alias);
         }
 
         return $this;
@@ -229,5 +235,14 @@ class Core_Model_Resource_Collection_Abstract
     {
         $this->_select['OFFSET'] = $value;
         return $this;
+    }
+
+    private function getTableAlias($table)
+    {
+        return array_keys($table)[0];
+    }
+    private function getTableName($table)
+    {
+        return array_values($table)[0];
     }
 }

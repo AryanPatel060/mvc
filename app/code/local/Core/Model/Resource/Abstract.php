@@ -20,9 +20,10 @@ class Core_Model_Resource_Abstract
     {
         return new Core_Model_DB_Adapter();
     }
-    public function load($value)
+    public function load($value,$field = NULL)
     {
-        $sql = "SELECT * FROM {$this->_tableName} WHERE {$this->_primaryKey} = '{$value}' LIMIT 1";
+        $field = (is_null($field)) ? $this->_primaryKey : $field;
+        $sql = "SELECT * FROM {$this->_tableName} WHERE {$field} = '{$value}' LIMIT 1";
         return $this->getAdapter()->fetchRow($sql);
     }
     public function save($model)
