@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // --------------------------------------- end Footer ------------------------------
 
     document.querySelectorAll('.nav-link').forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function () {
             document.querySelectorAll('.nav-link').forEach(t => t.classList.remove('active'));
             this.classList.add('active');
 
@@ -59,10 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    
+
     // Tab Switching Logic
     document.querySelectorAll('.nav-link').forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function () {
             document.querySelectorAll('.nav-link').forEach(t => t.classList.remove('active'));
             this.classList.add('active');
 
@@ -76,6 +76,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ----------------------------------------------- end Product View ----------------------------------------
 
+    // // -------------------------------------------------------home banner--------------------------------------
+    // var swiper = new Swiper(".home-banner-swiper", {
+    //     loop: true, // Infinite loop
+    //     autoplay: {
+    //         delay: 3000,
+    //         disableOnInteraction: false
+    //     },
+    //     pagination: {
+    //         el: ".swiper-pagination",
+    //         clickable: true
+    //     },
+    //     navigation: {
+    //         nextEl: ".home-banner-button-next",
+    //         prevEl: ".home-banner-button-prev"
+    //     }
+    // });
+    // // ----------------------------------------------- home Banner end ----------------------------------------
+
+    // // ----------------------------------------------- home slider ----------------------------------------
+    // var myProductSwiper = new Swiper(".myProductSwiper", {
+    //     slidesPerView: 5,
+    //     spaceBetween: 20,
+    //     loop: true,
+    //     autoplay: {
+    //         delay: 2500,
+    //         disableOnInteraction: false
+    //     },
+    //     pagination: {
+    //         el: ".swiper-pagination",
+    //         clickable: true
+    //     }
+    // });
+    // // ----------------------------------------------- home slider end ----------------------------------------
 
 });
 

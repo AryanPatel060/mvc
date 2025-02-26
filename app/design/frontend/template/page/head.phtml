@@ -9,4 +9,7 @@
     <?php foreach ($this->getLink() as $link): ?>
         <link rel="stylesheet" href="<?php echo $link ?>">
     <?php endforeach; ?>
+    <?php foreach ($this->getScript() as $script): ?>
+        <script src="<?php echo $script ?>"></script>
+    <?php endforeach; ?>
 </head>

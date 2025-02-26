@@ -1,6 +1,7 @@
 <?php
 class Core_Block_Layout extends Core_Block_Template
 { 
+    public $messages = [];
     protected $_js = [];
     protected $_css = [];
     public function __construct() {
@@ -28,7 +29,9 @@ class Core_Block_Layout extends Core_Block_Template
                 ->addCss('page/bootstrap.css')
                 ->addCss('page/common.css')
                 ->addLink('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
+                ->addScript('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js')
                 ->addLink('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
+
                 // ->addCss('page/common.css');
     }
     // public function addJs($js)
@@ -72,6 +75,11 @@ class Core_Block_Layout extends Core_Block_Template
         return $files;
 
         
+    }
+    public function setMessage($msg)
+    {
+        $this->messages[] = $msg ;
+        return $this;
     }
 
 }

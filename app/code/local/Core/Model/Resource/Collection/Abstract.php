@@ -152,7 +152,14 @@ class Core_Model_Resource_Collection_Abstract
                         break;
 
                     default:
-                        $where = " {$field} {$operator} '{$_value}' ";
+                        if($_value == NULL)
+                        {
+                            $where = " {$field} {$operator} NULL ";
+                        }
+                        else 
+                        {
+                            $where = " {$field} {$operator} '{$_value}' ";
+                        }
                         break;
                 }
             }
@@ -168,6 +175,7 @@ class Core_Model_Resource_Collection_Abstract
 
         return $this;
     }
+   
     public function rightJoin($tableName, $condition, $columns)
     {
         $this->_select['RIGHT_JOIN'][] = ['tableName' => $tableName, 'condition' => $condition, 'columns' => $columns];

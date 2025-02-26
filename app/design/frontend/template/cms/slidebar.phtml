@@ -1,95 +1,44 @@
 <style>
     .img-container {
-    width: 100%;
-    height: 200px; /* Set fixed height */
-    overflow: hidden; /* Crop if image is too large */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        width: 100%;
+        height: 200px;
+        /* Set fixed height */
+        overflow: hidden;
+        /* Crop if image is too large */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Crop image while maintaining aspect ratio */
-}
+    .img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        /* Crop image while maintaining aspect ratio */
+    }
 
-<?php
-$products = $this->getSliderData();
-?>
+    <?php
+    $products = $this->getSliderData();
+    ?>
 </style>
 <section class="product-showcase-slider text-center">
     <h2 class="mb-4">Featured Products</h2>
     <div class="swiper myProductSwiper">
         <div class="swiper-wrapper">
 
-        <?php foreach ($products as $product): ?>
-                <div class="swiper-slide">
-                    <div class="card" style="width: 18rem;">
-                        <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $product->getName() ?></h5>
-                            <small>Price: Rs. <?= $product->getPrice() ?></small>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
             <?php foreach ($products as $product): ?>
                 <div class="swiper-slide">
-                    <div class="card" style="width: 18rem;">
-                        <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>">
+                    <div class="card" style="width: 18rem; ">
+                        <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>" height="340px" >
                         <div class="card-body">
-                            <h5 class="card-title"><?= $product->getName() ?></h5>
+                        <h5 class="card-title"><?= substr($product->getName(), 0, 15) ?></h5>
+
                             <small>Price: Rs. <?= $product->getPrice() ?></small>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
-            <?php foreach ($products as $product): ?>
-                <div class="swiper-slide">
-                    <div class="card" style="width: 18rem;">
-                        <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $product->getName() ?></h5>
-                            <small>Price: Rs. <?= $product->getPrice() ?></small>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-            <?php foreach ($products as $product): ?>
-                <div class="swiper-slide">
-                    <div class="card" style="width: 18rem;">
-                        <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $product->getName() ?></h5>
-                            <small>Price: Rs. <?= $product->getPrice() ?></small>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-            <?php foreach ($products as $product): ?>
-                <div class="swiper-slide">
-                    <div class="card" style="width: 18rem;">
-                        <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $product->getName() ?></h5>
-                            <small>Price: Rs. <?= $product->getPrice() ?></small>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-            <?php foreach ($products as $product): ?>
-                <div class="swiper-slide">
-                    <div class="card" style="width: 18rem;">
-                        <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $product->getName() ?></h5>
-                            <small>Price: Rs. <?= $product->getPrice() ?></small>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-            
+           
         </div>
         <div class="swiper-pagination"></div>
     </div>

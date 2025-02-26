@@ -1,7 +1,17 @@
 <div class="container p-5 ">
-<h1 class="mb-3 text-center">Category List</h1>
+    <?php print_r($this->messages); ?>
+    <?php if (count($this->messages) > 0): ?>
+        <?php foreach ($this->messages as $message): ?>
+            <div class="alert alert-light" role="alert">
+                <?= $message ?>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
 
-<a href="<?= $this->getUrl('*/*/new') ?>" class="btn btn-success mb-3">+ Add Category</a>
+
+    <h1 class="mb-3 text-center">Category List</h1>
+
+    <a href="<?= $this->getUrl('*/*/new') ?>" class="btn btn-success mb-3">+ Add Category</a>
 
 
     <table class="table table-hover table-bordered shadow-sm">
@@ -16,19 +26,19 @@
         </thead>
         <tbody>
             <?php foreach ($this->getCategoryData() as $value): ?>
-            <tr>
-                <td><?php echo $value->getCategoryId() ?></td>
-                <td><?php echo $value->getName() ?></td>
-                <td><?php echo $value->getDescription() ?></td>
-                <td><?php echo $value->getParentId() ?></td>
-                <td>
-                    <div class="d-flex gap-2">
-                        <!-- Edit Button -->
-                        <a href="new/?id=<?php echo $value->getCategoryId(); ?>">Edit</a>
-                        <a href="<?= $this->getUrl('*/*/delete').'/?deleteid='.$value->getCategoryId(); ?>" onclick="return confirm('Are You sure ?')">Delete</a>
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td><?php echo $value->getCategoryId() ?></td>
+                    <td><?php echo $value->getName() ?></td>
+                    <td><?php echo $value->getDescription() ?></td>
+                    <td><?php echo $value->getParentId() ?></td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <!-- Edit Button -->
+                            <a href="new/?id=<?php echo $value->getCategoryId(); ?>">Edit</a>
+                            <a href="<?= $this->getUrl('*/*/delete') . '/?deleteid=' . $value->getCategoryId(); ?>" onclick="return confirm('If You delete this category related all sub category will be deleted and all products related to that Categories also , Are You sure to delete this category ?')">Delete</a>
+                        </div>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>

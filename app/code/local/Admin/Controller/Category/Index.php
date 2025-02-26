@@ -24,15 +24,26 @@ class Admin_Controller_Category_Index extends Core_Controller_Front
 
         $category = Mage::getModel('catalog/category');
         $category->load($id);   
-        $result = $category->delete();
-        if($result)
+        if($category->getParentId() == null)
         {
-            header("location:http://localhost/MVC/admin/product_index/list");
+            $list = Mage::getBlock('admin/category_list');
+            $list->setMessage('can\'t delete this Category !!');
+            print_r($list);
+            // die();
+           
+            header("location:http://localhost/MVC/admin/category_index/list");
         }
-        else 
-        {
-            echo "error in deletion !";
+        else {   
+            $result = $category->delete();
         }
+            if($result)
+            {
+                header("location:http://localhost/MVC/admin/category_index/list");
+            }
+            else 
+            {
+                echo "error in deletion !";
+            }
     }
     public function saveAction()
     {
@@ -46,7 +57,7 @@ class Admin_Controller_Category_Index extends Core_Controller_Front
         {
             print_r($category_id) ;
             echo 'saved success';
-            header("location:http://localhost/MVC/admin/category_index/new");
+            header("location:http://localhost/MVC/admin/category_index/list");
         }
         else {
             echo "insertion error";

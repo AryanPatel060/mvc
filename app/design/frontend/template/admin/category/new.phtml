@@ -1,19 +1,20 @@
+<?php $editcategory = $this->getEditCategoryData() ?>
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card p-4 shadow-lg" style="width: 500px;">
         <h3 class="text-center mb-4">Add Category</h3>
         <form action="<?= $this->getUrl('*/*/save') ?>" method="post">
-        <input type="hidden" class="form-control" id="category_id" name="category[category_id]" required>
-            
+            <input type="hidden" class="form-control" id="category_id" name="category[category_id]" value="<?= $editcategory->getCategoryId() ?>">
+
             <!-- Category Name -->
             <div class="mb-3">
                 <label for="name" class="form-label">Category Name</label>
-                <input type="text" class="form-control" id="name" name="category[name]" required>
+                <input type="text" class="form-control" id="name" name="category[name]" required value="<?= $editcategory->getName() ?>">
             </div>
 
             <!-- Category Description -->
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="category[description]" rows="3"></textarea>
+                <textarea class="form-control" id="description" name="category[description]" rows="3"><?= $editcategory->getDescription() ?></textarea>
             </div>
 
             <!-- Parent Category Dropdown -->
@@ -22,9 +23,15 @@
                 <select class="form-select" id="parent_id" name="category[parent_id]">
                     <option value="">-- Select Parent Category --</option>
                     <?php foreach ($this->getCategoryData() as $category): ?>
-                        <option value="<?= $category->getCategoryId() ?>">
-                            <?= $category->getName(); ?>
-                        </option>
+                        <?php if ($category->getCategoryId() == $editcategory->getParentId()): ?>
+                            <option selected value="<?= $category->getCategoryId() ?>">
+                                <?= $category->getName(); ?>
+                            </option>
+                        <?php else : ?>
+                            <option value="<?= $category->getCategoryId() ?>">
+                                <?= $category->getName(); ?>
+                            </option>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </select>
             </div>

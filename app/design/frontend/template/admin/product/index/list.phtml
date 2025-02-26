@@ -1,71 +1,100 @@
-<?php $products = $this->getProductData(); ?>
+<style>
+    .admin-product-list {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
-<a href="<?= $this->getUrl('admin/product_index/new') ?>">Add Product</a>
-<table border="1" class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Product Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Image</th>
-            <th>Rating</th>
-            <th>Color</th>
-            <th>Size</th>
-            <th>Brand</th>
-            <th>Warranty</th>
-            <th>Weight</th>
-            <th>Made In</th>
-            <th>Model</th>
-            <th>Manufacturing Date</th>
-            <th>Material</th>
-            <th>Description</th>
-            <th>Terms & Conditions</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+    .admin-product-list thead {
+        background: #343a40;
+        color: #fff;
+        text-align: left;
+    }
 
-        <?php foreach ($products as $product): ?>
+    .admin-product-list th,
+    .admin-product-list td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .admin-product-list tbody tr:hover {
+        background: #f5f5f5;
+    }
+
+    .admin-product-list a {
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .admin-product-list a.edit-btn {
+        background: #007bff;
+        color: #fff;
+    }
+
+    .admin-product-list a.delete-btn {
+        background: #dc3545;
+        color: #fff;
+    }
+
+    .admin-product-list a:hover {
+        opacity: 0.8;
+    }
+
+    .add-product-btn {
+        background: #28a745;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-bottom: 10px;
+        text-decoration: none;
+    }
+
+    .add-product-btn:hover {
+        background: #218838;
+        color: #fff;
+    }
+</style>
+
+<div class="container p-5">
+    <a href="<?= $this->getUrl('admin/product_index/new') ?>" class="add-product-btn">➕ Add Product</a>
+
+    <table class="admin-product-list">
+        <thead>
             <tr>
-                <td><?php echo $product->getProductId(); ?></td>
-                <td><?php echo htmlspecialchars($product->getName()); ?></td>
-                <td><?php echo htmlspecialchars($product->getCategoryName()); ?></td>
-                <td><?php echo number_format($product->getPrice()); ?></td>
-                <td>
-                    <?php if ($product->getImage()): ?>
-                        <img src="<?php echo Mage::getBaseUrl() . $product->getImage(); ?>" width="80px" height="80px">
-                    <?php else: ?>
-                        No Image
-                    <?php endif; ?>
-                </td>
-                <td><?php echo $product->getRating(); ?></td>
-                <td>
-                    <div style="<?php echo "background-color:" . $product->getColor() . ";border-radius:10px;padding:10px;" ?>">
-                        <?php echo $product->getColor(); ?>
-                    </div>
-                </td>
-                <td><?php echo $product->getSize(); ?></td>
-                <td><?php echo htmlspecialchars($product->getBrand()); ?></td>
-                <td><?php echo $product->getWarranty(); ?> Years</td>
-                <td><?php echo $product->getWeight(); ?> Kg</td>
-                <td><?php echo htmlspecialchars($product->getMadeIn()); ?></td>
-                <td><?php echo htmlspecialchars($product->getModel()); ?></td>
-                <td><?php echo $product->getmfg_date(); ?></td>
-                <td><?php echo htmlspecialchars($product->getMaterial()); ?></td>
-                <td><?php echo htmlspecialchars($product->getDescription()); ?></td>
-                <td><?php echo htmlspecialchars($product->getTAndC()); ?></td>
-                <td>
-                    <?= ($product->getStatusText()) ?>
-                </td>
-                <td>
-
-                    <a href="new/?id=<?php echo $product->getProductId(); ?>">Edit</a>
-                    <a href="delete/?deleteid=<?php echo $product->getProductId(); ?>" onclick="return confirm('Are You sure ?')">Delete</a>
-
-                </td>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Actions</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php foreach ($this->getProductData() as $product): ?>
+                <tr>
+                    <td><?php echo $product->getProductId(); ?></td>
+                    <td><?php echo htmlspecialchars($product->getName()); ?></td>
+                    <td><?php echo htmlspecialchars($product->getCategoryName()); ?></td>
+                    <td>Rs. <?php echo number_format($product->getPrice(), 2); ?></td>
+                    <td><?php echo htmlspecialchars($product->getDescription()); ?></td>
+                    <td>
+                        <div>
+                            <div class="m-2">
+                                <a href="new/?id=<?php echo $product->getProductId(); ?>" class="edit-btn m-2">Edit</a>
+                            </div>
+                            <div>
+                                <a href="delete/?deleteid=<?php echo $product->getProductId(); ?>" class="delete-btn m-2" onclick="return confirm('Are you sure?')">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

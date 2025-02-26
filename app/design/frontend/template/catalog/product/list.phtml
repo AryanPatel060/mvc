@@ -2,7 +2,7 @@
     <div class="row">
         <!-- Sidebar Filters -->
         <div class="col-md-3">
-            <div class="filter-sidebar">
+            <div class="filter-sidebar p-3 border rounded">
                 <h5>Filters</h5>
                 <form method="GET" action="">
                     <input type="hidden" name="categoryid" value="<?= $category_id ?>">
@@ -37,24 +37,22 @@
         </div>
 
         <!-- Product Grid -->
-        <?php $products = $this->getProductData() ?>
+        <?php $products = $this->getProductData(); ?>
         <div class="col-md-9">
             <div class="row">
                 <?php if (empty($products)): ?>
-                    <p class="text-center">No products found.</p>
+                    <p class="text-center w-100">No products found.</p>
                 <?php else: ?>
                     <?php foreach ($products as $product): ?>
-
-                        <div class="swiper-slide">
-                            <div class="card" style="width: 18rem;">
-                                <a href="<?= $this->getUrl('*/*/view') . '/?productid=' . $product->getProductId() ?>" class="non-visible-anchor">
-                                    <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>">
-                                    <div class="card-body">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <a href="<?= $this->getUrl('*/*/view') . '/?productid=' . $product->getProductId() ?>" class="text-decoration-none text-dark">
+                                    <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>" height="300px" style="object-fit:contain">
+                                    <div class="card-body text-center">
                                         <h5 class="card-title"><?= $product->getName() ?></h5>
-                                        <small>Price: Rs. <?= $product->getPrice() ?></small>
+                                        <small class="text-muted">Price: Rs. <?= number_format($product->getPrice(), 2) ?></small>
                                     </div>
                                 </a>
-
                             </div>
                         </div>
                     <?php endforeach; ?>

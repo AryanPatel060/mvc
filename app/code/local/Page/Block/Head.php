@@ -24,7 +24,7 @@ class Page_Block_Head extends Core_Block_Template
     }
     public function getScript()
     {
-        return $this->_link;
+        return $this->_script;
     }
     public function addJs($js)
     {
