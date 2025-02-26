@@ -21,7 +21,11 @@ class Page_Block_Header extends Core_Block_Template
         echo '<ul class="header-category-list">';
         foreach ($categories as $category) {
             // Dynamic category URL
+<<<<<<< Updated upstream
             $categoryUrl = $this->getUrl("catalog/product/list").'/?categoryid='. $category["category_id"];
+=======
+            $categoryUrl = "/?categoryid=" . $category['category_id'];
+>>>>>>> Stashed changes
     
             echo '<li class="header-category-item">';
             echo '<a href="' . $categoryUrl . '" class="header-category-link" data-id="' . $category['category_id'] . '">' . 

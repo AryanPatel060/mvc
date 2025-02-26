@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 document.addEventListener("DOMContentLoaded", function () {
 
 
@@ -7,6 +8,14 @@ document.addEventListener("DOMContentLoaded", function () {
         categoryLink.addEventListener("click", function (event) {
             let subMenu = this.nextElementSibling;
 
+=======
+// ------------------- header ------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".header-category-link").forEach(function (categoryLink) {
+        categoryLink.addEventListener("click", function (event) {
+            let subMenu = this.nextElementSibling;
+            
+>>>>>>> Stashed changes
             // If submenu exists, toggle visibility
             if (subMenu && subMenu.classList.contains("header-category-submenu")) {
                 event.preventDefault(); // Prevent default only when toggling
@@ -17,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+<<<<<<< Updated upstream
     // --------------------------------------- end header ------------------------------
 
 
@@ -84,3 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+=======
+});
+>>>>>>> Stashed changes

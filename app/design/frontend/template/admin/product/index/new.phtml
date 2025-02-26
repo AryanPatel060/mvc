@@ -1,4 +1,152 @@
+<<<<<<< Updated upstream
 <?php $data = $this->getProductData(); ?>
+=======
+<!-- <?php
+        $data = $this->getProductData(); ?>
+<?php $categories = $this->getCategoryData(); ?>
+<?php ?>
+<div class="form-container">
+    <div id="error"></div>
+    <form action="<?= $this->getUrl('*/*/save') ?>" id="form" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="catlog_product[product_id]" value="<?php echo $data->getProductId(); ?>">
+
+        <div class="form-group">
+            <div>
+                <label for="name">Product Name:</label>
+                <input type="text" name="catlog_product[name]" id="name" value="<?php echo $data->getName(); ?>"
+                    required >
+
+            </div>
+
+
+            <div>
+                <label for="category">Select Category:</label>
+                <select name="catlog_product[category_id]" id="category" required>
+                    <option value="">-- Select Category --</option>
+                    <?php
+                    foreach ($categories as $category):
+                        $selected = (!empty($data) && $data->getCategoryId() == $category->getCategoryId()) ? 'selected' : '';
+                    ?>
+                        <option value="<?php echo $category->getCategoryId(); ?>" <?php echo $selected; ?>>
+                            <?php echo $category->getName(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div>
+                <label for="price">Price:</label>
+                <input type="number" name="catlog_product[price]" id="price" value="<?php echo $data->getPrice(); ?>"
+                    required>
+            </div>
+
+            <div>
+                <label for="image">Image:</label>
+                <input type="file" name="catlog_product[image]" id="image" value="<?php echo $data->getImage(); ?>">
+                <?php if (!empty($data) && $data->getImage()): ?>
+                    <input type="hidden" name="catlog_product[image]" id="image" value="<?php echo $data->getImage(); ?>">
+                    <img src="<?= Mage::getBaseUrl() . $data->getImage(); ?>" width="100px" height="100px">
+                <?php endif; ?>
+
+            </div>
+
+            <div>
+                <label for="rating">Rating:</label>
+                <input type="number" step="0.1" name="catlog_product[rating]" id="rating"
+                    value="<?php echo $data->getRating(); ?>">
+            </div>
+
+            <div>
+                <div>
+                    <label for="color" id="colordiv">Color:</label>
+                    <input type="color" name="catlog_product[color]" id="color"
+                        value="<?php echo $data->getColor(); ?>">
+                </div>
+            </div>
+
+            <div>
+                <label for="size">Size:</label>
+                <input type="number" name="catlog_product[size]" id="size" value="<?php echo $data->getSize(); ?>">
+            </div>
+
+            <div>
+                <label for="brand">Brand:</label>
+                <input type="text" name="catlog_product[brand]" id="brand" value="<?php echo $data->getBrand(); ?>">
+            </div>
+
+            <div>
+                <label for="warranty">Warranty (years):</label>
+                <input type="number" step="0.1" name="catlog_product[warranty]" id="warranty"
+                    value="<?php echo $data->getWarranty(); ?>">
+            </div>
+
+            <div>
+                <label for="weight">Weight (kg):</label>
+                <input type="number" step="0.1" name="catlog_product[weight]" id="weight"
+                    value="<?php echo $data->getWeight(); ?>">
+            </div>
+
+            <div>
+                <label for="made_in">Made In:</label>
+                <input type="text" name="catlog_product[made_in]" id="made_in"
+                    value="<?php echo $data->getMadeIn(); ?>">
+            </div>
+
+            <div>
+                <label for="model">Model:</label>
+                <input type="text" name="catlog_product[model]" id="model" value="<?php echo $data->getModel(); ?>">
+            </div>
+
+            <div>
+                <label for="mfg_date">Manufacturing Date:</label>
+                <input type="date" name="catlog_product[mfg_date]" id="mfg_date"
+                    value="<?php echo $data->getMfgDate(); ?>" required>
+            </div>
+
+            <div>
+                <label for="material">Material:</label>
+                <input type="text" name="catlog_product[material]" id="material"
+                    value="<?php echo $data->getMaterial(); ?>">
+            </div>
+            <div>
+                <label for="status">Status</label>
+                <select name="catlog_product[status]" id="status" required>
+                    <option value="">-- Select Status --</option>
+                    <option value="0" <?php echo $data->getStatus() ? "" : "selected"; ?>>
+                        Disable
+                    </option>
+                    <option value="1" <?php echo $data->getStatus() ? "selected" : "" ?>>
+                        Enable
+                    </option>
+                </select>
+            </div>
+
+        </div>
+
+        <label for="description">Description:</label>
+        <textarea name="catlog_product[description]" id="description"><?php echo $data->getDescription(); ?></textarea>
+
+        <label for="t_and_c">Terms & Conditions:</label>
+        <textarea name="catlog_product[t_and_c]" id="t_and_c"><?php echo $data->getTAndC(); ?></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+    <a href="<?= MAGE::getBaseUrl() ?>admin/product_index/list">Product List</a>
+ <script>
+        const myElement = document.getElementById('name');
+        console.log(myElement);
+        myElement.addEventListener('input', () => {
+            console.log(myElement.value);
+        })
+    </script> -->
+<!-- </div>  -->
+<?php
+
+
+
+$data = $this->getProductData(); ?>
+>>>>>>> Stashed changes
 
 <div class="container p-5">
     <div id="error" class="alert alert-danger d-none"></div>
@@ -48,6 +196,7 @@
             <div class="col-md-6">
                 <label for="images" class="form-label">Product Images:</label>
                 <input type="file" class="form-control" name="catlog_product[image][]" multiple id="image">
+<<<<<<< Updated upstream
             </div>
             <div class="row g-3 pt-5 pb-5">
             <legend for="images" class="form-label">Attributes :</legend>
@@ -58,6 +207,8 @@
                         <?php echo $this->getHtmlField('input', ['type' => $attr->getType(), 'class' => 'form-control', 'name' => 'catalog_product_attribute[' . $attr->getName() . ']']) ?>
                     </div>
                 <?php endforeach; ?>
+=======
+>>>>>>> Stashed changes
             </div>
         </div>
         <div class="mt-3">
