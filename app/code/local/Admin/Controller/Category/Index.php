@@ -1,6 +1,6 @@
 <?php 
 
-class Admin_Controller_Category_Index extends Core_Controller_Front
+class Admin_Controller_Category_Index extends Core_Controller_Admin_Action
 {
     public function newAction()
     {

@@ -40,6 +40,10 @@ class Core_Block_Template
     }
     public function getUrl($url)
     {
+        if($url == "")
+        {
+            return Mage::getBaseUrl() ;
+        }
         $url = explode('/', $url);
         $request = Mage::getModel('core/request');
 

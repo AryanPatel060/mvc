@@ -71,10 +71,13 @@
                 <th>Product Name</th>
                 <th>Category</th>
                 <th>Price</th>
+                <th>SKU</th>
                 <th>Description</th>
-                <th>Color</th>
-                <th>Brand</th>
+                <?php foreach ($this->getAttributeData() as $attribute): ?>
+                    <td><?php echo htmlspecialchars($attribute->getName()); ?></td>
+                <?php endforeach; ?>
                 <th>Actions</th>
+
             </tr>
         </thead>
         <tbody>
@@ -84,9 +87,14 @@
                     <td><?php echo htmlspecialchars($product->getName()); ?></td>
                     <td><?php echo htmlspecialchars($product->getCategoryName()); ?></td>
                     <td>Rs. <?php echo number_format($product->getPrice(), 2); ?></td>
-                    <td><?php echo htmlspecialchars($product->getDescription()); ?></td>
-                    <td><?php echo htmlspecialchars($product->getColor()); ?></td>
-                    <td><?php echo htmlspecialchars($product->getBrand()); ?></td>
+                    <td><?php echo htmlspecialchars($product->getSku()); ?></td>
+                    <td><?php echo htmlspecialchars(substr($product->getDescription(),0,20)); ?>...</td>
+
+                    <?php foreach ($this->getAttributeData() as $attribute): ?>
+                        <?php $attributecode = $attribute->getAttributeCode() ?>
+                        <td><?php echo htmlspecialchars($product->$attributecode); ?></td>
+                    <?php endforeach; ?>
+                     
                     <td>
                         <div>
                             <div class="m-2">
