@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2025 at 07:36 AM
+-- Generation Time: Feb 28, 2025 at 12:19 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,6 +48,13 @@ CREATE TABLE `admin_user` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin_user`
+--
+
+INSERT INTO `admin_user` (`admin_id`, `username`, `password_hash`, `email`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'aryan', '1234', 'aryanpatel19aug3@gmail.com', 'admin', '2025-02-28 07:20:26', '2025-02-28 07:20:26');
 
 -- --------------------------------------------------------
 
@@ -155,7 +162,12 @@ INSERT INTO `catalog_media_gallery` (`media_id`, `product_id`, `file_path`, `typ
 (44, 24, 'media/67bea7209ad72_10005.jpg', 'image', '2025-02-26 05:31:12'),
 (45, 24, 'media/67bea720a1420_10006.jpg', 'image', '2025-02-26 05:31:12'),
 (46, 24, 'media/67bea720a8945_10007.jpg', 'image', '2025-02-26 05:31:12'),
-(47, 24, 'media/67bea720adcd0_fbl1.jpg', 'image', '2025-02-26 05:31:12');
+(47, 24, 'media/67bea720adcd0_fbl1.jpg', 'image', '2025-02-26 05:31:12'),
+(48, 25, 'media/thumbnail_67c19ad843847_nkt5.png', 'image', '2025-02-28 11:15:36'),
+(49, 25, 'media/67c19ad8539ed_nkt4.jpg', 'image', '2025-02-28 11:15:36'),
+(50, 25, 'media/67c19ad85a699_nkt3.png', 'image', '2025-02-28 11:15:36'),
+(51, 25, 'media/67c19ad85ff86_nkt2.png', 'image', '2025-02-28 11:15:36'),
+(52, 25, 'media/67c19ad868212_nkt1.png', 'image', '2025-02-28 11:15:36');
 
 -- --------------------------------------------------------
 
@@ -184,7 +196,8 @@ INSERT INTO `catalog_product` (`product_id`, `name`, `description`, `sku`, `pric
 (21, 'Nike SB Dunk Low Pro ', '  An \'80s b-ball icon returns with classic details and throwback hoops flair. Channelling vintage style back onto the streets, its padded low-cut collar lets you comfortably take your game anywhere.', 'HF3704-800', 9695.00, 32, 42, '2025-02-26 05:03:39', '2025-02-26 05:03:39'),
 (22, 'Air Jordan 1 Mid SE ', '  Take your neutral game to the next level with this special edition AJ1. Genuine leather ensures you step out in luxury style, while a plush mid-top collar and classic Nike Air cushioning make for a premium look and feel.', 'HF3216-102', 12295.00, 12, 42, '2025-02-26 05:07:27', '2025-02-26 05:07:27'),
 (23, 'Air Jordan 1 Low SE', '  This fresh take on the AJ1 brings new energy to neutrals. Smooth, premium leather and classic Nike Air cushioning give you the quality and comfort you\'ve come to expect from Jordan.', 'HF3148-011', 11495.00, 5, 42, '2025-02-26 05:22:49', '2025-02-26 05:22:49'),
-(24, 'Men Brown Leather Oxford Shoes', '   Men Brown Leather Oxford Shoes ', 'LPSCRGFL00139', 5000.00, 4, 41, '2025-02-26 05:31:12', '2025-02-28 05:03:55');
+(24, 'Men Brown Leather Shoes', '      Men Brown Leather Oxford Shoes    ', 'LPSCRGFL00139', 5000.00, 4, 41, '2025-02-26 05:31:12', '2025-02-28 09:43:28'),
+(25, 'Nike Sportswear', '  Dropped shoulders, longer sleeves and a roomy fit through the body and hips give this Max90 tee a relaxed look. The rich, heavyweight cotton fabric has a stiff drape and structured feel.\r\n\r\n', ' FZ7976-051', 1200.00, 34, 38, '2025-02-28 11:15:35', '2025-02-28 11:15:35');
 
 -- --------------------------------------------------------
 
@@ -220,11 +233,16 @@ INSERT INTO `catalog_product_attribute` (`value_id`, `attribute_id`, `product_id
 (20, 5, 23, 'premium leather '),
 (21, 6, 23, 'Nike'),
 (22, 8, 23, '2025-01-28'),
-(23, 2, 24, 'Brown'),
+(23, 2, 24, 'Brown green'),
 (24, 5, 24, 'Leather'),
 (25, 6, 24, 'Louis Philippe'),
 (26, 8, 24, '2025-02-09'),
-(37, 9, 24, 'Vietnam');
+(37, 9, 24, 'USA'),
+(38, 2, 25, 'White'),
+(39, 5, 25, 'Cotton'),
+(40, 6, 25, 'Nike'),
+(41, 8, 25, '2025-02-02'),
+(42, 9, 25, 'China');
 
 -- --------------------------------------------------------
 
@@ -523,7 +541,7 @@ ALTER TABLE `admin_role`
 -- AUTO_INCREMENT for table `admin_user`
 --
 ALTER TABLE `admin_user`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `catalog_attribute`
@@ -541,19 +559,19 @@ ALTER TABLE `catalog_category`
 -- AUTO_INCREMENT for table `catalog_media_gallery`
 --
 ALTER TABLE `catalog_media_gallery`
-  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `catalog_product`
 --
 ALTER TABLE `catalog_product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `catalog_product_attribute`
 --
 ALTER TABLE `catalog_product_attribute`
-  MODIFY `value_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `value_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `cms_block`
