@@ -1,5 +1,5 @@
 <?php
-class Admin_Controller_Product_Index
+class Admin_Controller_Product_Index 
 {
     public $data;
     public function newAction()

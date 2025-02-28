@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Tab Switching Logic
     document.querySelectorAll('.nav-link').forEach(tab => {
+        console.log('hello')
         tab.addEventListener('click', function () {
             document.querySelectorAll('.nav-link').forEach(t => t.classList.remove('active'));
             this.classList.add('active');

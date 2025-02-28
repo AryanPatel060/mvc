@@ -98,9 +98,9 @@ class Core_Model_Abstract
         return $collection;
     }
 
-    // protected function _afterload()
-    // {
+    protected function _afterload()
+    {
 
-    // }
+    }
   
 }

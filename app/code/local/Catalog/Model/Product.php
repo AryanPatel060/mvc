@@ -25,12 +25,12 @@ class Catalog_Model_Product extends Core_Model_Abstract
         {
             $data = Mage::getModel('catalog/productAttribute')
             ->getCollection()
-            ->leftJoin(["attr"=>"catalog_attribute"],"attr.attribute_id = main_table.attribute_id",["name"=>"name"]);
-            print_r($data->getData());
+            ->leftJoin(["attr"=>"catalog_attribute"],"attr.attribute_id = main_table.attribute_id",["attribute_code"=>"attribute_code"]);
 
+          
             foreach($data->getData() as $_data)
             {
-                $this->{$_data->getName()} = $_data->getValue();
+                $this->{$_data->getAttributeCode()} = $_data->getValue();
             }
 
         }

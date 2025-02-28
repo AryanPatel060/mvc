@@ -11,10 +11,7 @@ class Admin_Block_Product_Index_List extends Core_Block_Template
     {
         $product = Mage::getModel('catalog/product')
             ->getCollection()
-            ->select('catalog_product.*')
-            ->join('catalog_category', 'catalog_product.category_id  = catalog_category.category_id ', ['category_name' => 'name'])
-            // ->limit(10);
-            ->offset(5);
+            ->addAttributeToSelect(['color','brand']);
         return $product->getData();
     }
 }

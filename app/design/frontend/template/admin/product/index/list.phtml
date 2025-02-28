@@ -72,6 +72,8 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>Description</th>
+                <th>Color</th>
+                <th>Brand</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -83,6 +85,8 @@
                     <td><?php echo htmlspecialchars($product->getCategoryName()); ?></td>
                     <td>Rs. <?php echo number_format($product->getPrice(), 2); ?></td>
                     <td><?php echo htmlspecialchars($product->getDescription()); ?></td>
+                    <td><?php echo htmlspecialchars($product->getColor()); ?></td>
+                    <td><?php echo htmlspecialchars($product->getBrand()); ?></td>
                     <td>
                         <div>
                             <div class="m-2">

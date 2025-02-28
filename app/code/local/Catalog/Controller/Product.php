@@ -32,10 +32,9 @@ class Catalog_Controller_Product
     {
       
        echo "<pre>";
-       $collection = Mage::getModel('catalog/product')->load(21);
-                            // ->getCollection();
-                            // ->limit(5)
-                            // ->addAttributeToSelect(["color" ,"Brand"]);
+       $collection = Mage::getModel('catalog/product')
+                            ->getCollection()
+                            ->addAttributeToSelect(["color" ,"Brand"]);
 
                             
         print_r($collection->getData());

@@ -1,4 +1,5 @@
-<?php $data = $this->getProductData(); ?>
+<?php $data = $this->getProductData(); 
+    print_r($data);?>
 
 <div class="container p-5">
     <div id="error" class="alert alert-danger d-none"></div>
@@ -27,7 +28,7 @@
 
             <div class="col-md-6">
                 <label for="stock_quantity" class="form-label">Stock Quantity:</label>
-                <input type="number" name="catlog_product[stock_quantity]" id="stock_quantity" value="<?php echo $data->getSockQuantity(); ?>" class="form-control" required>
+                <input type="number" name="catlog_product[stock_quantity]" id="stock_quantity" value="<?php echo $data->getStockQuantity(); ?>" class="form-control" required>
             </div>
             <div class="col-md-6">
                 <label for="category" class="form-label">Select Category:</label>
@@ -53,9 +54,11 @@
             <legend for="images" class="form-label">Attributes :</legend>
 
                 <?php foreach ($this->getAttributeData() as $attr): ?>
+                    <?php $attrcode = $attr->getAttributeCode();?>
+                
                     <div class="col-md-4 mb-3">
-                        <?php echo $this->getHtmlField('label', ['for' => $attr->getName(), 'class' => 'form-label']) ?>
-                        <?php echo $this->getHtmlField('input', ['type' => $attr->getType(), 'class' => 'form-control', 'name' => 'catalog_product_attribute[' . $attr->getName() . ']']) ?>
+                        <?php echo $this->getHtmlField('label', ['for' => $attr->getName(),  'class' => 'form-label']) ?>
+                        <?php echo $this->getHtmlField('input', ['type' => $attr->getType(), 'class' => 'form-control', 'name' => 'catalog_product_attribute[' . $attr->getName() . ']','value'=> $data->$attrcode]) ?>
                     </div>
                 <?php endforeach; ?>
             </div>

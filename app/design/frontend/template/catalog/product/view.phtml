@@ -1,5 +1,5 @@
 <?php
-$product  = $this->getProduct()[0];
+$product  = $this->getProductData()[0];
 $images = $this->getIamgesProduct();
 ?>
 <div class="container mt-4">
@@ -33,7 +33,7 @@ $images = $this->getIamgesProduct();
                         <a class="nav-link active" data-tab="descriptionTab">Description</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-tab="specificationsTab">Specifications</a>
+                        <a class="nav-link " data-tab="specificationsTab">Specifications</a>
                     </li>
                 </ul>
 
@@ -48,9 +48,10 @@ $images = $this->getIamgesProduct();
                     <div id="specificationsTab" class="tab-pane">
                         <table class="attributes-table">
                             <?php foreach ($this->getAttributes() as $attribute): ?>
+                                <?php $name = $attribute->getAttributeCode() ?>
                                 <tr>
-                                    <td><?= $attribute->getAttributname() ?></td>
-                                    <td><?= $attribute->getValue() ?></td>
+                                    <td><?php echo $attribute->getName() ?></td>
+                                    <td><?php echo $product->$name ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </table>
