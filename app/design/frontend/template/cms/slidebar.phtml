@@ -29,16 +29,18 @@
             <?php foreach ($products as $product): ?>
                 <div class="swiper-slide">
                     <div class="card" style="width: 18rem; ">
-                        <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>" height="340px" >
-                        <div class="card-body">
-                        <h5 class="card-title"><?= substr($product->getName(), 0, 15) ?></h5>
+                        <a href="<?php echo $this->getUrl('catalog/product/view') . '/?productid=' . $product->getProductId() ?>" class="text-decoration-none text-dark">
+                            <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>" height="340px">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= substr($product->getName(), 0, 15) ?></h5>
 
-                            <small>Price: Rs. <?= $product->getPrice() ?></small>
-                        </div>
+                                <small>Price: Rs. <?= $product->getPrice() ?></small>
+                            </div>
+                        </a>
                     </div>
                 </div>
             <?php endforeach; ?>
-           
+
         </div>
         <div class="swiper-pagination"></div>
     </div>

@@ -5,7 +5,7 @@ class Admin_Controller_Account extends Core_Controller_Admin_Action
         'login',
         'loginAction',
         'loginpost',
-        'loginpostAction'
+        'loginpostAction',
     ];
     public function loginAction()
     {

@@ -1,6 +1,10 @@
 <?php
 class Admin_Controller_Product_Index extends Core_Controller_Admin_Action
 {
+    // protected $_allowed = [
+    //     'list',
+    //     'listAction',
+    // ];
     public $data;
     public function newAction()
     {

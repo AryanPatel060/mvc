@@ -1,19 +1,21 @@
-<div class="container mt-4">
+ <?php $categories = $this->getCategoryData();
+ $this->getPriceRange();?>
+
+<div class="container mt-4" id="product-list">
     <div class="row">
         <!-- Sidebar Filters -->
         <div class="col-md-3">
             <div class="filter-sidebar p-3 border rounded">
                 <h5>Filters</h5>
                 <form method="GET" action="">
-                    <input type="hidden" name="categoryid" value="<?= $category_id ?>">
 
                     <!-- Brand Filter -->
                     <div class="mb-3">
                         <label class="form-label">Brand</label>
                         <select name="brand" class="form-select">
                             <option value="">All Brands</option>
-                            <?php foreach ($filters['brands'] as $brand): ?>
-                                <option value="<?= $brand ?>"><?= $brand ?></option>
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= $category->getCategoryId() ?>"><?= $category->getName(); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -21,17 +23,17 @@
                     <!-- Price Filter -->
                     <div class="mb-3">
                         <label class="form-label">Price Range</label>
-                        <input type="number" name="min_price" class="form-control mb-2" placeholder="Min Price">
-                        <input type="number" name="max_price" class="form-control" placeholder="Max Price">
+                        <input type="number" name="min_price" class="form-control mb-2" id="filter-min-price" placeholder="Min Price">
+                        <input type="number" name="max_price" class="form-control" id="filter-max-price" placeholder="Max Price">
                     </div>
 
                     <!-- Quantity Filter -->
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label class="form-label">Minimum Quantity</label>
                         <input type="number" name="min_qty" class="form-control" placeholder="Min Quantity">
-                    </div>
+                    </div> -->
 
-                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                    <!-- <button type="submit" class="btn btn-primary w-100">Apply Filters</button> -->
                 </form>
             </div>
         </div>
@@ -53,6 +55,9 @@
                                         <small class="text-muted">Price: Rs. <?= number_format($product->getPrice(), 2) ?></small>
                                     </div>
                                 </a>
+                                <div>
+                                    <a class="btn btn-primary btn-sm " href="<?= $this->getUrl('checkout/cart/add') .'/?productid='. $product->getProductId()?>"  role="button">Add To cart</a>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -61,3 +66,28 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+            $('#filter-min-price').on('change', function() {
+                var selectedValue = $(this).val();
+                
+                if (selectedValue !== '') {
+                    $.ajax({
+                        url: '<?php $this->getUrl("*/*/*")?>',  // Backend endpoint
+                        type: 'GET',
+                        data: { minprice: selectedValue },
+                        success: function(response) {
+                            $('#product-list').html(response);
+                            // console.log(response);
+                        },
+                        error: function() {
+                            $('#result').html('<p style="color: red;">Error fetching data</p>');
+                        }
+                    });
+                } else {
+                    $('#result').html('');
+                }
+            });
+        });
+</script>

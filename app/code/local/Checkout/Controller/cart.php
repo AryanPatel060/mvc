@@ -1,5 +1,5 @@
 <?php 
-class Checkout_Controller_Cart
+class Checkout_Controller_Cart extends Core_Controller_Admin_Action
 {
     public function indexAction()
     {
@@ -30,11 +30,9 @@ class Checkout_Controller_Cart
     }
     public function addAction()
     {
-        $layout = Mage::getBlock('core/layout');
-        $add = $layout->createBlock('Checkout/Cart_Add')
-                       ->setTemplate('Checkout/Cart/Add.phtml');
-                    //    print_r($view);
-        $layout->getChild('content')->addChild('Add',$add);
-        $layout->toHtml();
+        $cart = $this->getSession();
+        $productid = $this->getRequest()->getQuery('productid');
+   
+        $cart->add('');
     }
 }
