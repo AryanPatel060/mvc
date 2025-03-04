@@ -9,11 +9,10 @@ class Catalog_Controller_Product
         $view = $layout->createBlock('catalog/product_list');
         //    print_r($view);
 
-        // $product = Mage::getModel('catalog/product')
-        //                 ->getCollection()
-        //                 ->addFieldToFilter('category_id',$categoryId);
-
-        // $product->getData();
+        $product = Mage::getModel('catalog/filter')
+                        ->getProductCollection();
+                        
+        $view->setFilteredData($product->getData());
         
         $layout->getChild('content')->addChild('list', $view);
         $layout->toHtml();
@@ -32,12 +31,16 @@ class Catalog_Controller_Product
     {
       
        echo "<pre>";
-       $collection = Mage::getModel('catalog/product')
-                            ->getCollection()
-                            ->addAttributeToSelect(["color" ,"Brand"]);
+    //    $collection = Mage::getModel('catalog/product')
+    //                         ->getCollection()
+    //                         ->addAttributeToSelect(["color" ,"Brand"]);
+        $col = Mage::getModel('catalog/filter');
+        $collection = $col->getProductCollection();
+
+   
 
                             
-        print_r($collection->getData());
+        print_r($collection->prepareQuery());
 
 
 

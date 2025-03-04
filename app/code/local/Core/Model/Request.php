@@ -36,12 +36,17 @@ class Core_Model_Request
             return '';
         }
     }
-    public function getQuery($field)
+    public function getQuery($field = NULL)
     {
-        if (isset($_GET[$field])) {
-            return $_GET[$field];
+        if (is_null($field)) {
+            return $_GET;
         } else {
-            return '';
+
+            if (isset($_GET[$field])) {
+                return $_GET[$field];
+            } else {
+                return '';
+            }
         }
     }
     public function getRequestUri()

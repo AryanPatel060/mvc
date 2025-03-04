@@ -16,4 +16,18 @@ class Catalog_Model_Resource_Product_Collection extends Core_Model_Resource_Coll
         }
         return $this;
     }
+
+    public function addAttributeToFilter($attribute,$value)
+    {
+
+        $this->addAttributeToSelect([$attribute]);
+        $this->addFieldToFilter("cpa_{$attribute}.value",$value);
+        return $this;
+    }
+
+    public function addCategoryFilter($categoryId)
+    {
+        $this->addFieldToFilter('category_id',$categoryId);
+        return $this;
+    }
 }

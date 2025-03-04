@@ -25,7 +25,7 @@ $images = $this->getIamgesProduct();
                 <p><strong>SKU:</strong> <?= $product->getSku() ?></p>
                 <p><strong>Available Quantity:</strong> <?= $product->getStockQuantity() ?></p>
 
-                <button class="btn btn-primary mt-3">Add to Cart</button>
+                <a class="btn btn-primary btn-sm " href="<?= $this->getUrl('checkout/cart/add') .'/?productid='. $product->getProductId()?>"  role="button">Add To cart</a>
 
                 <!-- Tabs -->
                 <ul class="nav nav-tabs mt-3" id="productTab">

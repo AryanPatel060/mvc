@@ -1,6 +1,7 @@
 <?php 
 class Catalog_Block_Product_List extends Core_Block_Layout{
 
+    public $products = [];
     public function __construct()
     {
         $this->setTemplate('catalog/product/list.phtml');
@@ -8,21 +9,30 @@ class Catalog_Block_Product_List extends Core_Block_Layout{
 
     public function getProductData()
     {
-        $request = Mage::getModel('core/request');
-        $categoryId = $request->getQuery('categoryid');
+        // $request = Mage::getModel('core/request');
+        $product = Mage::getModel('catalog/filter')->getProductCollection();
+        // $categoryId = $request->getQuery('categoryid');
 
-        $minprice = $request->getQuery('minprice');
-        $minprice = ($minprice == "")? 1 :$minprice;
+        // $minprice = $request->getQuery('minprice');
+        // $minprice = ($minprice == "")? 1 :$minprice;
 
-        // die;
+        // // die;
 
-        $product = Mage::getModel('catalog/product')
-                        ->getCollection()
-                        ->addFieldToFilter('category_id',$categoryId)
-                        ->addFieldToFilter('price',['>'=>$minprice]);
+        // $product = Mage::getModel('catalog/product')
+        //                 ->getCollection()
+        //                 ->addFieldToFilter('category_id',$categoryId)
+        //                 ->addFieldToFilter('price',['>'=>$minprice]);
 
-        return $product->getData();
+        return (count($this->products))?$product->getData():$this->products;
     }
+
+    public function setFilteredData($data)
+    {
+        $this->products = $data;
+        return $this;
+    }
+    
+
 
     public function getCategoryData(){
         $category = Mage::getModel('catalog/category')
