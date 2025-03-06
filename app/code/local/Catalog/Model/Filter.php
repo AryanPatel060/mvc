@@ -36,7 +36,10 @@ class Catalog_Model_Filter extends Core_Model_Abstract
                 ->addFieldToFilter('attribute_code', ["IN" => array_keys($parameter)]);
 
             foreach ($attributes->getData() as $attribute) {
-                $collection->addAttributeToFilter($attribute->getAttributeCode(), $parameter[$attribute->getAttributeCode()]);
+                if($parameter[$attribute->getAttributeCode()] !== "")
+                {
+                    $collection->addAttributeToFilter($attribute->getAttributeCode(), $parameter[$attribute->getAttributeCode()]);
+                }
             }
         }
     }

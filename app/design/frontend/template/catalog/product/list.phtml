@@ -1,52 +1,9 @@
- <?php $categories = $this->getCategoryData();
-    $this->getPriceRange(); ?>
 
- <div class="container mt-4" id="product-list">
-     <div class="row">
-         <!-- Sidebar Filters -->
-         <div class="col-md-3">
-             <div class="filter-sidebar p-3 border rounded">
-                 <h5>Filters</h5>
-                 <form method="GET" action="<?php echo $this->getUrl('*/*/*') . "/" ?>">
 
-                     <!-- Brand Filter -->
-                     <div class="mb-3">
-                         <label class="form-label">Category </label>
-                         <select name="cid" class="form-select">
-                             <option value="">All Categories</option>
-                             <?php foreach ($categories as $category): ?>
-
-                                 <option value="<?= $category->getCategoryId() ?>" <?php echo ($category->getCategoryId() ==  $_GET['cid']) ? "selected" : "" ?>><?= $category->getName(); ?></option>
-                             <?php endforeach; ?>
-                         </select>
-                     </div>
-
-                     <!-- Price Filter -->
-                     <div class="mb-3">
-                         <label class="form-label">Price Range</label>
-                         <input type="number" name="minprice" class="form-control mb-2" id="filter-min-price" placeholder="Min Price">
-                         <input type="number" name="maxprice" class="form-control" id="filter-max-price" placeholder="Max Price">
-                     </div>
-                     <!-- Price Filter -->
-                     <div class="mb-3">
-                         <label class="form-label">Color</label>
-                         <input type="number" name="color" class="form-control mb-2" id="filter-min-price" placeholder="color">
-                     </div>
-
-                     <!-- Quantity Filter -->
-                     <!-- <div class="mb-3">
-                        <label class="form-label">Minimum Quantity</label>
-                        <input type="number" name="min_qty" class="form-control" placeholder="Min Quantity">
-                    </div> -->
-
-                     <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
-                 </form>
-             </div>
-         </div>
 
          <!-- Product Grid -->
          <?php $products = $this->getProductData(); ?>
-         <div class="col-md-9">
+         <div class="col-md-9"  id="product-list">
              <div class="row">
                  <?php if (empty($products)): ?>
                      <p class="text-center w-100">No products found.</p>
@@ -72,29 +29,3 @@
          </div>
      </div>
  </div>
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- <script>
-     // $(document).ready(function() {
-     //         $('#filter-min-price').on('change', function() {
-     //             var selectedValue = $(this).val();
-
-     //             if (selectedValue !== '') {
-     //                 $.ajax({
-     //                     url: '<?php //$this->getUrl("*/*/*")
-                                    ?>',  // Backend endpoint
-     //                     type: 'GET',
-     //                     data: { minprice: selectedValue },
-     //                     success: function(response) {
-     //                         $('#product-list').html(response);
-     //                         // console.log(response);
-     //                     },
-     //                     error: function() {
-     //                         $('#result').html('<p style="color: red;">Error fetching data</p>');
-     //                     }
-     //                 });
-     //             } else {
-     //                 $('#result').html('');
-     //             }
-     //         });
-     //     });
- </script>

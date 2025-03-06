@@ -3,50 +3,51 @@ class Catalog_Controller_Product
 {
     public function listAction()
     {
-       
+        $layout = Mage::getSingltonBlock('core/layout');
+        $list = $layout->createBlock('catalog/product_list');
 
-        $layout = Mage::getBlock('core/layout');
-        $view = $layout->createBlock('catalog/product_list');
-        //    print_r($view);
+        $filter = $layout->createBlock('catalog/product_filter');
 
-        $product = Mage::getModel('catalog/filter')
-                        ->getProductCollection();
-                        
-        $view->setFilteredData($product->getData());
-        
-        $layout->getChild('content')->addChild('list', $view);
+        $content = $layout->getChild('content');
+        $content->addChild('filter',$filter);
+        $content->addChild('list', $list);
         $layout->toHtml();
     }
-    
+    public function abcAction()
+    {
+        $layout = Mage::getSingltonBlock('core/layout');
+        $layout->removeChild('header');
+        $layout->removeChild('footer');
+
+        $list = $layout->createBlock('catalog/product_list');
+        
+        $content = $layout->getChild('content');
+        $content->addChild('list', $list);
+        // $layout->removeChild('head');
+       $layout->toHtml();
+    }
+
     public function viewAction()
     {
         $layout = Mage::getBlock('core/layout');
         $view = $layout->createBlock('catalog/product_view');
-    
+
         $layout->getChild('content')->addChild('view', $view);
         $layout->toHtml();
     }
 
     public function testAction()
     {
-      
-       echo "<pre>";
-    //    $collection = Mage::getModel('catalog/product')
-    //                         ->getCollection()
-    //                         ->addAttributeToSelect(["color" ,"Brand"]);
+
+        echo "<pre>";
+        //    $collection = Mage::getModel('catalog/product')
+        //                         ->getCollection()
+        //                         ->addAttributeToSelect(["color" ,"Brand"]);
         $col = Mage::getModel('catalog/filter');
         $collection = $col->getProductCollection();
 
-   
-
-                            
         print_r($collection->prepareQuery());
-
-
-
     }
-    
-    
 }
 
 

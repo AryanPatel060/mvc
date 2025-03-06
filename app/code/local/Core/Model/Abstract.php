@@ -68,15 +68,17 @@ class Core_Model_Abstract
         return ltrim($snakeCase, '_');
     }
 
-    public function load($value,$field = null)
+    public function load($value, $field = null)
     {
-        $this->_data = $this->getResource()->load($value,$field);
+        $this->_data = $this->getResource()->load($value, $field);
         $this->_afterload();
         return $this;
     }
     public function save()
     {
+        $this->_beforeSave();
         $this->getResource()->save($this);
+        $this->_afterSave();
         return $this;
     }
     public function delete()
@@ -94,13 +96,20 @@ class Core_Model_Abstract
         $collection->setResource($this->getResource())
             ->setModel($this)
             ->select();
-       
+
         return $collection;
     }
 
     protected function _afterload()
     {
-
+        // return $this;
     }
-  
+    protected function _afterSave()
+    {
+        return $this;
+    }
+    protected function _beforeSave()
+    {
+        return $this;
+    }
 }

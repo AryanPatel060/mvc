@@ -12,9 +12,9 @@ class Core_Controller_Admin_Action extends Core_Controller_Front_Action
         if(!in_array($this->getRequest()->getActionName(),$this->_allowed))
         {
             $islogin = $this->getSession()->get('login');
-            if($islogin === 1)
+            if($islogin ===1)
             {
-
+                // $this->redir/ect('admin/product_index/list');
             }
             else {
                 $this->redirect('');//redirect to home cms

@@ -48,8 +48,9 @@ class Core_Block_Layout extends Core_Block_Template
 
     public function createBlock($block)
     {
-        return Mage::getBlock($block);
+        return Mage::getSingltonBlock($block);
     }
+
     public function getImage($productID)
     {
         $media = Mage::getModel('catalog/media')

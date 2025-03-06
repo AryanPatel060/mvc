@@ -1,0 +1,83 @@
+<?php $categories = $this->getCategoryData(); ?>
+<?php $brands = $this->getBrands(); ?>
+
+ <div class="container mt-4">
+     <div class="row">
+ 
+<!-- Sidebar Filters -->
+<div class="col-md-3">
+    <div class="filter-sidebar p-3 border rounded">
+        <h5>Filters</h5>
+        <!-- Brand Filter -->
+        <label class="form-label">Brand</label>
+        <?php foreach ($brands as $key => $brand): ?>
+            <div class="mb-3">
+                <input type="radio" name="brand" id="brand" class="filter form-check-input" value="<?php echo $brand ?>" <?php echo (isset($_GET['brand']) && $brand == $_GET['brand']) ? 'checked' : ''; ?>>
+                <label for="brand"><?php echo $brand ?></label>
+            </div>
+            <?php endforeach; ?>
+        <div class="mb-3">
+            <label class="form-label">Category </label>
+            <select name="cid" class="filter form-select">
+                <option value="">All Categories</option>
+                <?php foreach ($categories as $category): ?>
+
+                    <option value="<?= $category->getCategoryId() ?>" ><?= $category->getName(); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <!-- Price Filter -->
+        <div class="mb-3">
+            <label class="form-label">Price Range</label>
+            <input type="number" name="minprice" class="filter form-control mb-2" id="filter-min-price" placeholder="Min Price">
+            <input type="number" name="maxprice" class="filter form-control" id="filter-max-price" placeholder="Max Price">
+        </div>
+        <!-- Price Filter -->
+        <div class="mb-3">
+            <label class="form-label">Color</label>
+            <input type="text" name="color" class="filter form-control mb-2" id="filter-color" placeholder="color">
+        </div>
+
+        <!-- Quantity Filter -->
+        <!-- <div class="mb-3">
+                        <label class="form-label">Minimum Quantity</label>
+                        <input type="number" name="min_qty" class="form-control" placeholder="Min Quantity">
+                    </div> -->
+
+        <button id="apply-filter" class="btn btn-primary w-100">Apply Filters</button>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    filters = {
+
+        cid: <?php echo $_GET['cid']; ?>
+
+
+    };
+
+    $(".filter").on('change', function() {
+        console.log(this.value)
+        filters[$(this).attr('name')] = this.value;
+    });
+
+    $('#apply-filter').on('click', function() {
+        console.log(Object.keys(filters).length);
+        console.log('hello', filters);
+        //  if (Object.keys(filters).length > 0) {
+        $.ajax({
+            url: '<?php echo $this->getUrl("catalog/product/abc") . '/' ?>', // Backend endpoint
+            type: 'GET',
+            data: filters,
+            success: function(response) {
+                $('#product-list').html(response);
+            },
+            error: function() {
+                $('#result').html('<p style="color: red;">Error fetching data</p>');
+            }
+        });
+
+    });
+</script>

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // --------------------------------------- header ------------------------------
-    document.querySelectorAll(".header-category-link").forEach(function (categoryLink) {
+    document.querySelectorAll(".header-category-toggle").forEach(function (categoryLink) {
         categoryLink.addEventListener("click", function (event) {
             let subMenu = this.nextElementSibling;
 

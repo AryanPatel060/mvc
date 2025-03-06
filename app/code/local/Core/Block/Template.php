@@ -10,12 +10,15 @@ class Core_Block_Template
     }
     public function addChild($key, $block)
     {
-        $this->_child[$key] = $block;
+        if(!isset($this->_child[$key]))
+        {
+            $this->_child[$key] = $block;
+        }
         return $this;
     }
     public function removeChild($key)
     {
-        $this->_child[$key];
+        unset($this->_child[$key]);
         return $this;
     }
     public function getChild($key)

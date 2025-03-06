@@ -52,49 +52,51 @@ class Admin_Controller_Product_Index extends Core_Controller_Admin_Action
         $request = Mage::getModel('core/request');
         $data = $request->getParam('catlog_product');
 
-        // echo "<pre>";
-        // print_r($data);
+        echo "<pre>";
         // print_r($_FILES);
 
         $product = Mage::getModel('catalog/product');
         $product->setData($data);
+
+
         // print_r($data);
         $insertId = $product->save();
+        
+        // die();
 
 
+        // if ($insertId) {
+        //     $productId = $insertId->getProductId();
+        //     $Attributes = $request->getParam('catalog_product');
 
-        if ($insertId) {
-            $productId = $insertId->getProductId();
-            $Attributes = $request->getParam('catalog_product_attribute');
+        //     $productAttribute = Mage::getModel("catalog/productAttribute");
+        //     $attributeModel = Mage::getModel('catalog/attribute');
 
-            $productAttribute = Mage::getModel("catalog/productAttribute");
-            $attributeModel = Mage::getModel('catalog/attribute');
-
-            foreach ($Attributes as $name => $value) {
-                $attribute_id = $attributeModel->getCollection()
-                    ->select("attribute_id")
-                    ->addFieldToFilter('name', $name);
-                $attributeId = $attribute_id->getData()[0]->getAttributeId();
-                $productAttributeData = [
-                    "attribute_id" => $attributeId,
-                    "product_id" => $productId,
-                    "value" => $value
-                ];
-                $productsattribute = $productAttribute->getCollection()
-                    ->addFieldToFilter('product_id', $productId)
-                    ->addFieldToFilter('attribute_id', $attributeId);
-                $result = $productsattribute->getData();
-                if (count($result) > 0) {
-                    $result = $result[0];
-                    $valueId = $result->getValueId();
-                } else {
-                    $valueId = "";
-                }
-                $productAttributeData['value_id'] = $valueId;
-                $productAttribute->setData($productAttributeData);
-                $attid = $productAttribute->save();
-            }
-        }
+        //     foreach ($Attributes as $name => $value) {
+        //         $attribute_id = $attributeModel->getCollection()
+        //             ->select("attribute_id")
+        //             ->addFieldToFilter('name', $name);
+        //         $attributeId = $attribute_id->getData()[0]->getAttributeId();
+        //         $productAttributeData = [
+        //             "attribute_id" => $attributeId,
+        //             "product_id" => $productId,
+        //             "value" => $value
+        //         ];
+        //         $productsattribute = $productAttribute->getCollection()
+        //             ->addFieldToFilter('product_id', $productId)
+        //             ->addFieldToFilter('attribute_id', $attributeId);
+        //         $result = $productsattribute->getData();
+        //         if (count($result) > 0) {
+        //             $result = $result[0];
+        //             $valueId = $result->getValueId();
+        //         } else {
+        //             $valueId = "";
+        //         }
+        //         $productAttributeData['value_id'] = $valueId;
+        //         $productAttribute->setData($productAttributeData);
+        //         $attid = $productAttribute->save();
+        //     }
+        // }
 
 
         if (!isset($data['image'])) {

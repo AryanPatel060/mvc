@@ -1,4 +1,8 @@
-<?php $data = $this->getProductData(); ?>
+<?php $data = $this->getProductData(); 
+
+print_r($data);
+?>
+
 
 <div class="container p-5">
     <div id="error" class="alert alert-danger d-none"></div>
@@ -57,7 +61,7 @@
                 
                     <div class="col-md-4 mb-3">
                         <?php echo $this->getHtmlField('label', ['for' => $attr->getName(),  'class' => 'form-label']) ?>
-                        <?php echo $this->getHtmlField('input', ['type' => $attr->getType(), 'class' => 'form-control', 'name' => 'catalog_product_attribute[' . $attr->getName() . ']','value'=> $data->$attrcode]) ?>
+                        <?php echo $this->getHtmlField('input', ['type' => $attr->getType(), 'class' => 'form-control', 'name' => 'catlog_product[' . $attr->getAttributeCode() . ']','value'=> $data->$attrcode]) ?>
                     </div>
                 <?php endforeach; ?>
             </div>

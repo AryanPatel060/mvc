@@ -1,5 +1,6 @@
-<?php 
-class Catalog_Block_Product_List extends Core_Block_Layout{
+<?php
+class Catalog_Block_Product_List extends Core_Block_Layout
+{
 
     public $products = [];
     public function __construct()
@@ -10,7 +11,7 @@ class Catalog_Block_Product_List extends Core_Block_Layout{
     public function getProductData()
     {
         // $request = Mage::getModel('core/request');
-        $product = Mage::getModel('catalog/filter')->getProductCollection();
+        // $product = Mage::getModel('catalog/filter')->getProductCollection();
         // $categoryId = $request->getQuery('categoryid');
 
         // $minprice = $request->getQuery('minprice');
@@ -23,7 +24,10 @@ class Catalog_Block_Product_List extends Core_Block_Layout{
         //                 ->addFieldToFilter('category_id',$categoryId)
         //                 ->addFieldToFilter('price',['>'=>$minprice]);
 
-        return (count($this->products))?$product->getData():$this->products;
+        // return (count($this->products))?$product->getData():$this->products;
+        $product = Mage::getModel('catalog/filter')
+            ->getProductCollection();
+        return $product->getData();
     }
 
     public function setFilteredData($data)
@@ -31,21 +35,22 @@ class Catalog_Block_Product_List extends Core_Block_Layout{
         $this->products = $data;
         return $this;
     }
-    
+   
 
 
-    public function getCategoryData(){
+
+    public function getCategoryData()
+    {
         $category = Mage::getModel('catalog/category')
-                    ->getCollection();
+            ->getCollection();
         return $category->getData();
     }
 
-    public function getPriceRange(){
-        $product =Mage::getModel("catalog/product")
-                        ->getCollection();
-                $product->select(['price ']);
+    public function getPriceRange()
+    {
+        $product = Mage::getModel("catalog/product")
+            ->getCollection();
+        $product->select(['price ']);
         $range = $product->getData();
- 
-
     }
 }

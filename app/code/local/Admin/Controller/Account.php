@@ -3,9 +3,9 @@ class Admin_Controller_Account extends Core_Controller_Admin_Action
 {
     protected $_allowed = [
         'login',
-        'loginAction',
+        // 'loginAction',
         'loginpost',
-        'loginpostAction',
+        // 'loginpostAction',c
     ];
     public function loginAction()
     {
@@ -39,8 +39,7 @@ class Admin_Controller_Account extends Core_Controller_Admin_Action
 
     public function logoutAction()
     {
-        if($this->getSession()->get('login'))
-        {
+        if ($this->getSession()->get('login')) {
             $this->getSession()->remove('login');
             $this->redirect('admin/account/login');
         }

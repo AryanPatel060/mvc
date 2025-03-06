@@ -16,7 +16,7 @@ class Core_Block_Html_Element_Choice extends Core_Block_Html_Element_Abstract
             $html .= sprintf(
                 "<label for='%s'><input type='%s' id='%s' name='%s' value='%s'%s %s /> %s</label><br>",
                 htmlspecialchars($id, ENT_QUOTES),
-                htmlspecialchars($type, ENT_QUOTES),
+                htmlspecialchars($type, ENT_QUOTES),    
                 htmlspecialchars($id, ENT_QUOTES),
                 htmlspecialchars($name, ENT_QUOTES),
                 htmlspecialchars($value, ENT_QUOTES),
