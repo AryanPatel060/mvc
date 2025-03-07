@@ -1,6 +1,5 @@
 <?php $data = $this->getProductData(); 
 
-print_r($data);
 ?>
 
 
@@ -57,7 +56,7 @@ print_r($data);
             <legend for="images" class="form-label">Attributes :</legend>
 
                 <?php foreach ($this->getAttributeData() as $attr): ?>
-                    <?php echo $attrcode = $attr->getAttributeCode();?>
+                    <?php $attrcode = $attr->getAttributeCode();?>
                 
                     <div class="col-md-4 mb-3">
                         <?php echo $this->getHtmlField('label', ['for' => $attr->getName(),  'class' => 'form-label']) ?>

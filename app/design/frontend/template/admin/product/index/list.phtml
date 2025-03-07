@@ -98,7 +98,10 @@
                     <td>
                         <div>
                             <div class="m-2">
-                                <a href="new/?id=<?php echo $product->getProductId(); ?>" class="edit-btn m-2">Edit</a>
+                                <a href="<?php echo $this->getUrl('*/*/new')."/?id=".$product->getProductId();?>" class="edit-btn m-2">Edit</a>
+                            </div>
+                            <div class="m-2">
+                                <a href="<?php echo $this->getUrl('*/media_index/view')."/?id=".$product->getProductId();?>" class="edit-btn m-2">Edit Images</a>
                             </div>
                             <div>
                                 <a href="delete/?deleteid=<?php echo $product->getProductId(); ?>" class="delete-btn m-2" onclick="return confirm('Are you sure?')">Delete</a>

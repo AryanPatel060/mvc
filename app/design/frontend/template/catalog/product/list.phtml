@@ -1,31 +1,15 @@
+<div class="container mt-4 " style="
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100vw;">
+    <div class="row">
 
+        <?php echo $this->getChildHtml('filter') ?>
 
+        <div class="col-md-9" id="product-list">
+            <?php echo $this->getChildHtml('product') ?>
+        </div>
 
-         <!-- Product Grid -->
-         <?php $products = $this->getProductData(); ?>
-         <div class="col-md-9"  id="product-list">
-             <div class="row">
-                 <?php if (empty($products)): ?>
-                     <p class="text-center w-100">No products found.</p>
-                 <?php else: ?>
-                     <?php foreach ($products as $product): ?>
-                         <div class="col-md-4 mb-4">
-                             <div class="card h-100">
-                                 <a href="<?= $this->getUrl('*/*/view') . '/?productid=' . $product->getProductId() ?>" class="text-decoration-none text-dark">
-                                     <img src="<?= $this->getImageUrl($this->getImage($product->getProductId())['thumbnail']) ?>" class="card-img-top" alt="<?= $product->getName() ?>" height="300px" style="object-fit:contain">
-                                     <div class="card-body text-center">
-                                         <h5 class="card-title"><?= $product->getName() ?></h5>
-                                         <small class="text-muted">Price: Rs. <?= number_format($product->getPrice(), 2) ?></small>
-                                     </div>
-                                 </a>
-                                 <div>
-                                     <a class="btn btn-primary btn-sm " href="<?= $this->getUrl('checkout/cart/add') . '/?productid=' . $product->getProductId() ?>" role="button">Add To cart</a>
-                                 </div>
-                             </div>
-                         </div>
-                     <?php endforeach; ?>
-                 <?php endif; ?>
-             </div>
-         </div>
-     </div>
- </div>
+    </div>
+</div>

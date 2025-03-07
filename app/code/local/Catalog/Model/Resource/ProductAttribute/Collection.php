@@ -1,3 +1,0 @@
-<?php
-class Catalog_Model_Resource_ProductAttribute_Collection extends Core_Model_Resource_Collection_Abstract{
-}

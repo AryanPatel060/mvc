@@ -1,30 +1,19 @@
 <?php
-class Catalog_Controller_Product
+class Catalog_Controller_Product extends Core_Controller_Front_Action
 {
     public function listAction()
     {
-        $layout = Mage::getSingltonBlock('core/layout');
+        $layout = Mage::getBlockSinglton('core/layout');
         $list = $layout->createBlock('catalog/product_list');
 
-        $filter = $layout->createBlock('catalog/product_filter');
-
         $content = $layout->getChild('content');
-        $content->addChild('filter',$filter);
         $content->addChild('list', $list);
+        if ($this->getRequest()->isAjax()) {
+            $layout->removeChild('header');
+            $layout->removeChild('footer');
+            $layout->getChild('content')->getChild('list')->removeChild('filter');
+        }
         $layout->toHtml();
-    }
-    public function abcAction()
-    {
-        $layout = Mage::getSingltonBlock('core/layout');
-        $layout->removeChild('header');
-        $layout->removeChild('footer');
-
-        $list = $layout->createBlock('catalog/product_list');
-        
-        $content = $layout->getChild('content');
-        $content->addChild('list', $list);
-        // $layout->removeChild('head');
-       $layout->toHtml();
     }
 
     public function viewAction()

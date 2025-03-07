@@ -67,7 +67,10 @@ class Core_Block_Template
     {
         return  Mage::getBaseUrl() .$url;
     }
-    
+    public function getLayout()
+    {
+        return Mage::getBlockSinglton('core/layout');
+    }
 
     // public function addJs($path)
     // {

@@ -6,6 +6,11 @@ class Catalog_Block_Product_List extends Core_Block_Layout
     public function __construct()
     {
         $this->setTemplate('catalog/product/list.phtml');
+        $filter = $this->getLayout()->createBlock('catalog/product_list_filter');
+        $products = $this->getLayout()->createBlock('catalog/product_list_products');
+        $this->addChild('filter',$filter);
+        $this->addChild('product',$products);
+
     }
 
     public function getProductData()
@@ -53,4 +58,35 @@ class Catalog_Block_Product_List extends Core_Block_Layout
         $product->select(['price ']);
         $range = $product->getData();
     }
+    
+    public function getBrands()
+    {
+        $brand = Mage::getModel("catalog/attribute")
+            ->getCollection()
+            ->addFieldToFilter('attribute_code', 'brand');
+
+        $brandid = $brand->getData()[0]->attribute_id;
+
+        $productAtribute = Mage::getModel('catalog/product_Attribute')
+            ->getCollection()
+            ->addFieldToFilter('attribute_id', $brandid);
+
+        $brand = [];
+        foreach ($productAtribute->getData() as $attribute) {
+            if($attribute->getValue() != "")
+            {
+                $brand[$attribute->getValueId()] = $attribute->getValue();
+            }
+        }
+        return array_unique($brand);
+
+
+        // $product->select(['*']);
+        // echo $product->prepareQuery();
+        // return $product->getData();
+    }
+    
+
+
+
 }

@@ -1,0 +1,156 @@
+<?php $images = $this->getFilesData();
+ ?>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="product-container">
+                <!-- Main Image -->
+                <img id="focusimage" 
+                    src="<?= $this->getImageUrl($images[0]->getFilePath()) ?>" 
+                    class="product-main-img" 
+                    alt=""
+                    data-id="<?= $images[0]->getMediaId() ?>">
+
+                <!-- Delete Button for Main Image -->
+                <button class="btn btn-danger mt-2" onclick="deleteMainImage()">Delete</button>
+                <button class="btn btn-danger mt-2" onclick="updateCoverImage()">Make Cover Image</button>
+                <hr>
+                <!-- Thumbnail List -->
+                <div class="thumbnail-list d-flex flex-wrap mt-2">
+                    <?php foreach ($images as $index => $image): ?>
+                        <div class="thumbnail-wrapper position-relative">
+                            <!-- Checkbox for multiple deletion -->
+                            <input type="checkbox" class="image-checkbox" value="<?= $image->getMediaId() ?>">
+
+                            <!-- Image Thumbnail -->
+                            <img 
+                                src="<?= $this->getImageUrl($image->getFilePath()) ?>" 
+                                onclick="changeImage('<?= $this->getImageUrl($image->getFilePath()) ?>', <?= $image->getMediaId() ?>)"
+                                class="thumbnail <?= $index == 0 ? 'active' : '' ?>">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- Button for deleting selected images -->
+                <button class="btn btn-danger mt-3" onclick="deleteSelectedImages()">Delete Selected</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AJAX Script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+function changeImage(imageUrl, imageId) {
+    $("#focusimage").attr("src", imageUrl);
+    $("#focusimage").attr("data-id", imageId);
+}
+
+function deleteMainImage() {
+    let imageId = $("#focusimage").attr('data-id');
+
+    console.log(imageId);
+    if (!imageId) {
+        alert("No image selected!");
+        return;
+    }
+
+    if (!confirm("Are you sure you want to delete this image?")) return;
+    $.ajax({
+        url: "<?php echo $this->getUrl('*/*/delete').'/'?>",
+        type: "POST",
+        data: { imageid: imageId },
+        success: function(response) {
+            alert("Image deleted successfully!");
+            console.log(response);
+
+            // location.reload();
+        },
+        error: function() {
+            alert("Failed to delete image!");
+        }
+    });
+}
+
+function updateCoverImage()
+{
+    let imageId = $("#focusimage").attr('data-id');
+    console.log(imageId);
+    if (!imageId) {
+        alert("No image selected!");
+        return;
+    }
+
+    if (!confirm("Are you sure you want to update cover image?")) return;
+    $.ajax({
+        url: "<?php echo $this->getUrl('*/*/updatecover').'/'?>",
+        type: "POST",
+        data: { 
+            imageid: imageId,
+            
+        },
+        success: function(response) {
+            alert("Image updated successfully!");
+            console.log(response);
+
+            // location.reload();
+        },
+        error: function() {
+            alert("Failed to update image!");
+        }
+    });
+}
+
+
+function deleteSelectedImages() {
+    let selectedImages = [];
+    $(".image-checkbox:checked").each(function() {
+        selectedImages.push($(this).val());
+    });
+
+    if (selectedImages.length === 0) {
+        alert("Please select at least one image to delete.");
+        return;
+    }
+
+    if (!confirm("Are you sure you want to delete selected images?")) return;
+    console.log(selectedImages)
+    $.ajax({
+        url: "<?php echo $this->getUrl('*/*/delete').'/'?>",
+        type: "POST",
+        data: { imageid: selectedImages },
+        success: function(response) {
+
+            alert("Selected images deleted successfully!");
+            console.log(response);
+            // location.reload();
+        },
+        error: function() {
+            alert("Failed to delete selected images!");
+        }
+    });
+}
+</script>
+
+<style>
+.thumbnail-wrapper {
+    position: relative;
+    margin: 5px;
+    display: inline-block;
+}
+.image-checkbox {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+.thumbnail {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>

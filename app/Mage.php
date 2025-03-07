@@ -26,7 +26,7 @@ class Mage
         }
          
     }
-    public static function getSingltonBlock($className)
+    public static function getBlockSinglton($className)
     {
         $className = str_replace("/", "_Block_", $className);
         $className = ucwords($className, "_");

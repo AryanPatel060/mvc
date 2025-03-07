@@ -55,4 +55,32 @@ class Core_Model_Request
         $uri = str_replace("/MVC/", "", $uri);
         return $uri;
     }
+
+    public function isAjax()
+    {
+        if (
+            isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+            && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function isGet()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function isPost()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

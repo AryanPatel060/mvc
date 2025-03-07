@@ -14,7 +14,7 @@ class Catalog_Block_Product_Filter extends Core_Block_Layout
 
         $brandid = $brand->getData()[0]->attribute_id;
 
-        $productAtribute = Mage::getModel('catalog/productAttribute')
+        $productAtribute = Mage::getModel('catalog/product_Attribute')
             ->getCollection()
             ->addFieldToFilter('attribute_id', $brandid);
 

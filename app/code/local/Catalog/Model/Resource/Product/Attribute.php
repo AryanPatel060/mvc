@@ -1,5 +1,5 @@
 <?php 
-class Catalog_Model_Resource_ProductAttribute extends Core_Model_Resource_Abstract{
+class Catalog_Model_Resource_Product_Attribute extends Core_Model_Resource_Abstract{
     // protected $_tableName ;
     // protected $_primaryKey;
     // public function init()

@@ -1,13 +1,13 @@
 <?php
-$product  = $this->getProductData()[0];
-$images = $this->getIamgesProduct();
+$product  = $this->getProductData();
+$images = $product->getImages();
 ?>
 <div class="container mt-4">
     <div class="row">
         <!-- Product Image Section -->
         <div class="col-md-6">
             <div class="product-container">
-                <img id="mainImage" src="<?= $this->getImageUrl($images['thumbnail']) ?>" class="product-main-img" alt="<?= $product->getName() ?>">
+                <img id="mainImage" src="<?= $this->getImageUrl($images['coverImage']) ?>" class="product-main-img" alt="<?= $product->getName() ?>">
 
                 <div class="thumbnail-list d-flex flex-wrap mt-2">
                     <?php foreach ($images as $index => $img): ?>

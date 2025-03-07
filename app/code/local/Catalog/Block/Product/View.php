@@ -28,12 +28,9 @@ class Catalog_Block_Product_View extends Core_Block_Layout{
         $productId = $request->getQuery('productid');
 
         $product = Mage::getModel('catalog/product')
-            ->getCollection()
-            // ->addAttributeToSelect(['color','madein','material'])
-            ->addAttributeToSelect(['color','brand','madein','material','releasedate'])
-            ->addFieldToFilter('main_table.product_id',$productId);
+            ->load($productId);
             
-        return $product->getData();
+        return $product;
     }
     public function getIamgesProduct()
     {
@@ -49,7 +46,6 @@ class Catalog_Block_Product_View extends Core_Block_Layout{
         $productId = $request->getQuery('productid');
         $attribute = Mage::getModel('catalog/attribute')
                         ->getCollection();
-        // $productAttribute = Mage::getModel('catalog/productAttribute')
                                
         //                         // ->addFieldToFilter('product_id',$productId);
         //                         // // ->leftJoin('catalog_attribute','catalog_product_attribute.attribute_id = catalog_attribute.attribute_id',);

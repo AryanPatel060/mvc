@@ -48,22 +48,27 @@ class Core_Block_Layout extends Core_Block_Template
 
     public function createBlock($block)
     {
-        return Mage::getSingltonBlock($block);
+        return Mage::getBlock($block);
     }
-
+    public function getCoverImage($productID)
+    {
+        $media = Mage::getModel('catalog/media_gallery')
+            ->getCollection()
+            ->addFieldToFilter('product_id',$productID)
+            ->addFieldToFilter('cover_image',1);
+        return $images = $media->getData()[0]->getFilePath();
+    }
     public function getImage($productID)
     {
-        $media = Mage::getModel('catalog/media')
+        $media = Mage::getModel('catalog/media_gallery')
         ->getCollection()
         ->addFieldToFilter('product_id',$productID);
         $images = $media->getData();
-   
         $files = [];
         foreach($images as $image)
         {   
             $image = $image->getData();
-
-            if(strstr($image['file_path'] , 'thumbnail'))
+            if($image['cover_image'] == 1)
             {
                 $files['thumbnail'] = $image['file_path'];
             }
@@ -71,11 +76,7 @@ class Core_Block_Layout extends Core_Block_Template
                 $files[] = $image['file_path'];
             }
         }
-        // print_r($files);
-        // die();
         return $files;
-
-        
     }
     public function setMessage($msg)
     {
