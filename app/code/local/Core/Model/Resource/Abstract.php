@@ -20,16 +20,27 @@ class Core_Model_Resource_Abstract
     {
         return new Core_Model_DB_Adapter();
     }
-    public function load($value)
+
+    protected function _getDbColumns()
     {
-        $sql = "SELECT * FROM {$this->_tableName} WHERE {$this->_primaryKey} = '{$value}' LIMIT 1";
+        $sql = "SELECT COLUMN_NAME
+                FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE TABLE_NAME = N'{$this->_tableName}'";
+        return $this->getAdapter()->fetchCol($sql);
+    }
+    public function load($value, $field = NULL)
+    {
+        $field = (is_null($field)) ? $this->_primaryKey : $field;
+        $sql = "SELECT * FROM {$this->_tableName} WHERE {$field} = '{$value}' LIMIT 1";
         return $this->getAdapter()->fetchRow($sql);
     }
     public function save($model)
     {
+        $dbColumns = $this->_getDbColumns();
+        // print_r($dbColumns);
+        // // die();
         $data = $model->getData();
         $primaryId = 0;
- 
         if (isset($data[$this->_primaryKey]) &&  $data[$this->_primaryKey]) {
             $primaryId = $data[$this->_primaryKey];
         }
@@ -39,26 +50,31 @@ class Core_Model_Resource_Abstract
             $columns = [];
             foreach ($data as $field => $value) {
                 // echo($value);
-                $value = ($value != null) ? $value : "";
-                $columns[] = sprintf("`{$field}` = '%s'", addslashes($value));
+                if (in_array($field, $dbColumns)) {
+                    $value = ($value != null) ? $value : "";
+                    $columns[] = sprintf("`{$field}` = '%s'", addslashes($value));
+                }
             }
             $sql .= implode(', ', $columns);
             $sql .= " WHERE {$this->_primaryKey} = {$primaryId} ";
             return $this->getAdapter()->query($sql);
         } else {
-            
+
             $sql = "INSERT INTO {$this->_tableName}  ";
             $columns = [];
             $values = [];
             foreach ($data as $field => $value) {
-                $columns[] = "`{$field}`";
-                $values[] = sprintf("'%s'", addslashes($value));
+
+                if (in_array($field, $dbColumns)) {
+                    $columns[] = "`{$field}`";
+                    $values[] = sprintf("'%s'", addslashes($value));
+                }
             }
             $sql .= "(" . implode(',', $columns) . ") VALUES";
             $sql .= "(" . implode(',', $values) . ")";
             $insertId = $this->getAdapter()->insert($sql);
 
-            $model->load($insertId);
+            $model->{$this->_primaryKey} = $insertId;
             return $insertId;
         }
     }

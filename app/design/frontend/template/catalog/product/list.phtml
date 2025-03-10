@@ -1,1 +1,15 @@
-<h1>list </h1>
+<div class="container mt-4 " style="
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100vw;">
+    <div class="row">
+
+        <?php echo $this->getChildHtml('filter') ?>
+
+        <div class="col-md-9" id="product-list">
+            <?php echo $this->getChildHtml('product') ?>
+        </div>
+
+    </div>
+</div>

@@ -10,12 +10,15 @@ class Core_Block_Template
     }
     public function addChild($key, $block)
     {
-        $this->_child[$key] = $block;
+        if(!isset($this->_child[$key]))
+        {
+            $this->_child[$key] = $block;
+        }
         return $this;
     }
     public function removeChild($key)
     {
-        $this->_child[$key];
+        unset($this->_child[$key]);
         return $this;
     }
     public function getChild($key)
@@ -40,6 +43,10 @@ class Core_Block_Template
     }
     public function getUrl($url)
     {
+        if($url == "")
+        {
+            return Mage::getBaseUrl() ;
+        }
         $url = explode('/', $url);
         $request = Mage::getModel('core/request');
 
@@ -56,6 +63,15 @@ class Core_Block_Template
         $element = new $className($data);
         return $element->render();
     }
+    public function getImageUrl($url)
+    {
+        return  Mage::getBaseUrl() .$url;
+    }
+    public function getLayout()
+    {
+        return Mage::getBlockSinglton('core/layout');
+    }
+
     // public function addJs($path)
     // {
     //     echo($path);

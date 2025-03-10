@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --primary-color: #6793af;
   --primary-hover: #021844;
   --background-color: #eceff1;
@@ -246,7 +246,6 @@ select:focus {
   outline: none;
 }
 
-/* Submit Button */
 button {
   width: 100%;
   background: var(--primary-color);
@@ -264,7 +263,6 @@ button:hover {
   background: var(--primary-hover);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .form-group {
     flex-direction: column;
@@ -280,4 +278,299 @@ button:hover {
   align-items: center;
   width: 500px;
   gap: 5px;
+} */
+
+/* ------------------------------ header file menu ----------------------------------- */
+.header-category-menu {
+  background-color: #fff;
+  padding: 10px;
+  width: 300px;
+  position: relative;
+  z-index: 1000;
+  font-family: Arial, sans-serif;
 }
+
+.header-category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header-category-item {
+  padding: 12px 15px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+}
+
+.header-category-item:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.header-category-link {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.header-category-link:hover {
+  color: #000;
+}
+
+.header-category-toggle {
+  font-weight: bold;
+  font-size: 14px;
+  transition: transform 0.3s;
+}
+
+.active .header-category-toggle {
+  transform: rotate(180deg);
+}
+
+.header-category-submenu {
+  display: none;
+  list-style: none;
+  padding-left: 20px;
+}
+
+.header-category-show {
+  display: block !important;
+}
+
+.header-category-submenu .header-category-item {
+  font-size: 14px;
+  font-weight: normal;
+  background-color: #f8f8f8;
+  border-left: 2px solid #ccc;
+  padding: 4px;
+}
+
+.header-category-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333; /* No blue color */
+  cursor: pointer;
+}
+
+.header-category-submenu {
+  display: none; /* Initially hidden */
+  padding-left: 20px;
+}
+
+.header-category-submenu.show {
+  display: block;
+}
+
+.header-category-subbtn{
+  padding: 5px 5px;
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  /* border: 1px solid #000 ; */
+}
+
+/* ------------------------------ end header file menu ----------------------------------- */
+
+/* ------------------------------  Footer ----------------------------------- */
+
+.footer {
+  bottom: 0;
+  width: 100%;
+}
+
+#backToTop {
+  bottom: 10px;
+}
+/* ------------------------------ end Footer  ----------------------------------- */
+
+/* ------------------------------  Product List ----------------------------------- */
+
+.filter-sidebar {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  position: sticky;
+  top: 20px;
+}
+
+/* Product Grid */
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background: white;
+  transition: 0.3s;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-img {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ------------------------------ end Product List  ----------------------------------- */
+
+.non-visible-anchor
+{
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+}
+
+/* ------------------------------  View Product ----------------------------------- */
+
+  /* Container */
+  .product-container {
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+
+/* Main Image */
+.product-main-img {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* Thumbnail Images */
+.thumbnail-list img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 5px;
+    border: 2px solid transparent;
+}
+
+.thumbnail-list img:hover,
+.thumbnail-list img.active {
+    border-color: rgb(143, 143, 143);
+}
+
+/* Product Info */
+.product-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    margin-bottom: 5px;
+}
+
+.product-price {
+    font-size: 22px;
+    color: #d9534f;
+    font-weight: bold;
+}
+
+/* Tabs Styling */
+/* Tabs Styling */
+.nav-tabs {
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    padding-bottom: 5px;
+}
+
+.nav-tabs .nav-link {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link::after {
+    content: "";
+    width: 0%;
+    height: 3px;
+    background: rgb(192, 203, 215);
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-tabs .nav-link.active::after,
+.nav-tabs .nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-tabs .nav-link:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Tab Content */
+.tab-content {
+    padding: 15px;
+    border-top: 2px solid #ddd;
+    background: #fff;
+}
+
+
+/* Tab Content */
+.tab-content {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.tab-pan{
+    border-radius: 8px;
+}
+/* Attributes Table */
+/* Attributes Table - Clean Look */
+.attributes-table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.attributes-table tr {
+    /* border-bottom: 1px solid #eee; */
+    /* Light separator between rows */
+}
+
+.attributes-table tr:last-child {
+    border-bottom: none;
+    /* Remove border from last row */
+}
+
+.attributes-table td {
+    padding: 10px 0;
+}
+
+.attributes-table td:first-child {
+    font-weight: bold;
+    color: #555;
+    width: 40%;
+}
+
+/* ------------------------------ end View Product ----------------------------------- */
+
+/* ------------------------------ Home Banner ----------------------------------- */
+
+ 
+/* ------------------------------ Home Banner ----------------------------------- */

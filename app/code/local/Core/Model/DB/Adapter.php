@@ -3,7 +3,7 @@ class Core_Model_DB_Adapter
 {
     protected $_config = [
         "hostname" => "localhost",
-        "dbname" => "cybercomtest",
+        "dbname" => "eccomerce",
         "username" => "root",
         "password" => "",
     ];
@@ -23,7 +23,7 @@ class Core_Model_DB_Adapter
     }
 
     public function fetchAll($query)
-    {
+    {  
         $result = mysqli_query($this->connect(), $query);
         $data = [];
         while ($row = $result->fetch_assoc()) {
@@ -31,6 +31,16 @@ class Core_Model_DB_Adapter
         }
         return $data;
     }
+    public function fetchCol($query)
+    {
+        $result = mysqli_query($this->connect(), $query);
+        $data = [];
+        while ($row = $result->fetch_column()) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+
     public function fetchRow($query)
     {
         $result = mysqli_query($this->connect(), $query);

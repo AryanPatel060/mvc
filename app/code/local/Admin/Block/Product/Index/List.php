@@ -11,10 +11,15 @@ class Admin_Block_Product_Index_List extends Core_Block_Template
     {
         $product = Mage::getModel('catalog/product')
             ->getCollection()
-            ->select('catlog_product.*')
-            ->join('catlog_category', 'catlog_product.category_id  = catlog_category.category_id ', ['category_name' => 'name'])
-            // ->limit(10);
-            ->offset(5);
+            ->addAttributeToSelect(['color','brand','material','releasedate','madein'])
+            ->leftJoin(['cat'=>'catalog_category'],'cat.category_id = main_table.category_id',['category_name'=>'name']);
         return $product->getData();
+    }
+    
+    public function getAttributeData()
+    {
+        $attribute = Mage::getModel('catalog/attribute')
+            ->getCollection();
+        return $attribute->getData();
     }
 }

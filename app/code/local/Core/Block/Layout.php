@@ -1,6 +1,7 @@
 <?php
 class Core_Block_Layout extends Core_Block_Template
 { 
+    public $messages = [];
     protected $_js = [];
     protected $_css = [];
     public function __construct() {
@@ -24,7 +25,14 @@ class Core_Block_Layout extends Core_Block_Template
     public function prepareJsCss(){
         $head = $this->getChild('head')
                 ->addJs('page/common.js')
-                ->addCss('page/common.css');
+                ->addJs('page/bootstrap.js')
+                ->addCss('page/bootstrap.css')
+                ->addCss('page/common.css')
+                ->addLink('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
+                ->addScript('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js')
+                ->addLink('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
+
+                // ->addCss('page/common.css');
     }
     // public function addJs($js)
     // {
@@ -42,6 +50,38 @@ class Core_Block_Layout extends Core_Block_Template
     {
         return Mage::getBlock($block);
     }
-
+    public function getCoverImage($productID)
+    {
+        $media = Mage::getModel('catalog/media_gallery')
+            ->getCollection()
+            ->addFieldToFilter('product_id',$productID)
+            ->addFieldToFilter('cover_image',1);
+        return $images = $media->getData()[0]->getFilePath();
+    }
+    public function getImage($productID)
+    {
+        $media = Mage::getModel('catalog/media_gallery')
+        ->getCollection()
+        ->addFieldToFilter('product_id',$productID);
+        $images = $media->getData();
+        $files = [];
+        foreach($images as $image)
+        {   
+            $image = $image->getData();
+            if($image['cover_image'] == 1)
+            {
+                $files['thumbnail'] = $image['file_path'];
+            }
+            else {
+                $files[] = $image['file_path'];
+            }
+        }
+        return $files;
+    }
+    public function setMessage($msg)
+    {
+        $this->messages[] = $msg ;
+        return $this;
+    }
 
 }

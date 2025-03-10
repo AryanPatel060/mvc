@@ -1,1 +1,64 @@
-<h1>view phtml</h1>
+<?php
+$product  = $this->getProductData();
+$images = $product->getImages();
+?>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Product Image Section -->
+        <div class="col-md-6">
+            <div class="product-container">
+                <img id="mainImage" src="<?= $this->getImageUrl($images['coverImage']) ?>" class="product-main-img" alt="<?= $product->getName() ?>">
+
+                <div class="thumbnail-list d-flex flex-wrap mt-2">
+                    <?php foreach ($images as $index => $img): ?>
+                        <img src="<?= $this->getImageUrl($img) ?>" onclick="changeImage('<?= $this->getImageUrl($img) ?>', this)" class="<?= $index == 0 ? 'active' : '' ?>">
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Details Section -->
+        <div class="col-md-6">
+            <div class="product-container product-info">
+                <h2><?= $product->getName() ?></h2>
+                <p class="product-price">Rs. <?= $product->getPrice() ?></p>
+                <p><strong>SKU:</strong> <?= $product->getSku() ?></p>
+                <p><strong>Available Quantity:</strong> <?= $product->getStockQuantity() ?></p>
+
+                <a class="btn btn-primary btn-sm " href="<?= $this->getUrl('checkout/cart/add') .'/?productid='. $product->getProductId()?>"  role="button">Add To cart</a>
+
+                <!-- Tabs -->
+                <ul class="nav nav-tabs mt-3" id="productTab">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-tab="descriptionTab">Description</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " data-tab="specificationsTab">Specifications</a>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- Description -->
+                    <div id="descriptionTab" class="tab-pane active">
+                        <p><?= $product->getDescription() ?></p>
+                    </div>
+
+                    <!-- Specifications -->
+                    <div id="specificationsTab" class="tab-pane">
+                        <table class="attributes-table">
+                            <?php foreach ($this->getAttributes() as $attribute): ?>
+                                <?php $name = $attribute->getAttributeCode() ?>
+                                <tr>
+                                    <td><?php echo $attribute->getName() ?></td>
+                                    <td><?php echo $product->$name ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

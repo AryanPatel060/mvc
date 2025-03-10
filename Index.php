@@ -7,3 +7,12 @@ define("DS", DIRECTORY_SEPARATOR);
 date_default_timezone_set('Asia/Kolkata');
 
 Mage::init();
+
+
+// front action -getrequest() getredirect() getsession()
+
+// core/controller/adminaction - init methosd for login access and rediection 
+
+// core / session.php - get() set() getId() remove() --construct sessionstart()
+
+// loginactionand loginpostaction admin model for data 
