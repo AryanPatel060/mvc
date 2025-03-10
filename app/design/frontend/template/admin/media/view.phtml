@@ -1,156 +1,210 @@
-<?php $images = $this->getFilesData();
- ?>
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
+<?php $images = $this->getFilesData(); ?>
+<div class="container mt-4 d-flex justify-content-center">
+    <div class="row w-75">
+        <!-- Image Editing Section -->
+        <div class="col-md-6 text-center">
+            <h4>Image Editing</h4>
             <div class="product-container">
                 <!-- Main Image -->
-                <img id="focusimage" 
-                    src="<?= $this->getImageUrl($images[0]->getFilePath()) ?>" 
-                    class="product-main-img" 
-                    alt=""
-                    data-id="<?= $images[0]->getMediaId() ?>">
+                <img id="focusimage"
+                    src="<?= $this->getImageUrl($images[0]->getFilePath()) ?>"
+                    class="img-fluid border rounded shadow"
+                    alt="Main Image"
+                    data-id="<?= $images[0]->getMediaId() ?>"
+                    style="width: 500px; height: 600px; object-fit: contain; background-color: #f8f9fa; border: 1px solid #ddd">
 
-                <!-- Delete Button for Main Image -->
-                <button class="btn btn-danger mt-2" onclick="deleteMainImage()">Delete</button>
-                <button class="btn btn-danger mt-2" onclick="updateCoverImage()">Make Cover Image</button>
-                <hr>
-                <!-- Thumbnail List -->
-                <div class="thumbnail-list d-flex flex-wrap mt-2">
-                    <?php foreach ($images as $index => $image): ?>
-                        <div class="thumbnail-wrapper position-relative">
-                            <!-- Checkbox for multiple deletion -->
-                            <input type="checkbox" class="image-checkbox" value="<?= $image->getMediaId() ?>">
-
-                            <!-- Image Thumbnail -->
-                            <img 
-                                src="<?= $this->getImageUrl($image->getFilePath()) ?>" 
-                                onclick="changeImage('<?= $this->getImageUrl($image->getFilePath()) ?>', <?= $image->getMediaId() ?>)"
-                                class="thumbnail <?= $index == 0 ? 'active' : '' ?>">
-                        </div>
-                    <?php endforeach; ?>
+                <!-- Action Buttons -->
+                <div class="mt-3">
+                    <button class="btn btn-danger" onclick="deleteMainImage()">Delete</button>
+                    <button class="btn btn-primary" onclick="updateCoverImage()">Make Cover Image</button>
                 </div>
-
-                <!-- Button for deleting selected images -->
-                <button class="btn btn-danger mt-3" onclick="deleteSelectedImages()">Delete Selected</button>
             </div>
         </div>
+
+        <!-- Scrollable Thumbnail List -->
+        <div class="col-md-6 mt-4 ">
+            <div>
+
+                <h4>Image List</h4>
+                <div class="border p-2 overflow-auto  rounded" style="max-height: 400px;">
+                    <div class="d-flex flex-wrap ">
+                        <?php foreach ($images as $index => $image): ?>
+                            <div class="thumbnail-wrapper position-relative m-2">
+                                <!-- Checkbox for multiple deletion -->
+                                <input type="checkbox" class="image-checkbox position-absolute" value="<?= $image->getMediaId() ?>" style="top: 5px; left: 5px;">
+
+                                <!-- Image Thumbnail -->
+                                <img
+                                    src="<?= $this->getImageUrl($image->getFilePath()) ?>"
+                                    onclick="changeImage('<?= $this->getImageUrl($image->getFilePath()) ?>', <?= $image->getMediaId() ?>)"
+                                    class="img-thumbnail <?= $index == 0 ? 'border-primary' : '' ?>"
+                                    style="width: 100px; height: 100px; cursor: pointer;">
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <!-- Delete Selected Images Button -->
+                <button class="btn btn-danger mt-3 w-100" onclick="deleteSelectedImages()">Delete Selected</button>
+            </div>
+            <div class="card p-3 mt-4 ">
+                <div id="uploadStatus" class="mt-2"></div>
+                <div class="row">
+                    <label for="images" class="form-label">Add More Images:</label>
+
+                    <div class="col-md-9">
+                        <input type="hidden" id="productId" value="<?php echo $image->getProductId() ?>">
+                        <input type="file" id="uploadimages" class="form-control" name="images[]" multiple id="image" accept="image/*">
+                    </div>
+                    <div class="col">
+                        <button id="uploadImageBtn" class="btn btn-primary">Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
-<!-- AJAX Script -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-function changeImage(imageUrl, imageId) {
-    $("#focusimage").attr("src", imageUrl);
-    $("#focusimage").attr("data-id", imageId);
-}
+    $(document).ready(function() {
 
-function deleteMainImage() {
-    let imageId = $("#focusimage").attr('data-id');
+        $("#uploadImageBtn").on("click", uploadImage);
 
-    console.log(imageId);
-    if (!imageId) {
-        alert("No image selected!");
-        return;
-    }
+        function uploadImage() {
+            console.log('clicked');
+            let formData = new FormData();
+            let files = $("#uploadimages")[0].files;
 
-    if (!confirm("Are you sure you want to delete this image?")) return;
-    $.ajax({
-        url: "<?php echo $this->getUrl('*/*/delete').'/'?>",
-        type: "POST",
-        data: { imageid: imageId },
-        success: function(response) {
-            alert("Image deleted successfully!");
-            console.log(response);
+            if (files.length === 0) {
+                alert("Please select at least one image!");
+                return;
+            }
 
-            // location.reload();
-        },
-        error: function() {
-            alert("Failed to delete image!");
+            // Append all selected images
+            for (let i = 0; i < files.length; i++) {
+                formData.append("images[]", files[i]);
+            }
+
+            productId = $("#productId").val();
+            formData.append('productId', productId);
+
+            $.ajax({
+                url: "<?php echo $this->getUrl('*/*/upload') ?>",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // let result = JSON.parse(response);
+                    console.log(response);
+                    if (response.status === "success") {
+                        $("#uploadStatus").html('<p class="text-success">Images uploaded successfully!</p>');
+
+                    } else {
+                        $("#uploadStatus").html('<p class="text-danger">' + response.message + '</p>');
+                    }
+                },
+                error: function() {
+                    $("#uploadStatus").html('<p class="text-danger">Image upload failed!</p>');
+                }
+            });
         }
     });
-}
 
-function updateCoverImage()
-{
-    let imageId = $("#focusimage").attr('data-id');
-    console.log(imageId);
-    if (!imageId) {
-        alert("No image selected!");
-        return;
+
+    function changeImage(imageUrl, imageId) {
+        $("#focusimage").attr("src", imageUrl);
+        $("#focusimage").attr("data-id", imageId);
+        $(".img-thumbnail").removeClass("border-primary");
+
+        // Add border-primary to the selected image in the grid
+        $(".img-thumbnail").each(function() {
+            if ($(this).attr("src") === imageUrl) {
+                $(this).addClass("border-primary");
+            }
+        });
     }
 
-    if (!confirm("Are you sure you want to update cover image?")) return;
-    $.ajax({
-        url: "<?php echo $this->getUrl('*/*/updatecover').'/'?>",
-        type: "POST",
-        data: { 
-            imageid: imageId,
-            
-        },
-        success: function(response) {
-            alert("Image updated successfully!");
-            console.log(response);
-
-            // location.reload();
-        },
-        error: function() {
-            alert("Failed to update image!");
+    function deleteMainImage() {
+        let imageId = $("#focusimage").attr('data-id');
+        if (!imageId) {
+            alert("No image selected!");
+            return;
         }
-    });
-}
 
-
-function deleteSelectedImages() {
-    let selectedImages = [];
-    $(".image-checkbox:checked").each(function() {
-        selectedImages.push($(this).val());
-    });
-
-    if (selectedImages.length === 0) {
-        alert("Please select at least one image to delete.");
-        return;
+        if (!confirm("Are you sure you want to delete this image?")) return;
+        console.log(imageId);
+        $.ajax({
+            url: "<?php echo $this->getUrl('*/*/delete') ?>",
+            type: "POST",
+            data: {
+                imageid: imageId
+            },
+            success: function(response) {
+                alert("Image deleted successfully!");
+                location.reload();
+            },
+            error: function() {
+                alert("Failed to delete image!");
+            }
+        });
     }
 
-    if (!confirm("Are you sure you want to delete selected images?")) return;
-    console.log(selectedImages)
-    $.ajax({
-        url: "<?php echo $this->getUrl('*/*/delete').'/'?>",
-        type: "POST",
-        data: { imageid: selectedImages },
-        success: function(response) {
-
-            alert("Selected images deleted successfully!");
-            console.log(response);
-            // location.reload();
-        },
-        error: function() {
-            alert("Failed to delete selected images!");
+    function updateCoverImage() {
+        let imageId = $("#focusimage").attr('data-id');
+        if (!imageId) {
+            alert("No image selected!");
+            return;
         }
-    });
-}
+
+        if (!confirm("Are you sure you want to update cover image?")) return;
+        $.ajax({
+            url: "<?php echo $this->getUrl('*/*/updatecover') . '/' ?>",
+            type: "POST",
+            data: {
+                imageid: imageId
+            },
+            success: function(response) {
+                alert("Image updated successfully!");
+                location.reload();
+            },
+            error: function() {
+                alert("Failed to update image!");
+            }
+        });
+    }
+
+    function deleteSelectedImages() {
+        let selectedImages = [];
+        $(".image-checkbox:checked").each(function() {
+            selectedImages.push($(this).val());
+        });
+
+        if (selectedImages.length === 0) {
+            alert("Please select at least one image to delete.");
+            return;
+        }
+
+        if (!confirm("Are you sure you want to delete selected images?")) return;
+
+        console.log(selectedImages);
+
+        $.ajax({
+            url: "<?php echo $this->getUrl('*/*/delete') ?>",
+            type: "POST",
+            data: {
+                imageid: selectedImages
+            },
+            success: function(response) {
+                console.log(response);
+                alert("Selected images deleted successfully!");
+                location.reload();
+            },
+            error: function() {
+                alert("Failed to delete selected images!");
+            }
+        });
+    }
 </script>
-
-<style>
-.thumbnail-wrapper {
-    position: relative;
-    margin: 5px;
-    display: inline-block;
-}
-.image-checkbox {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-.thumbnail {
-    width: 100px;
-    height: 100px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-</style>

@@ -21,6 +21,7 @@ class Catalog_Model_Filter extends Core_Model_Abstract
             $collection->addCategoryFilter($parameter['cid']);
             unset($parameter['cid']);
         }
+
         if (isset($parameter['minprice']) && strlen($parameter['minprice'])) {
             $collection->addFieldToFilter('price', ['>' => $parameter['minprice']]);
             unset($parameter['minprice']);
@@ -29,15 +30,26 @@ class Catalog_Model_Filter extends Core_Model_Abstract
             $collection->addFieldToFilter('price', ['<' => $parameter['maxprice']]);
             unset($parameter['maxprice']);
         }
+        if (isset($parameter['brand'])) {
+            $brands = isset($parameter['brand']) ? $parameter['brand'] : "";
+            $parameter['brand'] = explode(',', $parameter['brand']);
+        }
         if (count($parameter) > 0) {
-
             $attributes = Mage::getModel('catalog/attribute')
                 ->getCollection()
                 ->addFieldToFilter('attribute_code', ["IN" => array_keys($parameter)]);
 
             foreach ($attributes->getData() as $attribute) {
-                if($parameter[$attribute->getAttributeCode()] !== "")
-                {
+                
+                if (isset($parameter['brand'])) {
+                    $collection->addAttributeToFilter($attribute->getAttributeCode(), $parameter[$attribute->getAttributeCode()], "IN");
+                    unset($parameter['brand']);
+                    continue;
+                }  
+                echo "arameter";
+                print_r($parameter[$attribute->getAttributeCode()] !== "");
+                if ($parameter[$attribute->getAttributeCode()] !== "") {
+                    echo "IN";
                     $collection->addAttributeToFilter($attribute->getAttributeCode(), $parameter[$attribute->getAttributeCode()]);
                 }
             }

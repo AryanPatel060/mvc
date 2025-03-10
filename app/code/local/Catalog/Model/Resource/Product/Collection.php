@@ -17,11 +17,11 @@ class Catalog_Model_Resource_Product_Collection extends Core_Model_Resource_Coll
         return $this;
     }
 
-    public function addAttributeToFilter($attribute,$value)
+    public function addAttributeToFilter($attribute,$value , $operator = "=")
     {
 
         $this->addAttributeToSelect([$attribute]);
-        $this->addFieldToFilter("cpa_{$attribute}.value",$value);
+        $this->addFieldToFilter("cpa_{$attribute}.value",[$operator =>$value]);
         return $this;
     }
 

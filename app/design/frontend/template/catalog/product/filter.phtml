@@ -12,7 +12,7 @@
         <label class="form-label">Brand</label>
         <?php foreach ($brands as $key => $brand): ?>
             <div class="mb-3">
-                <input type="radio" name="brand" id="brand" class="filter form-check-input" value="<?php echo $brand ?>" <?php echo (isset($_GET['brand']) && $brand == $_GET['brand']) ? 'checked' : ''; ?>>
+                <input type="checkbox" name="brand[]" id="brand" class="filter form-check-input" value="<?php echo $brand ?>">
                 <label for="brand"><?php echo $brand ?></label>
             </div>
             <?php endforeach; ?>
@@ -21,7 +21,6 @@
             <select name="cid" class="filter form-select">
                 <option value="">All Categories</option>
                 <?php foreach ($categories as $category): ?>
-
                     <option value="<?= $category->getCategoryId() ?>" ><?= $category->getName(); ?></option>
                 <?php endforeach; ?>
             </select>
@@ -51,13 +50,13 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+
     filters = {
-
         cid: <?php echo $_GET['cid']; ?>
-
-
     };
 
+  
     $(".filter").on('change', function() {
         console.log(this.value)
         filters[$(this).attr('name')] = this.value;

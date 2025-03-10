@@ -13,7 +13,8 @@ class Admin_Block_Media_View extends Core_Block_Layout
 
         $media = Mage::getModel('catalog/media_gallery')
             ->getCollection()
-            ->addFieldToFilter('product_id',$productId);
+            ->addFieldToFilter('product_id',$productId)
+            ->orderBy('cover_image desc');
         return $media->getData();   
     }
 }

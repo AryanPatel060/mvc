@@ -10,7 +10,14 @@
         <label class="form-label">Brand</label>
         <?php foreach ($brands as $key => $brand): ?>
             <div class="mb-3">
-                <input type="radio" name="brand" id="brand" class="filter form-check-input" value="<?php echo $brand ?>" <?php echo (isset($_GET['brand']) && $brand == $_GET['brand']) ? 'checked' : ''; ?>>
+                <input
+                    type="checkbox"
+                    name="brand"
+                    id="brand"
+                    data-id="brand"
+                    class="brand form-check-input"
+                    value="<?php echo $brand ?>"
+                    <?php echo (isset($_GET['brand']) && $brand == $_GET['brand']) ? 'checked' : ''; ?>>
                 <label for="brand"><?php echo $brand ?></label>
             </div>
         <?php endforeach; ?>
@@ -52,15 +59,22 @@
     filters = {
         cid: <?php echo $_GET['cid']; ?>
     };
-
     $(".filter").on('change', function() {
-        console.log(this.value)
         filters[$(this).attr('name')] = this.value;
     });
 
     $('#apply-filter').on('click', function() {
-        console.log(Object.keys(filters).length);
-        console.log('hello', filters);
+
+        brands = [];
+        $(".brand:checked").each(function() {
+            console.log($(this).text());
+            brands.push($(this).val());
+        });
+        if (brands.length > 0) {
+            filters['brand'] = brands.join(',');
+        }
+        // console.log(Object.keys(filters).length);
+        // console.log('hello', filters);
         //  if (Object.keys(filters).length > 0) {
         $.ajax({
             url: '<?php echo $this->getUrl("catalog/product/list") . '/' ?>', // Backend endpoint

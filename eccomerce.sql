@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2025 at 12:19 PM
+-- Generation Time: Mar 07, 2025 at 06:23 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -121,53 +121,54 @@ CREATE TABLE `catalog_media_gallery` (
   `product_id` int(11) DEFAULT NULL,
   `file_path` varchar(255) NOT NULL,
   `type` enum('image','video','document') NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `cover_image` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `catalog_media_gallery`
 --
 
-INSERT INTO `catalog_media_gallery` (`media_id`, `product_id`, `file_path`, `type`, `created_at`) VALUES
-(14, 20, 'media/thumbnail_67be9b198f607_ntm.png', 'image', '2025-02-26 04:39:53'),
-(15, 20, 'media/67be9b199b52b_ntmlogo.png', 'image', '2025-02-26 04:39:53'),
-(16, 20, 'media/67be9b19a3dfa_ntmback.png', 'image', '2025-02-26 04:39:53'),
-(17, 20, 'media/67be9b19a7400_ntmelivatedtop.png', 'image', '2025-02-26 04:39:53'),
-(18, 20, 'media/67be9b19afbd3_ntmtop1.png', 'image', '2025-02-26 04:39:53'),
-(19, 20, 'media/67be9b19b8f16_ntmside1.png', 'image', '2025-02-26 04:39:53'),
-(20, 20, 'media/67be9b19bf466_ntmbottom.png', 'image', '2025-02-26 04:39:53'),
-(21, 21, 'media/thumbnail_67bea0ab47fcf_skt1.png', 'image', '2025-02-26 05:03:39'),
-(22, 21, 'media/67bea0ab5026a_skt7.jpg', 'image', '2025-02-26 05:03:39'),
-(23, 21, 'media/67bea0ab51e3c_skt6.png', 'image', '2025-02-26 05:03:39'),
-(24, 21, 'media/67bea0ab585ea_skt5.jpg', 'image', '2025-02-26 05:03:39'),
-(25, 21, 'media/67bea0ab60951_skt4.jpg', 'image', '2025-02-26 05:03:39'),
-(26, 21, 'media/67bea0ab6883f_skt3.png', 'image', '2025-02-26 05:03:39'),
-(27, 21, 'media/67bea0ab707ee_skt2.png', 'image', '2025-02-26 05:03:39'),
-(28, 22, 'media/thumbnail_67bea19031834_aj1mse1.png', 'image', '2025-02-26 05:07:28'),
-(29, 22, 'media/67bea1903d377_aj1mse6.png', 'image', '2025-02-26 05:07:28'),
-(30, 22, 'media/67bea19044bde_aj1mse5.png', 'image', '2025-02-26 05:07:28'),
-(31, 22, 'media/67bea19048d6e_aj1mse4.png', 'image', '2025-02-26 05:07:28'),
-(32, 22, 'media/67bea19054ba5_aj1mse3.png', 'image', '2025-02-26 05:07:28'),
-(33, 22, 'media/67bea1905d64f_aj1mse2.png', 'image', '2025-02-26 05:07:28'),
-(34, 23, 'media/thumbnail_67bea52a114e6_aj1lse1.png', 'image', '2025-02-26 05:22:50'),
-(35, 23, 'media/67bea52a19219_aj1lse7.png', 'image', '2025-02-26 05:22:50'),
-(36, 23, 'media/67bea52a2098d_aj1lse6.png', 'image', '2025-02-26 05:22:50'),
-(37, 23, 'media/67bea52a2937d_aj1lse5.png', 'image', '2025-02-26 05:22:50'),
-(38, 23, 'media/67bea52a3128c_aj1lse4.png', 'image', '2025-02-26 05:22:50'),
-(39, 23, 'media/67bea52a34f12_aj1lse3.png', 'image', '2025-02-26 05:22:50'),
-(40, 23, 'media/67bea52a3d5d3_aj1lse2.png', 'image', '2025-02-26 05:22:50'),
-(41, 24, 'media/thumbnail_67bea7207fd9e_10002.jpg', 'image', '2025-02-26 05:31:12'),
-(42, 24, 'media/67bea7208ce20_10003.jpg', 'image', '2025-02-26 05:31:12'),
-(43, 24, 'media/67bea72095212_10004.jpg', 'image', '2025-02-26 05:31:12'),
-(44, 24, 'media/67bea7209ad72_10005.jpg', 'image', '2025-02-26 05:31:12'),
-(45, 24, 'media/67bea720a1420_10006.jpg', 'image', '2025-02-26 05:31:12'),
-(46, 24, 'media/67bea720a8945_10007.jpg', 'image', '2025-02-26 05:31:12'),
-(47, 24, 'media/67bea720adcd0_fbl1.jpg', 'image', '2025-02-26 05:31:12'),
-(48, 25, 'media/thumbnail_67c19ad843847_nkt5.png', 'image', '2025-02-28 11:15:36'),
-(49, 25, 'media/67c19ad8539ed_nkt4.jpg', 'image', '2025-02-28 11:15:36'),
-(50, 25, 'media/67c19ad85a699_nkt3.png', 'image', '2025-02-28 11:15:36'),
-(51, 25, 'media/67c19ad85ff86_nkt2.png', 'image', '2025-02-28 11:15:36'),
-(52, 25, 'media/67c19ad868212_nkt1.png', 'image', '2025-02-28 11:15:36');
+INSERT INTO `catalog_media_gallery` (`media_id`, `product_id`, `file_path`, `type`, `created_at`, `cover_image`) VALUES
+(14, 20, 'media/thumbnail_67be9b198f607_ntm.png', 'image', '2025-02-26 04:39:53', 0),
+(15, 20, 'media/67be9b199b52b_ntmlogo.png', 'image', '2025-02-26 04:39:53', 0),
+(16, 20, 'media/67be9b19a3dfa_ntmback.png', 'image', '2025-02-26 04:39:53', 0),
+(17, 20, 'media/67be9b19a7400_ntmelivatedtop.png', 'image', '2025-02-26 04:39:53', 0),
+(18, 20, 'media/67be9b19afbd3_ntmtop1.png', 'image', '2025-02-26 04:39:53', 0),
+(19, 20, 'media/67be9b19b8f16_ntmside1.png', 'image', '2025-02-26 04:39:53', 0),
+(20, 20, 'media/67be9b19bf466_ntmbottom.png', 'image', '2025-02-26 04:39:53', 0),
+(21, 21, 'media/thumbnail_67bea0ab47fcf_skt1.png', 'image', '2025-02-26 05:03:39', 0),
+(22, 21, 'media/67bea0ab5026a_skt7.jpg', 'image', '2025-02-26 05:03:39', 0),
+(23, 21, 'media/67bea0ab51e3c_skt6.png', 'image', '2025-02-26 05:03:39', 0),
+(24, 21, 'media/67bea0ab585ea_skt5.jpg', 'image', '2025-02-26 05:03:39', 0),
+(25, 21, 'media/67bea0ab60951_skt4.jpg', 'image', '2025-02-26 05:03:39', 0),
+(26, 21, 'media/67bea0ab6883f_skt3.png', 'image', '2025-02-26 05:03:39', 0),
+(27, 21, 'media/67bea0ab707ee_skt2.png', 'image', '2025-02-26 05:03:39', 0),
+(28, 22, 'media/thumbnail_67bea19031834_aj1mse1.png', 'image', '2025-02-26 05:07:28', 0),
+(29, 22, 'media/67bea1903d377_aj1mse6.png', 'image', '2025-02-26 05:07:28', 0),
+(30, 22, 'media/67bea19044bde_aj1mse5.png', 'image', '2025-02-26 05:07:28', 0),
+(31, 22, 'media/67bea19048d6e_aj1mse4.png', 'image', '2025-02-26 05:07:28', 0),
+(32, 22, 'media/67bea19054ba5_aj1mse3.png', 'image', '2025-02-26 05:07:28', 0),
+(33, 22, 'media/67bea1905d64f_aj1mse2.png', 'image', '2025-02-26 05:07:28', 0),
+(34, 23, 'media/thumbnail_67bea52a114e6_aj1lse1.png', 'image', '2025-02-26 05:22:50', 0),
+(35, 23, 'media/67bea52a19219_aj1lse7.png', 'image', '2025-02-26 05:22:50', 0),
+(36, 23, 'media/67bea52a2098d_aj1lse6.png', 'image', '2025-02-26 05:22:50', 0),
+(37, 23, 'media/67bea52a2937d_aj1lse5.png', 'image', '2025-02-26 05:22:50', 0),
+(38, 23, 'media/67bea52a3128c_aj1lse4.png', 'image', '2025-02-26 05:22:50', 0),
+(39, 23, 'media/67bea52a34f12_aj1lse3.png', 'image', '2025-02-26 05:22:50', 0),
+(40, 23, 'media/67bea52a3d5d3_aj1lse2.png', 'image', '2025-02-26 05:22:50', 0),
+(41, 24, 'media/thumbnail_67bea7207fd9e_10002.jpg', 'image', '2025-02-26 05:31:12', 0),
+(42, 24, 'media/67bea7208ce20_10003.jpg', 'image', '2025-02-26 05:31:12', 0),
+(43, 24, 'media/67bea72095212_10004.jpg', 'image', '2025-02-26 05:31:12', 0),
+(44, 24, 'media/67bea7209ad72_10005.jpg', 'image', '2025-02-26 05:31:12', 0),
+(45, 24, 'media/67bea720a1420_10006.jpg', 'image', '2025-02-26 05:31:12', 0),
+(46, 24, 'media/67bea720a8945_10007.jpg', 'image', '2025-02-26 05:31:12', 0),
+(47, 24, 'media/67bea720adcd0_fbl1.jpg', 'image', '2025-02-26 05:31:12', 0),
+(48, 25, 'media/thumbnail_67c19ad843847_nkt5.png', 'image', '2025-02-28 11:15:36', 0),
+(49, 25, 'media/67c19ad8539ed_nkt4.jpg', 'image', '2025-02-28 11:15:36', 0),
+(50, 25, 'media/67c19ad85a699_nkt3.png', 'image', '2025-02-28 11:15:36', 0),
+(51, 25, 'media/67c19ad85ff86_nkt2.png', 'image', '2025-02-28 11:15:36', 0),
+(52, 25, 'media/67c19ad868212_nkt1.png', 'image', '2025-02-28 11:15:36', 0);
 
 -- --------------------------------------------------------
 
@@ -194,10 +195,11 @@ CREATE TABLE `catalog_product` (
 INSERT INTO `catalog_product` (`product_id`, `name`, `description`, `sku`, `price`, `stock_quantity`, `category_id`, `created_at`, `updated_at`) VALUES
 (20, 'Nike Terra Manta', '   The Terra Manta delivers a fresh take on the low-profile look while preserving the retro style we love. Its textile and leather upper pays homage to the classics that came before it, and the outsole features a high-traction design that is both durable and flexible. ', ' HQ1940-200', 7495.00, 25, 42, '2025-02-26 04:39:53', '2025-02-28 05:01:24'),
 (21, 'Nike SB Dunk Low Pro ', '  An \'80s b-ball icon returns with classic details and throwback hoops flair. Channelling vintage style back onto the streets, its padded low-cut collar lets you comfortably take your game anywhere.', 'HF3704-800', 9695.00, 32, 42, '2025-02-26 05:03:39', '2025-02-26 05:03:39'),
-(22, 'Air Jordan 1 Mid SE ', '  Take your neutral game to the next level with this special edition AJ1. Genuine leather ensures you step out in luxury style, while a plush mid-top collar and classic Nike Air cushioning make for a premium look and feel.', 'HF3216-102', 12295.00, 12, 42, '2025-02-26 05:07:27', '2025-02-26 05:07:27'),
+(22, 'Air Jordan 1 Mid SE ', '     Take your neutral game to the next level with this special edition AJ1. Genuine leather ensures you step out in luxury style, while a plush mid-top collar and classic Nike Air cushioning make for a premium look and feel.   ', 'HF3216-102', 12295.00, 12, 42, '2025-02-26 05:07:27', '2025-03-06 04:44:55'),
 (23, 'Air Jordan 1 Low SE', '  This fresh take on the AJ1 brings new energy to neutrals. Smooth, premium leather and classic Nike Air cushioning give you the quality and comfort you\'ve come to expect from Jordan.', 'HF3148-011', 11495.00, 5, 42, '2025-02-26 05:22:49', '2025-02-26 05:22:49'),
-(24, 'Men Brown Leather Shoes', '      Men Brown Leather Oxford Shoes    ', 'LPSCRGFL00139', 5000.00, 4, 41, '2025-02-26 05:31:12', '2025-02-28 09:43:28'),
-(25, 'Nike Sportswear', '  Dropped shoulders, longer sleeves and a roomy fit through the body and hips give this Max90 tee a relaxed look. The rich, heavyweight cotton fabric has a stiff drape and structured feel.\r\n\r\n', ' FZ7976-051', 1200.00, 34, 38, '2025-02-28 11:15:35', '2025-02-28 11:15:35');
+(24, 'Men Brown Leather Shoes', '       Men Brown Leather Oxford Shoes     ', 'LPSCRGFL00139', 5000.00, 4, 41, '2025-02-26 05:31:12', '2025-03-05 11:29:18'),
+(25, 'Nike Sportswear', '         Dropped shoulders, longer sleeves and a roomy fit through the body and hips give this Max90 tee a relaxed look. The rich, heavyweight cotton fabric has a stiff drape and structured feel.\r\n\r\n       ', ' FZ7976-051', 1200.00, 34, 38, '2025-02-28 11:15:35', '2025-03-05 11:31:27'),
+(32, 'test ', 'image  ', 'image', 9.00, 9, 36, '2025-03-07 05:20:18', '2025-03-07 05:20:18');
 
 -- --------------------------------------------------------
 
@@ -225,10 +227,10 @@ INSERT INTO `catalog_product_attribute` (`value_id`, `attribute_id`, `product_id
 (12, 5, 21, 'Textile and leather '),
 (13, 6, 21, 'Nike'),
 (14, 8, 21, '2025-02-02'),
-(15, 2, 22, 'White/Black/Dark Pony'),
-(16, 5, 22, 'Genuine leather '),
+(15, 2, 22, ''),
+(16, 5, 22, ''),
 (17, 6, 22, 'Nike'),
-(18, 8, 22, '2025-02-08'),
+(18, 8, 22, ''),
 (19, 2, 23, 'Medium Grey/White/Cool'),
 (20, 5, 23, 'premium leather '),
 (21, 6, 23, 'Nike'),
@@ -238,11 +240,12 @@ INSERT INTO `catalog_product_attribute` (`value_id`, `attribute_id`, `product_id
 (25, 6, 24, 'Louis Philippe'),
 (26, 8, 24, '2025-02-09'),
 (37, 9, 24, 'USA'),
-(38, 2, 25, 'White'),
-(39, 5, 25, 'Cotton'),
+(38, 2, 25, 'white'),
+(39, 5, 25, 'cotton'),
 (40, 6, 25, 'Nike'),
-(41, 8, 25, '2025-02-02'),
-(42, 9, 25, 'China');
+(41, 8, 25, '2025-03-01'),
+(42, 9, 25, 'Taiwan'),
+(43, 9, 22, '');
 
 -- --------------------------------------------------------
 
@@ -565,13 +568,13 @@ ALTER TABLE `catalog_media_gallery`
 -- AUTO_INCREMENT for table `catalog_product`
 --
 ALTER TABLE `catalog_product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `catalog_product_attribute`
 --
 ALTER TABLE `catalog_product_attribute`
-  MODIFY `value_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `value_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `cms_block`
