@@ -32,10 +32,12 @@ class Catalog_Controller_Product extends Core_Controller_Front_Action
         //    $collection = Mage::getModel('catalog/product')
         //                         ->getCollection()
         //                         ->addAttributeToSelect(["color" ,"Brand"]);
-        $col = Mage::getModel('catalog/filter');
-        $collection = $col->getProductCollection();
+        $col = Mage::getModel('checkout/cart_items')
+            ->getCollection();
+        print_r($col->getData());
+        // $collection = $col->getProductCollection();
 
-        print_r($collection->prepareQuery());
+        // print_r($collection->prepareQuery());
     }
 }
 

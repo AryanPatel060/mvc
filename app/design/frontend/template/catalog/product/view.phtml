@@ -12,6 +12,7 @@ $images = $product->getImages();
                 <div class="thumbnail-list d-flex flex-wrap mt-2">
                     <?php foreach ($images as $index => $img): ?>
                         <img src="<?= $this->getImageUrl($img) ?>" onclick="changeImage('<?= $this->getImageUrl($img) ?>', this)" class="<?= $index == 0 ? 'active' : '' ?>">
+
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -25,13 +26,24 @@ $images = $product->getImages();
                 <p><strong>SKU:</strong> <?= $product->getSku() ?></p>
                 <p><strong>Available Quantity:</strong> <?= $product->getStockQuantity() ?></p>
 
-                <a class="btn btn-primary btn-sm " href="<?= $this->getUrl('checkout/cart/add') .'/?productid='. $product->getProductId()?>"  role="button">Add To cart</a>
+                <form action="<?= $this->getUrl('checkout/cart/add')?>" method="Post">
+                    
+                    <input type="hidden" name="cart[product_id]" id="product_id" value=" <?php echo $product->getProductId(); ?>">
+
+                    <div>
+                        <label for="quantity">Quantity</label>
+                        <input type="number" name="cart[product_quantity]" >
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm " role="button">Add To cart</button>
+                </form>
 
                 <!-- Tabs -->
                 <ul class="nav nav-tabs mt-3" id="productTab">
                     <li class="nav-item">
                         <a class="nav-link active" data-tab="descriptionTab">Description</a>
                     </li>
+
+                    
                     <li class="nav-item">
                         <a class="nav-link " data-tab="specificationsTab">Specifications</a>
                     </li>
