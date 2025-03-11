@@ -15,9 +15,7 @@ class Checkout_Block_Cart_Index extends Core_Block_Template
         //                 ->getCollection();
         //                 $product->addFieldToFilter('product_id',['IN'=>$this->cartProducts]);
         // $cartproductsdata = $product->getData();
-
         $session = Mage::getSingleton('checkout/session');
-        
         $cartModel = $session->getCart();
         $itemCollection = $cartModel->getItemCollection();
         

@@ -3,7 +3,7 @@ class Core_Model_Session
 {
     public function __construct()
     {
-        session_start();
+        @session_start();
     }
 
     public function getId()
@@ -13,7 +13,6 @@ class Core_Model_Session
     public function get($key)
     {
         if (isset($_SESSION[$key])) {
-            echo "in session ". $key;
             return $_SESSION[$key];
         } else {
             return null;

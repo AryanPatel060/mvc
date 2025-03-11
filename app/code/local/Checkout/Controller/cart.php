@@ -40,6 +40,8 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         // Mage::getModel('cart')
         $session = Mage::getSingleton('checkout/session');
         $cartModel = $session->getCart();
+        // die();
+        print_r($cartModel);
         $cartModel->addCartItem($cartItemData);
 
         $this->redirect("checkout/cart/index");

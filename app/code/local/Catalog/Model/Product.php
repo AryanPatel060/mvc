@@ -90,7 +90,8 @@ class Catalog_Model_Product extends Core_Model_Abstract
 
             $media = Mage::getModel('catalog/media_gallery')
                 ->getCollection()
-                ->addFieldToFilter('product_id', $this->getProductId());
+                ->addFieldToFilter('product_id', $this->getProductId())
+                ->orderBy('cover_image');
 
             $images = $media->getData();
             foreach ($images as $image) {

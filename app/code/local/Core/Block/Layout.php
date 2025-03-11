@@ -56,6 +56,7 @@ class Core_Block_Layout extends Core_Block_Template
             ->getCollection()
             ->addFieldToFilter('product_id',$productID)
             ->addFieldToFilter('cover_image',1);
+        
         return $images = $media->getData()[0]->getFilePath();
     }
     public function getImage($productID)

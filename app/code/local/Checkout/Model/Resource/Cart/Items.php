@@ -3,6 +3,6 @@
 
         public function _construct()
         {
-            $this->init('cart_item','item_id');
+            $this->init('cart_items','item_id');
         }
 }

@@ -5,23 +5,24 @@ class Checkout_Model_Session extends Core_Model_Session
     {
         $cartId = $this->get('cart_id');
         if (is_null($cartId)) {
-            echo ("null");
             $cart = Mage::getModel('checkout/cart');
             $emptyCart = [
                 'customer_id' => 0,
-                'TotalAmount' => 0,
+                'total_amount' => 0,
             ];
             $cart->set($emptyCart);
-            $cart_id = $cart->save()->getCartId();
+            $savedCart = $cart->save();
+            if (!empty($savedCart->getCartId())) {
+                $this->set('cart_id', $savedCart->getCartId());
+            }
+            $cart->load($savedCart->getCartId());
 
-            print_r($cart_id);
-
-            $this->set('cart_id', $cart_id);
-            $cart->load($cart_id);
+            // die();
             return $cart;
         } else {
             $cart = Mage::getModel('checkout/cart')
                 ->load($cartId);
+
             return $cart;
         }
     }

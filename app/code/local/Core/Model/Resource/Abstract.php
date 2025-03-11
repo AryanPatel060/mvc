@@ -36,6 +36,7 @@ class Core_Model_Resource_Abstract
     }
     public function save($model)
     {
+        // print_r($model);
         $dbColumns = $this->_getDbColumns();
         // print_r($dbColumns);
         // // die();
