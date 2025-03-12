@@ -55,4 +55,11 @@ class Mage
     {
         return "http://localhost/MVC/";
     }
+
+    public static function log($data)
+    {
+        echo"<pre>";
+        print_r($data);
+        echo"</pre>";
+    }
 }

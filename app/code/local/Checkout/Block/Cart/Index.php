@@ -26,4 +26,13 @@ class Checkout_Block_Cart_Index extends Core_Block_Template
         $this->cartProducts = $data;
         return $this;
     }
+    public function getCart() {
+        $session = Mage::getSingleton('checkout/session');
+        return  $session->getCart();
+
+    }
+    public function getmethods() {
+        return Mage::getSingleton('checkout/shipping')->getmethods();
+
+    }
 }

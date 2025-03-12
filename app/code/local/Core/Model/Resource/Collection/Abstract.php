@@ -17,12 +17,16 @@ class Core_Model_Resource_Collection_Abstract
     }
     public function select($columns = "*")
     {
-        $this->_select['FROM'] = ['main_table'=>$this->_resource->getTableName()];
-        // $this->_select['COLUMNS'] = is_array($columns) ? $columns : [$columns];
+        $this->_select['FROM'] = ['main_table' => $this->_resource->getTableName()];
+
+        $this->_select['COLUMNS'] = [];
         $columns = is_array($columns) ? $columns : [$columns];
-        foreach($columns as $column)
-        {
-            $this->_select['COLUMNS'][] = "main_table.".$column;
+        foreach ($columns as $alias => $column) {
+            if (is_integer($alias)) {
+                $this->_select['COLUMNS'][] = "main_table." . $column;
+            } else {
+                $this->_select['COLUMNS'][] = sprintf("%s AS %s", $alias, $column);
+            }
         }
         return $this;
     }
@@ -158,12 +162,9 @@ class Core_Model_Resource_Collection_Abstract
                         break;
 
                     default:
-                        if($_value == NULL)
-                        {
+                        if ($_value == NULL) {
                             $where = " {$field} {$operator} NULL ";
-                        }
-                        else 
-                        {
+                        } else {
                             $where = " {$field} {$operator} '{$_value}' ";
                         }
                         break;
@@ -181,7 +182,7 @@ class Core_Model_Resource_Collection_Abstract
 
         return $this;
     }
-   
+
     public function rightJoin($tableName, $condition, $columns)
     {
         $this->_select['RIGHT_JOIN'][] = ['tableName' => $tableName, 'condition' => $condition, 'columns' => $columns];
@@ -244,5 +245,15 @@ class Core_Model_Resource_Collection_Abstract
     private function getTableName($table)
     {
         return array_values($table)[0];
+    }
+
+    public function getFirstItem()
+    {
+        $data = $this->getData();
+        if (isset($data[0])) {
+            return $data[0];
+        } else {
+            return $this->_model;
+        }
     }
 }

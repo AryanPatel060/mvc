@@ -1,7 +1,6 @@
 <?php
 class Checkout_Controller_Cart extends Core_Controller_Front_Action
 {
-
     public function indexAction()
     {
         $layout = Mage::getBlock('core/layout');
@@ -12,22 +11,56 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         $layout->getChild('content')->addChild('index', $index);
         $layout->toHtml();
     }
+
     public function updateAction()
     {
-        $layout = Mage::getBlock('core/layout');
-        $update = $layout->createBlock('Checkout/Cart_Update')
-            ->setTemplate('Checkout/Cart/Update.phtml');
-        //    print_r($view);
-        $layout->getChild('content')->addChild('update', $update);
-        $layout->toHtml();
+        $quantityData = $this->getRequest()->getParam('cart');
+        $cart = Mage::getSingleton('checkout/session')
+            ->getCart();
+        $cart->updateItem($quantityData);
+        $cart->save();
+        $this->redirect("checkout/cart/index");
     }
-    public function removeAction()
+    public function applyCouponAction()
     {
-        $productid = $this->getRequest()->getQuery('productid');
-        $cart = $this->getSession();
-        $cartProducts = $cart->get('cartProducts');
-        $cartProducts = array_diff($cartProducts, [$productid]);
-        $cart->set('cartProducts', $cartProducts);
+        $code = $this->getRequest()->getParam('coupon_code');
+        $cart = Mage::getSingleton('checkout/session')->getCart();
+        $couponModel = Mage::getModel('checkout/coupon');
+        $coupones = $couponModel->getCoupons();
+        $item = $cart->getItemCollection()
+            ->select(['sum(main_table.sub_total)' => 'totalAmount']);
+        // die();
+        if (isset($coupones[$code])) {
+            $cart->setCouponCode($code);
+            $cart->setCouponDiscount(
+                $couponModel->calculateDiscount($code, $item->getFirstItem()->totalAmount)
+            );
+            // Mage::log($couponModel->calculateDiscount($code, $item->getFirstItem()->totalAmount));
+        }
+        $cart->save();
+        $this->redirect("checkout/cart/index");
+    }
+
+    public function addPaymentMethod() {}
+
+    public function addShippingAction() {
+        $method = $this->getRequest()->getParam('shippingMethod');
+        $shippingMethods = Mage::getModel('checkout/shipping')->getMethods();
+        $cart = Mage::getSingleton('checkout/session')->getCart();
+        $cart->setShippingMethod($method);
+        $cart->setShippingCharges($shippingMethods[$method]);
+        // mage::log($cart);
+        $cart->save();
+    }
+    public function deleteAction()
+    {
+        $itemId = $this->getRequest()->getQuery('itemId');
+
+        $cart = Mage::getSingleton('checkout/session')->getCart();
+        // echo $itemId;
+        $cart->removeItem($itemId);
+        $cart->save();
+
         $this->redirect("checkout/cart/index");
     }
     public function addAction()
@@ -42,13 +75,14 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         $cartModel = $session->getCart();
         // die();
         print_r($cartModel);
+        // die();
         $cartModel->addCartItem($cartItemData);
-
+        $cartModel->save();
         $this->redirect("checkout/cart/index");
 
 
 
-        
+
 
         //---------- add fucntion on cart model 
         // get item model set all data 

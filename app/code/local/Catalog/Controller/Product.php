@@ -28,16 +28,21 @@ class Catalog_Controller_Product extends Core_Controller_Front_Action
     public function testAction()
     {
 
-        echo "<pre>";
-        //    $collection = Mage::getModel('catalog/product')
-        //                         ->getCollection()
-        //                         ->addAttributeToSelect(["color" ,"Brand"]);
-        $col = Mage::getModel('checkout/cart_items')
-            ->getCollection();
-        print_r($col->getData());
-        // $collection = $col->getProductCollection();
+        // echo "<pre>";
+        // //    $collection = Mage::getModel('catalog/product')
+        // //                         ->getCollection()
+        // //                         ->addAttributeToSelect(["color" ,"Brand"]);
+        // $col = Mage::getModel('checkout/cart_items')
+        //     ->getCollection();
+        // print_r($col->getData());
+        // // $collection = $col->getProductCollection();
 
         // print_r($collection->prepareQuery());
+
+        $item = Mage::getSingleton("checkout/session")
+            ->getCart()
+            ->getItemCollection();
+        $item->select(['sum(main_table.sub_total)'=>'subTotal','item_id']);
     }
 }
 

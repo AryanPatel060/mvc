@@ -77,6 +77,9 @@ class Core_Model_Abstract
     public function save()
     {
         $this->_beforeSave();
+        // echo "in save befor going in save ";
+        // die();
+
         $this->getResource()->save($this);
         $this->_afterSave();
         return $this;
