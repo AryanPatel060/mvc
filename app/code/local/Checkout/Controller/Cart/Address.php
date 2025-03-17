@@ -27,6 +27,7 @@ class Checkout_Controller_Cart_Address extends Core_Controller_Front_Action
         $cartAddress->setData($billing);
         $cartAddress->save();
         $cart->save();
-        $this->redirect('');
+        $this->redirect("checkout/cart/index");
+
     }
 }

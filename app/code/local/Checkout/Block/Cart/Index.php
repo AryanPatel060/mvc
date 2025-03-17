@@ -1,4 +1,4 @@
-<?php 
+<?php
 class Checkout_Block_Cart_Index extends Core_Block_Template
 {
     public $cartProducts = [];
@@ -18,7 +18,7 @@ class Checkout_Block_Cart_Index extends Core_Block_Template
         $session = Mage::getSingleton('checkout/session');
         $cartModel = $session->getCart();
         $itemCollection = $cartModel->getItemCollection();
-        
+
         return $itemCollection->getData();
     }
     public function setcartProducts($data)
@@ -26,13 +26,22 @@ class Checkout_Block_Cart_Index extends Core_Block_Template
         $this->cartProducts = $data;
         return $this;
     }
-    public function getCart() {
+    public function getCart()
+    {
         $session = Mage::getSingleton('checkout/session');
         return  $session->getCart();
-
     }
-    public function getmethods() {
+    public function getmethods()
+    {
         return Mage::getSingleton('checkout/shipping')->getmethods();
-
+    }
+    public function getAddressData()
+    {
+        $session = Mage::getSingleton('checkout/session');
+        $shipping = Mage::getModel('checkout/cart_address')
+            ->getCollection()
+            ->addFieldToFilter('cart_id',  $session->getCart()->getCartId());
+            // ->addFieldToFilter('address_type', "Shipping");
+        return $shipping->getData();
     }
 }

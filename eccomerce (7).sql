@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2025 at 07:03 AM
+-- Generation Time: Mar 17, 2025 at 09:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,7 +81,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `customer_id`, `total_amount`, `created_at`, `updated_at`, `coupon_code`, `coupon_discount`, `customer_email`, `shipping_method`, `shipping_charges`, `payment_method`) VALUES
-(19, 0, 20085, '2025-03-12 04:25:02', '2025-03-17 05:57:46', 'abc10', 2229.50, 'aryan2208patel@gmail.com', 'indianpost', 19.00, 'pay_on_delivery');
+(19, 0, 11374, '2025-03-12 04:25:02', '2025-03-16 20:25:29', 'abc20', 2838.40, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery');
 
 -- --------------------------------------------------------
 
@@ -111,7 +111,7 @@ CREATE TABLE `cart_address` (
 
 INSERT INTO `cart_address` (`address_id`, `first_name`, `last_name`, `phone_number`, `street_address`, `city`, `zipcode`, `region`, `country`, `address_type`, `cart_id`, `created_at`, `updated_at`) VALUES
 (12, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 19, '2025-03-12 10:22:45', '2025-03-12 10:22:45'),
-(13, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 19, '2025-03-12 10:22:45', '2025-03-12 10:22:45');
+(13, 'Bipinbhai', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 19, '2025-03-12 10:22:45', '2025-03-17 07:35:07');
 
 -- --------------------------------------------------------
 
@@ -133,8 +133,8 @@ CREATE TABLE `cart_items` (
 --
 
 INSERT INTO `cart_items` (`item_id`, `cart_id`, `product_id`, `product_quantity`, `price`, `sub_total`) VALUES
-(39, 19, 24, 2, 5000.00, 10000.00),
-(40, 19, 22, 1, 12295.00, 12295.00);
+(40, 19, 22, 1, 12295.00, 12295.00),
+(41, 19, 34, 1, 1897.00, 1897.00);
 
 -- --------------------------------------------------------
 
@@ -182,13 +182,11 @@ CREATE TABLE `catalog_category` (
 INSERT INTO `catalog_category` (`category_id`, `name`, `description`, `parent_id`, `created_at`, `updated_at`) VALUES
 (1, 'NA', 'select this if no parent category is defined', NULL, '2025-02-26 04:30:28', '2025-02-26 04:30:28'),
 (36, 'Tshirt', 'main category for t-shirts', 1, '2025-02-26 04:31:02', '2025-02-26 04:31:02'),
-(37, 'Hoodie', 'Warm t-shirt with thick hood for winter', 36, '2025-02-26 04:31:42', '2025-02-26 06:16:28'),
-(38, 'sweat shirt', 't-shirt with high GSM fabric without hood', 36, '2025-02-26 04:32:43', '2025-02-26 04:32:43'),
 (39, 'Footwear', 'for legs ', 1, '2025-02-26 04:33:28', '2025-02-26 04:33:28'),
 (40, 'Sport Shoes', 'for sports activity', 39, '2025-02-26 04:33:54', '2025-02-26 04:33:54'),
 (41, 'Formal Shoes', 'for formal wear like office , party', 39, '2025-02-26 04:35:03', '2025-02-26 04:35:03'),
 (42, 'Sneakers ', 'for casual wear', 39, '2025-02-26 04:35:24', '2025-02-26 04:35:24'),
-(48, 'hb nm', 'jn m', NULL, '0000-00-00 00:00:00', '2025-02-26 06:24:13');
+(50, 'Low Tops', 'shoes with low height', 39, '2025-03-17 08:07:27', '2025-03-17 08:07:27');
 
 -- --------------------------------------------------------
 
@@ -248,7 +246,29 @@ INSERT INTO `catalog_media_gallery` (`media_id`, `product_id`, `file_path`, `typ
 (49, 25, 'media/67c19ad8539ed_nkt4.jpg', 'image', '2025-02-28 11:15:36', 0),
 (50, 25, 'media/67c19ad85a699_nkt3.png', 'image', '2025-02-28 11:15:36', 0),
 (51, 25, 'media/67c19ad85ff86_nkt2.png', 'image', '2025-02-28 11:15:36', 0),
-(52, 25, 'media/67c19ad868212_nkt1.png', 'image', '2025-02-28 11:15:36', 0);
+(52, 25, 'media/67c19ad868212_nkt1.png', 'image', '2025-02-28 11:15:36', 0),
+(53, 33, 'media/67d7d50485934_jb1.jpg', 'image', '2025-03-17 07:53:40', 1),
+(54, 33, 'media/67d7d5048fd05_jb7.png', 'image', '2025-03-17 07:53:40', 0),
+(55, 33, 'media/67d7d5049a42c_jb6.png', 'image', '2025-03-17 07:53:40', 0),
+(57, 33, 'media/67d7d504b0e6b_jb4.png', 'image', '2025-03-17 07:53:40', 0),
+(58, 33, 'media/67d7d504b89f0_jb3.png', 'image', '2025-03-17 07:53:40', 0),
+(59, 33, 'media/67d7d504bfa45_jb2.png', 'image', '2025-03-17 07:53:40', 0),
+(60, 34, 'media/67d7d64787d51_mvp1.jpg', 'image', '2025-03-17 07:59:03', 1),
+(61, 34, 'media/67d7d647966f8_mvp5.png', 'image', '2025-03-17 07:59:03', 0),
+(62, 34, 'media/67d7d6479e1c1_mvp4.jpg', 'image', '2025-03-17 07:59:03', 0),
+(63, 34, 'media/67d7d647a92af_mvp3.jpg', 'image', '2025-03-17 07:59:03', 0),
+(64, 34, 'media/67d7d647b1943_mvp2.jpg', 'image', '2025-03-17 07:59:03', 0),
+(65, 35, 'media/67d7d98f04119_aj1rl1.png', 'image', '2025-03-17 08:13:03', 1),
+(66, 35, 'media/67d7d98f0b20e_aj1rl6.png', 'image', '2025-03-17 08:13:03', 0),
+(67, 35, 'media/67d7d98f13653_aj1rl5.png', 'image', '2025-03-17 08:13:03', 0),
+(68, 35, 'media/67d7d98f1ad1e_aj1rl4.png', 'image', '2025-03-17 08:13:03', 0),
+(69, 35, 'media/67d7d98f228a8_aj1rl3.png', 'image', '2025-03-17 08:13:03', 0),
+(70, 35, 'media/67d7d98f29e65_aj1rl2.png', 'image', '2025-03-17 08:13:03', 0),
+(71, 36, 'media/67d7da5cafecb_mdf1.png', 'image', '2025-03-17 08:16:28', 1),
+(72, 36, 'media/67d7da5cbdd33_mdf5.png', 'image', '2025-03-17 08:16:28', 0),
+(73, 36, 'media/67d7da5cc64de_mdf4.png', 'image', '2025-03-17 08:16:28', 0),
+(74, 36, 'media/67d7da5cd4089_mdf3.png', 'image', '2025-03-17 08:16:28', 0),
+(75, 36, 'media/67d7da5cdcc1c_mdf2.png', 'image', '2025-03-17 08:16:28', 0);
 
 -- --------------------------------------------------------
 
@@ -278,8 +298,11 @@ INSERT INTO `catalog_product` (`product_id`, `name`, `description`, `sku`, `pric
 (22, 'Air Jordan 1 Mid SE ', '     Take your neutral game to the next level with this special edition AJ1. Genuine leather ensures you step out in luxury style, while a plush mid-top collar and classic Nike Air cushioning make for a premium look and feel.   ', 'HF3216-102', 12295.00, 12, 42, '2025-02-26 05:07:27', '2025-03-06 04:44:55'),
 (23, 'Air Jordan 1 Low SE', '  This fresh take on the AJ1 brings new energy to neutrals. Smooth, premium leather and classic Nike Air cushioning give you the quality and comfort you\'ve come to expect from Jordan.', 'HF3148-011', 11495.00, 5, 42, '2025-02-26 05:22:49', '2025-02-26 05:22:49'),
 (24, 'Men Brown Leather Shoes', '       Men Brown Leather Oxford Shoes     ', 'LPSCRGFL00139', 5000.00, 4, 41, '2025-02-26 05:31:12', '2025-03-05 11:29:18'),
-(25, 'Nike Sportswear', '         Dropped shoulders, longer sleeves and a roomy fit through the body and hips give this Max90 tee a relaxed look. The rich, heavyweight cotton fabric has a stiff drape and structured feel.\r\n\r\n       ', ' FZ7976-051', 1200.00, 34, 38, '2025-02-28 11:15:35', '2025-03-05 11:31:27'),
-(32, 'test ', 'image  ', 'image', 9.00, 9, 36, '2025-03-07 05:20:18', '2025-03-07 05:20:18');
+(25, 'Nike Sportswear', '          Dropped shoulders, longer sleeves and a roomy fit through the body and hips give this Max90 tee a relaxed look. The rich, heavyweight cotton fabric has a stiff drape and structured feel.\r\n\r\n        ', ' FZ7976-051', 1200.00, 34, 36, '2025-02-28 11:15:35', '2025-03-17 08:09:12'),
+(33, 'Jordan Heir Series PF Bloodline\'', '   Looking to ignite your competitive edge? Cue the Jordan Heir. Crafted with insights from women basketball players, these shoes are all about helping you play shifty and stay low to the ground. A drop-in midsole helps give you extra mobility, while a built-in cage provides a fit that contours to your foot for added support as you move from side to side. So run and cut in confidence. You\'re the game\'s main character, after all. ', 'FQ3859-006', 9695.00, 3, 40, '2025-03-17 07:53:40', '2025-03-17 07:55:40'),
+(34, 'Jordan Flight MVP', '   That\'s a clean lookin\' tee! And it\'s made from 100% soft cotton for a classic feel. Nice.\r\n\r\n ', 'FN5958-436', 1897.00, 5, 36, '2025-03-17 07:59:03', '2025-03-17 08:09:21'),
+(35, 'Air Jordan 1 Retro Low', '  Every Jordan Retro is a classic sneaker done up in new colours and textures for a fresh feel. Premium materials and accents keep the look modern and on point.', ' HV8293-100', 14995.00, 6, 50, '2025-03-17 08:13:03', '2025-03-17 08:13:03'),
+(36, 'Men\'s Dri-FIT Fitness T-Shirt', '   This classic tee has a breathable, lightweight feel that\'s perfect for workouts. Nike Dri-FIT technology moves sweat away from your skin for quicker evaporation, helping you stay dry and comfortable. ', 'HJ3606-100', 1795.00, 65, 36, '2025-03-17 08:16:28', '2025-03-17 08:16:47');
 
 -- --------------------------------------------------------
 
@@ -325,7 +348,27 @@ INSERT INTO `catalog_product_attribute` (`value_id`, `attribute_id`, `product_id
 (40, 6, 25, 'Nike'),
 (41, 8, 25, '2025-03-01'),
 (42, 9, 25, 'Taiwan'),
-(43, 9, 22, '');
+(43, 9, 22, ''),
+(59, 2, 33, 'Black'),
+(60, 5, 33, 'Textile and Fabric'),
+(61, 6, 33, 'Nike'),
+(62, 8, 33, '2025-03-02'),
+(63, 9, 33, 'Singapore'),
+(64, 2, 34, 'Blue'),
+(65, 5, 34, 'Blue'),
+(66, 6, 34, 'Nike'),
+(67, 8, 34, '2025-03-06'),
+(68, 9, 34, 'China, Vietnam'),
+(69, 2, 35, 'Oatmeal'),
+(70, 5, 35, 'Fabric'),
+(71, 6, 35, 'Nike'),
+(72, 8, 35, '2025-03-02'),
+(73, 9, 35, 'China'),
+(74, 2, 36, 'white'),
+(75, 5, 36, 'cotton'),
+(76, 6, 36, 'Nike'),
+(77, 8, 36, '2025-03-08'),
+(78, 9, 36, 'usa');
 
 -- --------------------------------------------------------
 
@@ -660,7 +703,7 @@ ALTER TABLE `cart_address`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `catalog_attribute`
@@ -672,25 +715,25 @@ ALTER TABLE `catalog_attribute`
 -- AUTO_INCREMENT for table `catalog_category`
 --
 ALTER TABLE `catalog_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `catalog_media_gallery`
 --
 ALTER TABLE `catalog_media_gallery`
-  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `media_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `catalog_product`
 --
 ALTER TABLE `catalog_product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `catalog_product_attribute`
 --
 ALTER TABLE `catalog_product_attribute`
-  MODIFY `value_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `value_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `cms_block`

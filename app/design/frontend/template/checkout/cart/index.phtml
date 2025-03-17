@@ -1,209 +1,10 @@
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f8f9fa;
-    }
-
-    .cart-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .page-title {
-        color: #2c3e50;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-    }
-
-    .cart-card {
-        border-radius: 15px;
-        border: none;
-        overflow: hidden;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-        margin-bottom: 25px;
-    }
-
-    .cart-item {
-        transition: all 0.3s ease;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    }
-
-    .cart-item:last-child {
-        border-bottom: none;
-    }
-
-    .cart-item:hover {
-        background-color: rgba(240, 242, 245, 0.5);
-    }
-
-    .product-image {
-        max-height: 150px;
-        object-fit: contain;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        transition: transform 0.3s;
-    }
-
-    .product-image:hover {
-        transform: scale(1.05);
-    }
-
-    .product-name {
-        color: #2c3e50;
-        font-weight: 600;
-    }
-
-    .product-detail {
-        font-size: 0.9rem;
-        color: #6c757d;
-    }
-
-    .product-price {
-        color: #2c3e50;
-        font-weight: 600;
-    }
-
-    .qty-input {
-        width: 50px;
-        text-align: center;
-        font-weight: 600;
-        border-radius: 5px;
-        border: 1px solid #ced4da;
-    }
-
-    .qty-btn {
-        width: 30px;
-        height: 30px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 5px;
-        background-color: #f8f9fa;
-        border: 1px solid #ced4da;
-        color: #2c3e50;
-        font-weight: 600;
-    }
-
-    .qty-btn:hover {
-        background-color: #e9ecef;
-    }
-
-    .update-btn {
-        background-color: #3498db;
-        border-color: #3498db;
-        font-weight: 500;
-        font-size: 0.85rem;
-        transition: all 0.3s;
-    }
-
-    .update-btn:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .remove-btn {
-        background-color: #e74c3c;
-        border-color: #e74c3c;
-        font-weight: 500;
-        font-size: 0.85rem;
-        transition: all 0.3s;
-    }
-
-    .remove-btn:hover {
-        background-color: #c0392b;
-        border-color: #c0392b;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .summary-card {
-        border-radius: 15px;
-        border: none;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-        position: sticky;
-        top: 20px;
-    }
-
-    .summary-title {
-        color: #2c3e50;
-        font-weight: 700;
-        margin-bottom: 1.2rem;
-    }
-
-    .summary-item {
-        margin-bottom: 0.4rem;
-        font-size: 0.95rem;
-    }
-
-    .summary-total {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #2c3e50;
-    }
-
-    .discount-text {
-        color: #27ae60;
-        font-weight: 500;
-    }
-
-    .coupon-section {
-        background-color: #f8f9fa;
-        border-radius: 10px;
-        padding: 15px;
-        margin: 15px 0;
-    }
-
-    .coupon-title {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 0.8rem;
-    }
-
-    .coupon-input {
-        border-radius: 5px;
-        font-size: 0.9rem;
-    }
-
-    .checkout-btn {
-        background-color: #27ae60;
-        border-color: #27ae60;
-        font-weight: 600;
-        padding: 12px;
-        transition: all 0.3s;
-        font-size: 1rem;
-    }
-
-    .checkout-btn:hover {
-        background-color: #219653;
-        border-color: #219653;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .shipping-section {
-        background-color: #f8f9fa;
-        border-radius: 10px;
-        border: 1px solid #e9ecef;
-    }
-
-    .shipping-option {
-        padding: 12px;
-        margin-bottom: 8px;
-        border-radius: 8px;
-        transition: all 0.2s;
-    }
-
-    .shipping-option:hover {
-        background-color: rgba(52, 152, 219, 0.08);
-    }
-</style>
 <?php $cartData = $this->getCart(); ?>
 <?php $shippingMethods = $this->getMethods(); ?>
-
-<div class="cart-container py-5">
+<?php $address = $this->getAddressData(); ?>
+<style>
+  
+</style>
+<div class="cart-container scc py-5">
     <div class="row">
         <div class="col-12">
             <h2 class="page-title text-center">
@@ -233,8 +34,8 @@
                                 <h4 class="product-name mb-2"><?php echo $product->getName() ?></h4>
                                 <p class="product-detail mb-1"><strong>Brand:</strong> <?php echo $product->getBrand() ?></p>
                                 <p class="product-detail mb-1"><strong>Material:</strong> <?php echo $product->getMaterial() ?></p>
-                                <p class="product-detail mb-2"><strong>Description:</strong> <?php echo $product->getDescription() ?></p>
-                                <p class="product-price mb-0"><strong>Price:</strong> ₹<?php echo number_format($product->getPrice(), 2) ?></p>
+                                
+                                <p class="product-detail mb-0"><strong>Price:</strong> ₹<?php echo number_format($product->getPrice(), 2) ?></p>
                             </div>
 
                             <!-- Quantity Selector & Actions -->
@@ -264,18 +65,60 @@
                 <?php endforeach; ?>
             </div>
 
+
+            <?php if ($address): ?>
+                <div class="row">
+                    <?php foreach ($address as $addressData): ?>
+                        <div class="col-md-6">
+                            <div class="card shadow-sm p-3 position-relative">
+                                <!-- Edit Button -->
+                                <a href="<?php echo $this->getUrl('Checkout/cart_address/new'); ?>"
+                                    class="position-absolute top-0 end-0 m-2 text-decoration-none">
+                                    <p class="btn btn-primary">Edit</p>
+                                </a>
+
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">
+                                        <?php echo ucfirst($addressData->getAddressType()); ?> Address
+                                    </h5>
+                                    <p class="card-text">
+                                        <strong><?php echo $addressData->getFirstName() . ' ' . $addressData->getLastName(); ?></strong><br>
+                                        <?php echo $addressData->getPhoneNumber(); ?><br>
+                                        <?php echo $addressData->getStreetAddress(); ?>, <?php echo $addressData->getCity(); ?><br>
+                                        <?php echo $addressData->getRegion(); ?>, <?php echo $addressData->getCountry(); ?> - <?php echo $addressData->getZipcode(); ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+            <?php else: ?>
+                <h4>Shipping Address</h4>
+                <div class="mt-4">
+                    <a href="<?php echo $this->getUrl('checkout/cart_address/new'); ?>" class="btn checkout-btn w-100">
+                        <i class="fas fa-credit-card me-2"></i>Add <Address></Address>
+                    </a>
+                </div>
+            <?php endif; ?>
+            <div>
+
+            </div>
             <!-- Shipping Method Selection -->
             <!-- Shipping Method Selection Form -->
-            <form id="shipping-method-form" method="POST" action="<?php echo $this->getUrl('Checkout/cart/addShipping') ?>" class="card shipping-section p-4 mt-4">
+            <form id="shipping-method-form"
+                class="card p-4 mt-4">
                 <h4 class="fw-bold mb-3">Shipping Method</h4>
 
                 <div id="shipping-methods">
                     <?php foreach ($shippingMethods as $method => $charges): ?>
                         <div class="form-check shipping-option">
-                            <input class="form-check-input" type="radio" name="shippingMethod"
+                            <input class="form-check-input shippingmethod" type="radio" name="shippingMethod"
                                 id="shipping_<?php echo $method; ?>"
                                 value="<?php echo $method; ?>"
-                                required>
+                                required
+                                <?php
+                                echo ($cartData->getShippingMethod() !=  $method) ? "" : "checked" ?>>
                             <label class="form-check-label" for="shipping_<?php echo $method; ?>">
                                 <strong><?php echo $method; ?></strong>
 
@@ -283,14 +126,23 @@
                             </label>
                         </div>
                     <?php endforeach; ?>
-                </div>
 
-                <!-- Submit Button -->
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary px-5">Submit</button>
                 </div>
             </form>
-
+            <!-- payment methods  -->
+            <div class="card payment-section p-4 mt-4">
+                <h4>Payment Method</h4>
+                <div class="form-check shipping-option">
+                    <input class="form-check-input paymentmethod" type="radio" name="paymentMethod"
+                        id="payment_method"
+                        value="pay_on_delivery"
+                        required
+                        <?php echo ($cartData->getPaymentMethod() == "") ? "" : "checked" ?>>
+                    <label class="form-check-label" for="shipping_<?php echo $method; ?>">
+                        Pay on delivery
+                    </label>
+                </div>
+            </div>
         </div>
 
         <!-- Order Summary Column -->
@@ -327,7 +179,15 @@
                 </div>
 
                 <hr>
+                <div class="d-flex justify-content-between summary-item fw-bold">
+                    <span>Shipping Charges:</span>
+                </div>
+                <div class="d-flex justify-content-between summary-item ">
+                    <span><?php echo $cartData->getShippingMethod(); ?></span>
 
+                    <span> ₹<?php echo number_format($cartData->getShippingCharges(), 2); ?></span>
+                </div>
+                <hr>
                 <!-- Grand Total -->
                 <div class="d-flex justify-content-between summary-total mb-3">
                     <span>Grand Total:</span>
@@ -339,7 +199,7 @@
                     <h5 class="coupon-title">Apply Coupon</h5>
                     <form method="POST" action="<?php echo $this->getUrl('*/*/applyCoupon'); ?>" class="d-flex">
                         <input type="text" name="coupon_code" class="form-control coupon-input me-2"
-                            placeholder="Enter coupon code" required>
+                            placeholder="Enter coupon code" required value="<?php echo $cartData->getCouponCode() ?>">
                         <button type="submit" class="btn btn-primary">Apply</button>
                     </form>
                 </div>
@@ -361,25 +221,4 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Custom JS -->
 <script>
-    function increaseQuantity(button) {
-        let qtyInput = $(button).siblings(".qty-input");
-        let newQty = parseInt(qtyInput.val()) + 1;
-        qtyInput.val(newQty);
-        showUpdateButton(qtyInput);
-    }
-
-    function decreaseQuantity(button) {
-        let qtyInput = $(button).siblings(".qty-input");
-        let newQty = parseInt(qtyInput.val());
-        if (newQty > 1) {
-            newQty -= 1;
-            qtyInput.val(newQty);
-            showUpdateButton(qtyInput);
-        }
-    }
-
-    function showUpdateButton(qtyInput) {
-        let form = qtyInput.closest(".cart-form");
-        form.find(".update-btn").show();
-    }
 </script>

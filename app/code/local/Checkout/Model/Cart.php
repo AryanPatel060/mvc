@@ -66,15 +66,14 @@ class Checkout_Model_Cart extends Core_Model_Abstract
 
     protected function _beforeSave()
     {
-
         $itemCol = $this->getItemCollection()->select(['sum(main_table.sub_total)' => 'totalAmount']);
         $couponModel = $this->getCoupon();
         $totalAmount = (float)$itemCol->getFirstItem()->getData()['totalAmount'];
         $discount = $couponModel->calculateDiscount($this->getCouponCode(),$totalAmount);
         $this->setCouponDiscount($discount);
-        $this->setTotalAmount($totalAmount-$discount);
+        $this->setTotalAmount($totalAmount-$discount+$this->getShippingCharges());
         $this->setUpdatedAt(date("Y-m-d h:i:s"));
-        mage::log($this);
+        // mage::log($this);
         // print_r($this);
         // die();
         // die();

@@ -73,7 +73,84 @@ document.addEventListener("DOMContentLoaded", function () {
 
             document.getElementById(this.getAttribute('data-tab')).classList.add('active');
         });
+
+
+    // // ----------------------------------------------- cart start ----------------------------------------
+
+        $(".shippingmethod").change(function() {
+            shippingMethod = this.value;
+            let formData = new FormData();
+            formData.append('shippingMethod', shippingMethod);
+            console.log(shippingMethod);
+
+            $.ajax({
+                url: "http://localhost/MVC/checkout/cart/addShipping", // Backend endpoint
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+
+                    $('.scc').html(response);
+                },
+                error: function() {
+                    $('#result').html('<p style="color: red;">Error fetching data</p>');
+                }
+            });
+
+        });
+        $(".paymentmethod").change(function() {
+            paymentMethod = this.value;
+            let formData = new FormData();
+            formData.append('paymentMethod', paymentMethod);
+            console.log(paymentMethod);
+
+            $.ajax({
+                url: "http://localhost/MVC/checkout/cart/addPayment", // Backend endpoint
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+
+                    $('.scc').html(response);
+                },
+                error: function() {
+                    $('#result').html('<p style="color: red;">Error fetching data</p>');
+                }
+            });
+
+        });
     });
+
+  
+
+});
+function increaseQuantity(button) {
+    let qtyInput = $(button).siblings(".qty-input");
+    let newQty = parseInt(qtyInput.val()) + 1;
+    qtyInput.val(newQty);
+    showUpdateButton(qtyInput);
+}
+
+function decreaseQuantity(button) {
+    let qtyInput = $(button).siblings(".qty-input");
+    let newQty = parseInt(qtyInput.val());
+    if (newQty > 1) {
+        newQty -= 1;
+        qtyInput.val(newQty);
+        showUpdateButton(qtyInput);
+    }
+}
+
+function showUpdateButton(qtyInput) {
+    let form = qtyInput.closest(".cart-form");
+    form.find(".update-btn").show();
+}
+
+
 
     // ----------------------------------------------- end Product View ----------------------------------------
 
@@ -110,11 +187,6 @@ document.addEventListener("DOMContentLoaded", function () {
     //     }
     // });
     // // ----------------------------------------------- home slider end ----------------------------------------
-
-});
-
-
-
 
 
 
