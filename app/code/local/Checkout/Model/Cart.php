@@ -57,6 +57,27 @@ class Checkout_Model_Cart extends Core_Model_Abstract
             ->getCollection()
             ->addFieldToFilter('cart_id', $this->getCartId());
     }
+    public function getAddressCollection()
+    {
+        return Mage::getModel('checkout/cart_address')
+            ->getCollection()
+            ->addFieldToFilter('cart_id', $this->getCartId());
+    }
+
+    public function getShippingAddress()
+    {
+        return  $this->getAddressCollection()
+            ->addFieldToFilter('address_type', "Shipping")
+            ->getFirstItem();
+    }
+    public function getBillingAddress()
+    {
+        return $this->getAddressCollection()
+            ->addFieldToFilter('address_type', "Billing")
+            ->getFirstItem();
+    }
+
+
     public function getCoupon()
     {
         return Mage::getModel('checkout/coupon');
@@ -69,9 +90,9 @@ class Checkout_Model_Cart extends Core_Model_Abstract
         $itemCol = $this->getItemCollection()->select(['sum(main_table.sub_total)' => 'totalAmount']);
         $couponModel = $this->getCoupon();
         $totalAmount = (float)$itemCol->getFirstItem()->getData()['totalAmount'];
-        $discount = $couponModel->calculateDiscount($this->getCouponCode(),$totalAmount);
+        $discount = $couponModel->calculateDiscount($this->getCouponCode(), $totalAmount);
         $this->setCouponDiscount($discount);
-        $this->setTotalAmount($totalAmount-$discount+$this->getShippingCharges());
+        $this->setTotalAmount($totalAmount - $discount + (float)$this->getShippingCharges());
         $this->setUpdatedAt(date("Y-m-d h:i:s"));
         // mage::log($this);
         // print_r($this);

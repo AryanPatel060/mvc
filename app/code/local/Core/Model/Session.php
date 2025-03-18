@@ -30,4 +30,5 @@ class Core_Model_Session
             return null;
         }
     }
+    
 }

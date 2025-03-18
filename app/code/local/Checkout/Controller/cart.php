@@ -19,6 +19,21 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         $layout->toHtml();
     }
 
+    public function placeorderAction()
+    {
+        // Mage::log ($this->getRequest()->getIp());// echo "excfvgbhnjmk";
+
+        // die();
+        $cartModel = Mage::getSingleton("checkout/session")->getCart();
+        $converter = Mage::getModel("checkout/converter_order");
+        $converter->convert($cartModel);
+        $cartModel->setIsActive(0);
+        // mage::log($cartModel);
+        // die;
+        $cartModel->save();
+        $this->getSession()->remove('cart_id');
+
+    }
     public function updateAction()
     {
         $quantityData = $this->getRequest()->getParam('cart');
@@ -47,8 +62,9 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         $cart->save();
         $this->redirect("checkout/cart/index");
     }
-    
-    public function addPaymentAction() {
+
+    public function addPaymentAction()
+    {
         $method = $this->getRequest()->getParam('paymentMethod');
         $cart = Mage::getSingleton('checkout/session')->getCart();
         $cart->setPaymentMethod($method);
@@ -56,14 +72,14 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         // die();
         $cart->save();
         $this->redirect("checkout/cart/index");
-
     }
 
-    public function addShippingAction() {
+    public function addShippingAction()
+    {
         $method = $this->getRequest()->getParam('shippingMethod');
-        
+
         // mage::log($_SERVER["REQUEST_METHOD"]);
-        
+
         $shippingMethods = Mage::getModel('checkout/shipping')->getMethods();
         $cart = Mage::getSingleton('checkout/session')->getCart();
         $cart->setShippingMethod($method);
@@ -72,7 +88,6 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         // die();
         $cart->save();
         $this->redirect("checkout/cart/index");
-
     }
     public function deleteAction()
     {

@@ -61,7 +61,7 @@ class Core_Model_Resource_Abstract
             return $this->getAdapter()->query($sql);
         } else {
 
-            $sql = "INSERT INTO {$this->_tableName}  ";
+            $sql = "INSERT INTO `{$this->_tableName}`  ";
             $columns = [];
             $values = [];
             foreach ($data as $field => $value) {
@@ -73,6 +73,7 @@ class Core_Model_Resource_Abstract
             }
             $sql .= "(" . implode(',', $columns) . ") VALUES";
             $sql .= "(" . implode(',', $values) . ")";
+
             $insertId = $this->getAdapter()->insert($sql);
 
             $model->{$this->_primaryKey} = $insertId;
