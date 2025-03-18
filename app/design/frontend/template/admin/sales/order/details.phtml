@@ -1,0 +1,51 @@
+<?php $order = $this->getorder();
+// Mage::log($order); ?>
+
+<div class="container mt-4">
+    <div class="card shadow-sm p-4">
+        <h3 class="mb-3 text-uppercase mb-3 text-primary">Order Information</h3>
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <strong>Order Number:</strong> <span id="detail-order-id"><?php echo $order->getOrderNumber(); ?></span>
+            </div>
+            <div class="col-md-6">
+                <strong>Order Date:</strong> <span id="detail-order-date"><?php echo $order->getCreatedAt(); ?></span>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <strong>Status:</strong> 
+                <span class="badge bg-<?php echo $order->getStatus() == 'pending' ? 'warning' : 'success'; ?>" id="detail-order-status">
+                    <?php echo ucfirst($order->getStatus()); ?>
+                </span>
+            </div>
+            <div class="col-md-6">
+                <strong>Payment Method:</strong> <span id="detail-payment-method"><?php echo ucfirst(str_replace('_', ' ', $order->getPaymentMethod())); ?></span>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <strong>Coupon Code:</strong> <span id="detail-coupon"><?php echo $order->getCouponCode(); ?></span>
+            </div>
+            <div class="col-md-6">
+                <strong>Coupon Discount:</strong> <span id="detail-coupon-discount">₹<?php echo number_format($order->getCouponDiscount(), 2); ?></span>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <strong>Shipping Method:</strong> <span id="detail-shipping-method"><?php echo ucfirst($order->getShippingMethod()); ?></span>
+            </div>
+            <div class="col-md-6">
+                <strong>Shipping Charges:</strong> <span id="detail-shipping-charges">₹<?php echo number_format($order->getShippingCharges(), 2); ?></span>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <strong>Total Amount:</strong> <span id="detail-total-amount" class="fw-bold text-primary">₹<?php echo number_format($order->getTotalAmount(), 2); ?></span>
+            </div>
+            <div class="col-md-6">
+                <strong>Customer Email:</strong> <a href="mailto:<?php echo $order->getCustomerEmail(); ?>" id="detail-customer-email"><?php echo $order->getCustomerEmail(); ?></a>
+            </div>
+        </div>
+    </div>
+</div>

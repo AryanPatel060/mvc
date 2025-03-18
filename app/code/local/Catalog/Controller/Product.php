@@ -15,13 +15,13 @@ class Catalog_Controller_Product extends Core_Controller_Front_Action
         }
         $layout->toHtml();
     }
-
     public function viewAction()
     {
         $layout = Mage::getBlock('core/layout');
         $view = $layout->createBlock('catalog/product_view');
 
         $layout->getChild('content')->addChild('view', $view);
+        $layout->getChild('head')->addJs('page/viewproduct.js');
         $layout->toHtml();
     }
 

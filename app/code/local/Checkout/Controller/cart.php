@@ -16,14 +16,13 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         }
         $layout->getChild('head')->addScript('https://code.jquery.com/jquery-3.6.0.min.js');
         $layout->getChild('head')->addCss('page/cart.css');
+        $layout->getChild('head')->addJs('cart/Index.js');
         $layout->toHtml();
     }
 
     public function placeorderAction()
     {
         // Mage::log ($this->getRequest()->getIp());// echo "excfvgbhnjmk";
-
-        // die();
         $cartModel = Mage::getSingleton("checkout/session")->getCart();
         $converter = Mage::getModel("checkout/converter_order");
         $converter->convert($cartModel);

@@ -2,7 +2,7 @@
 <?php $shippingMethods = $this->getMethods(); ?>
 <?php $address = $this->getAddressData(); ?>
 <style>
-  
+
 </style>
 <div class="cart-container scc py-5">
     <div class="row">
@@ -34,7 +34,7 @@
                                 <h4 class="product-name mb-2"><?php echo $product->getName() ?></h4>
                                 <p class="product-detail mb-1"><strong>Brand:</strong> <?php echo $product->getBrand() ?></p>
                                 <p class="product-detail mb-1"><strong>Material:</strong> <?php echo $product->getMaterial() ?></p>
-                                
+
                                 <p class="product-detail mb-0"><strong>Price:</strong> ₹<?php echo number_format($product->getPrice(), 2) ?></p>
                             </div>
 
@@ -206,7 +206,7 @@
 
                 <!-- Checkout Button -->
                 <div class="mt-4">
-                    <a href="<?php echo $this->getUrl('checkout/cart/placeorder'); ?>" class="btn checkout-btn w-100">
+                    <a href="<?php echo $this->getUrl('checkout/cart/placeorder'); ?>" class="btn checkout-btn w-100" disabled>
                         <i class="fas fa-credit-card me-2"></i>Proceed to Checkout
                     </a>
                 </div>
@@ -214,11 +214,3 @@
         </div>
     </div>
 </div>
-
-<!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Custom JS -->
-<script>
-</script>

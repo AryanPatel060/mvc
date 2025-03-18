@@ -1,0 +1,32 @@
+<?php $address = $this->getAddressData() ?>
+<?php $address = $this->getAddressData() ?>
+
+<div class="d-flex justify-content-center m-5">
+    <div class="row w-100 d-flex justify-content-center">
+        <?php foreach ($address as $addressData): ?>
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="card shadow-sm p-4 position-relative border rounded w-100" style="max-width: 500px;">
+                    <div class="card-body">
+                        <h5 class="fw-bold text-uppercase mb-3">
+                            <?php echo ucfirst($addressData->getAddressType()); ?> Address
+                        </h5>
+                        <p class="mb-2 fw-semibold">
+                            <?php echo $addressData->getFirstName() . ' ' . $addressData->getLastName(); ?>
+                        </p>
+                        <p class="text-muted mb-1">
+                            <i class="bi bi-telephone me-1"></i><?php echo $addressData->getPhoneNumber(); ?>
+                        </p>
+                        <p class="text-muted mb-0">
+                            <i class="bi bi-geo-alt me-1"></i><?php echo $addressData->getStreetAddress(); ?>,
+                            <?php echo $addressData->getCity(); ?>, <?php echo $addressData->getRegion(); ?>
+                        </p>
+                        <p class="text-muted">
+                            <i class="bi bi-globe me-1"></i><?php echo $addressData->getCountry(); ?> -
+                            <?php echo $addressData->getZipcode(); ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>

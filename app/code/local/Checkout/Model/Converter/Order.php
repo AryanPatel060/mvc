@@ -9,12 +9,12 @@
         // ip address to be added
         // created at updated at to be make new
         // $_SERVER['REMOTE_ADDR'] 
-
-        Mage::log($cartData);
+        // Mage::log($cartData);
         $order = Mage::getModel("sales/order")
             ->setData($cartData)
             ->setCreatedAt(date("Y-m-d h:i:s"))
             ->setUpdatedAt(date("Y-m-d h:i:s"))
+            ->setOrderNumber('ORD' . time() . mt_rand(1000, 9999))
             ->save();
 
 
@@ -50,6 +50,5 @@
             ->setCreatedAt(date("Y-m-d h:i:s"))
             ->setUpdatedAt(date("Y-m-d h:i:s"))
             ->save();
-
     }
 }

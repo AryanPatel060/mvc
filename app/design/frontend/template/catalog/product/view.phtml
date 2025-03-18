@@ -2,6 +2,8 @@
 $product  = $this->getProductData();
 $images = $product->getImages();
 ?>
+
+
 <div class="container mt-4">
     <div class="row">
         <!-- Product Image Section -->
@@ -20,22 +22,29 @@ $images = $product->getImages();
 
         <!-- Product Details Section -->
         <div class="col-md-6">
+            <div id="cartSuccessMessage" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <div class="product-container product-info">
                 <h2><?= $product->getName() ?></h2>
                 <p class="product-price">Rs. <?= $product->getPrice() ?></p>
                 <p><strong>SKU:</strong> <?= $product->getSku() ?></p>
                 <p><strong>Available Quantity:</strong> <?= $product->getStockQuantity() ?></p>
 
-                <form action="<?= $this->getUrl('checkout/cart/add')?>" method="Post">
-                    
-                    <input type="hidden" name="cart[product_id]" id="product_id" value=" <?php echo $product->getProductId(); ?>">
+                <form class="d-flex flex-column align-items-start gap-2">
+                    <input type="hidden" name="cart[product_id]" id="product_id" value="<?php echo $product->getProductId(); ?>">
 
-                    <div>
-                        <label for="quantity">Quantity</label>
-                        <input type="number" name="cart[product_quantity]" >
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" id="decreseqnt" class="btn btn-outline-secondary btn-sm fw-bold">-</button>
+                        <input type="text" id="productquantity" class="form-control text-center fw-bold" name="cart[product_quantity]"
+                            value="1" readonly style="width: 50px;">
+                        <button type="button" id="increseqnt" class="btn btn-outline-secondary btn-sm fw-bold">+</button>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm " role="button">Add To cart</button>
+
+                    <button type="button" id="addtocartbtn" class="btn btn-primary btn-sm">Add To Cart</button>
                 </form>
+
 
                 <!-- Tabs -->
                 <ul class="nav nav-tabs mt-3" id="productTab">
@@ -43,7 +52,7 @@ $images = $product->getImages();
                         <a class="nav-link active" data-tab="descriptionTab">Description</a>
                     </li>
 
-                    
+
                     <li class="nav-item">
                         <a class="nav-link " data-tab="specificationsTab">Specifications</a>
                     </li>
