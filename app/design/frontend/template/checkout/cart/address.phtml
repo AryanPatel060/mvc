@@ -8,13 +8,11 @@ $cart = $this->getCart();
     <h2 class="text-center mb-4 fw-bold">Checkout</h2>
 
     <form id="checkout-form" method="POST" action="<?php echo $this->getUrl('Checkout/cart_address/add') ?>" class="p-4 shadow rounded bg-light">
-
         <!-- Common Email Field -->
         <div class="mb-3">
             <label class="fw-bold">Email Address</label>
-            <input type="email" name="customer_email" value="<?php echo $cart->getCustomerEmail() ?>" class="form-control" required>
+            <input type="email" name="customer_email" value="<?php echo $cart->getCustomerEmail() ?>" class="form-control validate-email validate-required" >
         </div>
-
         <!-- Shipping Address -->
         <h4 class="fw-bold">Shipping Address</h4>
         <div id="shipping-form" class="row g-3">
@@ -22,35 +20,35 @@ $cart = $this->getCart();
             <input type="hidden" name="shipping[address_id]" value="<?php echo $shipping->getAddressId() ?>" id="billing-type">
             <div class="col-md-6">
                 <label class="fw-bold">First Name</label>
-                <input type="text" name="shipping[first_name]" value="<?php echo $shipping->getFirstName() ?>" class="form-control" required>
+                <input type="text" name="shipping[first_name]" value="<?php echo $shipping->getFirstName() ?>" class="validate-required validate-name form-control" >
             </div>
             <div class="col-md-6">
                 <label class="fw-bold">Last Name</label>
-                <input type="text" name="shipping[last_name]" value="<?php echo $shipping->getLastName() ?>" class="form-control" required>
+                <input type="text" name="shipping[last_name]" value="<?php echo $shipping->getLastName() ?>" class="validate-required validate-name form-control" >
             </div>
             <div class="col-md-6">
                 <label class="fw-bold">Phone Number</label>
-                <input type="text" name="shipping[phone_number]" value="<?php echo $shipping->getPhoneNumber() ?>" class="form-control" required>
+                <input type="text" name="shipping[phone_number]" value="<?php echo $shipping->getPhoneNumber() ?>" class="validate-required validate-phonenumber form-control" >
             </div>
             <div class="col-md-12">
                 <label class="fw-bold">Street Address</label>
-                <input type="text" name="shipping[street_address]" value="<?php echo $shipping->getStreetAddress() ?>" class="form-control" required>
+                <input type="text" name="shipping[street_address]" value="<?php echo $shipping->getStreetAddress() ?>" class="validate-required validate-address  form-control" >
             </div>
             <div class="col-md-4">
                 <label class="fw-bold">City</label>
-                <input type="text" name="shipping[city]" value="<?php echo $shipping->getCity() ?>" class="form-control" required>
+                <input type="text" name="shipping[city]" value="<?php echo $shipping->getCity() ?>" class="validate-required validate-region form-control" >
             </div>
             <div class="col-md-4">
                 <label class="fw-bold">Zip Code</label>
-                <input type="text" name="shipping[zipcode]" value="<?php echo $shipping->getZipcode() ?>" class="form-control" required>
+                <input type="text" name="shipping[zipcode]" value="<?php echo $shipping->getZipcode() ?>" class="  validate-zipcode form-control validate-required" >
             </div>
             <div class="col-md-4">
                 <label class="fw-bold">Region</label>
-                <input type="text" name="shipping[region]" value="<?php echo $shipping->getRegion() ?>" class="form-control" required>
+                <input type="text" name="shipping[region]" value="<?php echo $shipping->getRegion() ?>" class="validate-required validate-region form-control" >
             </div>
             <div class="col-md-6">
                 <label class="fw-bold">Country</label>
-                <input type="text" name="shipping[country]" value="<?php echo $shipping->getCountry() ?>" class="form-control" required>
+                <input type="text" name="shipping[country]" value="<?php echo $shipping->getCountry() ?>" class="validate-required validate-region form-control" >
             </div>
         </div>
 
@@ -67,35 +65,35 @@ $cart = $this->getCart();
             <input type="hidden" name="billing[address_id]" value="<?php echo $billing->getAddressId() ?>" id="billing-type">
             <div class="col-md-6">
                 <label class="fw-bold">First Name</label>
-                <input type="text" name="billing[first_name]" value="<?php echo $billing->getFirstName() ?>" class="form-control" required>
+                <input type="text" name="billing[first_name]" value="<?php echo $billing->getFirstName() ?>" class="validate-required validate-name form-control" >
             </div>
             <div class="col-md-6">
                 <label class="fw-bold">Last Name</label>
-                <input type="text" name="billing[last_name]" value="<?php echo $billing->getLastName() ?>" class="form-control" required>
+                <input type="text" name="billing[last_name]" value="<?php echo $billing->getLastName() ?>" class="validate-required validate-name form-control" >
             </div>
             <div class="col-md-6">
                 <label class="fw-bold">Phone Number</label>
-                <input type="text" name="billing[phone_number]" value="<?php echo $billing->getPhoneNumber() ?>" class="form-control" required>
+                <input type="text" name="billing[phone_number]" value="<?php echo $billing->getPhoneNumber() ?>" class="validate-required validate-phonenumber form-control" >
             </div>
             <div class="col-md-12">
                 <label class="fw-bold">Street Address</label>
-                <input type="text" name="billing[street_address]" value="<?php echo $billing->getStreetAddress() ?>" class="form-control" required>
+                <input type="text" name="billing[street_address]" value="<?php echo $billing->getStreetAddress() ?>" class=" validate-required validate-address form-control" >
             </div>
             <div class="col-md-4">
                 <label class="fw-bold">City</label>
-                <input type="text" name="billing[city]" value="<?php echo $billing->getCity() ?>" class="form-control" required>
+                <input type="text" name="billing[city]" value="<?php echo $billing->getCity() ?>" class="validate-required validate-region form-control" >
             </div>
             <div class="col-md-4">
                 <label class="fw-bold">Zip Code</label>
-                <input type="text" name="billing[zipcode]" value="<?php echo $billing->getZipcode() ?>" class="form-control" required>
+                <input type="text" name="billing[zipcode]" value="<?php echo $billing->getZipcode() ?>" class="validate-required validate-zipcode form-control" >
             </div>
             <div class="col-md-4">
                 <label class="fw-bold">Region</label>
-                <input type="text" name="billing[region]" value="<?php echo $billing->getRegion() ?>" class="form-control" required>
+                <input type="text" name="billing[region]" value="<?php echo $billing->getRegion() ?>" class="validate-required validate-region form-control" >
             </div>
             <div class="col-md-6">
                 <label class="fw-bold">Country</label>
-                <input type="text" name="billing[country]" value="<?php echo $billing->getCountry() ?>" class="form-control" required>
+                <input type="text" name="billing[country]" value="<?php echo $billing->getCountry() ?>" class="validate-required validate-region form-control" >
             </div>
         </div>
 
@@ -106,9 +104,10 @@ $cart = $this->getCart();
     </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
-<!-- <script>
+
+<script>
     $(document).ready(function() {
         $('#sameAsShipping').change(function() {
             if ($(this).is(':checked')) {
@@ -121,8 +120,7 @@ $cart = $this->getCart();
             }
         });
     });
-</script> -->
-
+</script>
 
 <script>
 </script>

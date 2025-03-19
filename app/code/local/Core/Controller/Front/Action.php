@@ -14,4 +14,8 @@ class Core_Controller_Front_Action{
         header('location:'.$_url);
         return $this;
     }
+    public function getLayout()
+    {
+        return Mage::getSingleton("core/layout");
+    }
 }

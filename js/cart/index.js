@@ -4,19 +4,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function validateCheckout() {
         let isShippingSelected = $("input[name='shippingMethod']:checked").length > 0;
         let isPaymentSelected = $("input[name='paymentMethod']:checked").length > 0;
-        let isAddressAvailable = $(".card.shadow-sm").length > 0; // Checks if address cards exist
+        let isAddressAvailable = $(".addresscard").length > 1; // Checks if address cards exist
+        console.log($(".addresscard").length );
+        console.log(isAddressAvailable);
 
-       
 
         if (isShippingSelected && isPaymentSelected && isAddressAvailable) {
-            $(".checkout-btn").removeClass("disabled-link"); // Enable
+            $(".checkoutbtn").removeClass("disabled-link"); // Enable
         } else {
-            $(".checkout-btn").addClass("disabled-link"); // Disable
+            $(".checkoutbtn").addClass("disabled-link"); // Disable
+            console.log($(".checkoutbtn"));
         }
     }
 
     // Prevent navigation if disabled
-    $(".checkout-btn").on("click", function (e) {
+    $(".checkoutbtn").on("click", function (e) {
+        validateCheckout();
         if ($(this).hasClass("disabled-link")) {
             e.preventDefault(); // Stop navigation
             alert("Please select shipping, payment, and address to proceed.");

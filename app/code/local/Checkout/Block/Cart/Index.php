@@ -4,8 +4,16 @@ class Checkout_Block_Cart_Index extends Core_Block_Template
     public $cartProducts = [];
     public function __construct()
     {
-
         $this->setTemplate('Checkout/Cart/Index.phtml');
+        $items = $this->getLayout()->createBlock('Checkout/cart_index_items');
+        $this->addChild('cartitems',$items);
+        $address = $this->getLayout()->createBlock('Checkout/cart_index_address');
+        $this->addChild('cartaddress',$address);
+        $shipping = $this->getLayout()->createBlock('Checkout/cart_index_shipping');
+        $this->addChild('cartshipping',$shipping);
+        $payment = $this->getLayout()->createBlock('Checkout/cart_index_payment');
+        $this->addChild('cartpayment',$payment);
+        
     }
     public function getCartProductData()
     {

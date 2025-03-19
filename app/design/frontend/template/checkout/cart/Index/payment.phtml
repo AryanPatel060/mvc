@@ -1,0 +1,17 @@
+<?php $cartData = $this->getCart(); ?>
+<?php $shippingMethods = $this->getMethods(); ?>
+<?php $address = $this->getAddressData(); ?>
+
+<div class="card payment-section p-4 mt-4">
+    <h4>Payment Method</h4>
+    <div class="form-check shipping-option">
+        <input class="form-check-input paymentmethod" type="radio" name="paymentMethod"
+            id="payment_method"
+            value="pay_on_delivery"
+            required
+            <?php echo ($cartData->getPaymentMethod() == "") ? "" : "checked" ?>>
+        <label class="form-check-label" for="shipping_<?php echo $method; ?>">
+            Pay on delivery
+        </label>
+    </div>
+</div>

@@ -4,6 +4,7 @@
 
     <!-- Filters -->
     <div class="card p-3 mb-4 shadow-sm border-0">
+        <form action="">
         <div class="row g-2">
             <div class="col-md-2">
                 <label class="form-label fw-semibold">Status:</label>
@@ -14,22 +15,24 @@
                     <option>Cancelled</option>
                 </select>
             </div>
-            <div class="col-md-3">
-                <label class="form-label fw-semibold">From:</label>
-                <input type="date" class="form-control">
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">From:</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">To:</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold ">Search:</label>
+                    <input type="text" class="form-control validate-required validate-email" placeholder="Order ID, Customer name">
+                </div>
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100 fw-semibold">Apply</button>
+                </div>
             </div>
-            <div class="col-md-3">
-                <label class="form-label fw-semibold">To:</label>
-                <input type="date" class="form-control">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label fw-semibold">Search:</label>
-                <input type="text" class="form-control" placeholder="Order ID, Customer name">
-            </div>
-            <div class="col-md-1 d-flex align-items-end">
-                <button class="btn btn-primary w-100 fw-semibold">Apply</button>
-            </div>
-        </div>
+        </form>
     </div>
 
     <!-- Orders Table -->

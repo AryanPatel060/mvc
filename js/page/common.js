@@ -75,9 +75,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-    // // ----------------------------------------------- cart start ----------------------------------------
+        // // ----------------------------------------------- cart start ----------------------------------------
 
-        $(".shippingmethod").change(function() {
+        $(".shippingmethod").change(function () {
             shippingMethod = this.value;
             let formData = new FormData();
             formData.append('shippingMethod', shippingMethod);
@@ -89,18 +89,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function(response) {
+                success: function (response) {
                     console.log(response);
 
                     $('.scc').html(response);
                 },
-                error: function() {
+                error: function () {
                     $('#result').html('<p style="color: red;">Error fetching data</p>');
                 }
             });
 
         });
-        $(".paymentmethod").change(function() {
+        $(".paymentmethod").change(function () {
             paymentMethod = this.value;
             let formData = new FormData();
             formData.append('paymentMethod', paymentMethod);
@@ -112,12 +112,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function(response) {
+                success: function (response) {
                     console.log(response);
 
                     $('.scc').html(response);
                 },
-                error: function() {
+                error: function () {
                     $('#result').html('<p style="color: red;">Error fetching data</p>');
                 }
             });
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-  
+
 
 });
 function increaseQuantity(button) {
@@ -152,41 +152,181 @@ function showUpdateButton(qtyInput) {
 
 
 
-    // ----------------------------------------------- end Product View ----------------------------------------
+// ----------------------------------------------- end Product View ----------------------------------------
 
-    // // -------------------------------------------------------home banner--------------------------------------
-    // var swiper = new Swiper(".home-banner-swiper", {
-    //     loop: true, // Infinite loop
-    //     autoplay: {
-    //         delay: 3000,
-    //         disableOnInteraction: false
-    //     },
-    //     pagination: {
-    //         el: ".swiper-pagination",
-    //         clickable: true
-    //     },
-    //     navigation: {
-    //         nextEl: ".home-banner-button-next",
-    //         prevEl: ".home-banner-button-prev"
-    //     }
-    // });
-    // // ----------------------------------------------- home Banner end ----------------------------------------
+// // -------------------------------------------------------home banner--------------------------------------
+// var swiper = new Swiper(".home-banner-swiper", {
+//     loop: true, // Infinite loop
+//     autoplay: {
+//         delay: 3000,
+//         disableOnInteraction: false
+//     },
+//     pagination: {
+//         el: ".swiper-pagination",
+//         clickable: true
+//     },
+//     navigation: {
+//         nextEl: ".home-banner-button-next",
+//         prevEl: ".home-banner-button-prev"
+//     }
+// });
+// // ----------------------------------------------- home Banner end ----------------------------------------
 
-    // // ----------------------------------------------- home slider ----------------------------------------
-    // var myProductSwiper = new Swiper(".myProductSwiper", {
-    //     slidesPerView: 5,
-    //     spaceBetween: 20,
-    //     loop: true,
-    //     autoplay: {
-    //         delay: 2500,
-    //         disableOnInteraction: false
-    //     },
-    //     pagination: {
-    //         el: ".swiper-pagination",
-    //         clickable: true
-    //     }
-    // });
-    // // ----------------------------------------------- home slider end ----------------------------------------
+// // ----------------------------------------------- home slider ----------------------------------------
+// var myProductSwiper = new Swiper(".myProductSwiper", {
+//     slidesPerView: 5,
+//     spaceBetween: 20,
+//     loop: true,
+//     autoplay: {
+//         delay: 2500,
+//         disableOnInteraction: false
+//     },
+//     pagination: {
+//         el: ".swiper-pagination",
+//         clickable: true
+//     }
+// });
+// // ----------------------------------------------- home slider end ----------------------------------------
 
 
+class FormValidator {
+    constructor(form) {
+        this.form = form; // Assigning the form dynamically
+        this.validationRules = {
+            "validate-email": this.validateEmail,
+            "validate-number": this.validateNumber,
+            "validate-name": this.validateName,
+            "validate-address": this.validateAddress,
+            "validate-phonenumber": this.validatePhoneNumber,
+            "validate-zipcode": this.validateZipCode,
+            "validate-region": this.validateRegion,
+            "validate-required": this.validateRequired,
+        };
 
+        this.observeInputs();
+        this.setupFormSubmission();
+    }
+
+    // Email Validation
+    validateEmail(input) {
+        const emailPattern = /^[^\s@]+[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(input.value) ? "" : "Invalid email format";
+    }
+
+    // Number Validation
+    validateNumber(input) {
+        return /^\d+$/.test(input.value) ? "" : "Only numbers allowed";
+    }
+    validatePhoneNumber(input) {
+        return /^[0-9]{10,15}$/.test(input.value) ? "" : "Only numbers and length should be 10 - 15 characters allowed";
+    }
+    validateZipCode(input) {
+        return /^[0-9]{5,10}$/.test(input.value) ? "" : "Only numbers and length should be 5-10 characters allowed";
+    }
+    validateName(input) {
+        return /^[A-Za-z]+$/.test(input.value) ? "" : "Only alphabets are allowed";
+    }
+    validateRegion(input) {
+        return /^[A-Za-z\s]+$/.test(input.value) ? "" : "No special characters except space";
+    }
+    validateAddress(input) {
+        return /^[A-Za-z0-9-,\s]+$/.test(input.value) ? "" : "Only alphanumerical are allowed";
+    }
+
+    // Required Field Validation
+    validateRequired(input) {
+        return input.value.trim() ? "" : "This field is required";
+    }
+
+    // Validate a single input
+    validateInput(input) {
+        let errorMessage = "";
+        Object.keys(this.validationRules).forEach((rule) => {
+            if (input.classList.contains(rule)) {
+                let error = this.validationRules[rule](input);
+                console.log( typeof(error) , error);
+                if (error) {
+                    errorMessage = error;
+                }// Last error will be shown           
+            }
+            
+        });
+        
+        this.showError(input, errorMessage);
+        this.toggleSubmitButton();
+    }
+
+    // Show error message
+    showError(input, message) {
+        let errorDiv = input.nextElementSibling;
+        if (!errorDiv || !errorDiv.classList.contains("error-message")) {
+            errorDiv = document.createElement("div");
+            errorDiv.classList.add("error-message", "text-danger", "mt-1");
+            input.parentNode.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+    }
+
+    // Toggle submit button based on validation
+    toggleSubmitButton() {
+        const allInputs = this.form.querySelectorAll("input");
+        let isValid = true;
+
+        allInputs.forEach((input) => {
+            if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-message") && input.nextElementSibling.textContent !== "") {
+                isValid = false;
+            }
+        });
+
+        const submitButton = this.form.querySelector("button[type='submit']");
+        if (submitButton) {
+            submitButton.disabled = !isValid;
+        }
+    }
+
+    // Observe inputs for validation
+    observeInputs() {
+        this.form.addEventListener("input", (event) => {
+            if (event.target.tagName === "INPUT") {
+                this.validateInput(event.target);
+            }
+        });
+
+        // MutationObserver for dynamically added inputs
+        let observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.tagName === "INPUT") this.validateInput(node);
+                });
+            });
+        });
+
+        observer.observe(this.form, { childList: true, subtree: true });
+    }
+
+    setupFormSubmission() {
+        this.form.addEventListener("submit", (event) => {
+            let isValid = true;
+            const allInputs = this.form.querySelectorAll("input");
+
+            allInputs.forEach((input) => {
+                this.validateInput(input);
+                if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-message") && input.nextElementSibling.textContent !== "") {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault(); // Block form submission
+                alert("Please fix validation errors before submitting.");
+            }
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("form").forEach((form) => {
+        new FormValidator(form);
+        // console.log(form);
+    });
+});
