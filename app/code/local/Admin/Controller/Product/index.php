@@ -8,7 +8,7 @@ class Admin_Controller_Product_Index extends Core_Controller_Admin_Action
     public $data;
     public function newAction()
     {
-        $layout = Mage::getBlock('core/layout');
+        $layout = $this->getLayout();
         $new = $layout->createBlock('Admin/Product_Index_New');
         $layout->getChild('content')->addChild('new', $new);
 
@@ -20,7 +20,7 @@ class Admin_Controller_Product_Index extends Core_Controller_Admin_Action
     }
     public function listAction()
     {
-        $layout = Mage::getBlock('core/layout');
+        $layout = $this->getLayout();
         $list = $layout->createBlock('Admin/Product_Index_List');
         // ->setTemplate('Admin/Product/Index/List.phtml');
         //    print_r($view);
@@ -58,7 +58,7 @@ class Admin_Controller_Product_Index extends Core_Controller_Admin_Action
     }
     public function abcAction()
     {
-        $layout = Mage::getBlock('core/layout');
+        $layout = $this->getLayout();
         $new = $layout->createBlock('Admin/Product_Index_New')
             ->setTemplate('Admin/Product/Index/abc.phtml');
         $layout->getChild('content')->addChild('new', $new);

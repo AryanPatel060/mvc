@@ -1,6 +1,7 @@
 <?php
 class Checkout_Controller_Cart extends Core_Controller_Front_Action
 {
+   
     public function indexAction()
     {
         $layout = Mage::getBlock('core/layout');
@@ -23,8 +24,8 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
     public function placeorderAction()
     {
         // Mage::log ($this->getRequest()->getIp());
-        echo "excfvgbhnjmk";
-        die();
+        // echo "excfvgbhnjmk";
+        // die();
         $cartModel = Mage::getSingleton("checkout/session")->getCart();
         $converter = Mage::getModel("checkout/converter_order");
         $converter->convert($cartModel);

@@ -90,9 +90,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    console.log(response);
+                    // console.log(response);
 
-                    $('.scc').html(response);
+                    location.reload();
+
+                    // $('.scc').html(response);
                 },
                 error: function () {
                     $('#result').html('<p style="color: red;">Error fetching data</p>');
@@ -104,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
             paymentMethod = this.value;
             let formData = new FormData();
             formData.append('paymentMethod', paymentMethod);
-            console.log(paymentMethod);
+            // console.log(paymentMethod);
 
             $.ajax({
                 url: "http://localhost/MVC/checkout/cart/addPayment", // Backend endpoint
@@ -113,9 +115,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    console.log(response);
+                    // console.log(response);
+                    location.reload();
 
-                    $('.scc').html(response);
+                    // $('.scc').html(response);
                 },
                 error: function () {
                     $('#result').html('<p style="color: red;">Error fetching data</p>');
@@ -126,6 +129,83 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+
+    // --------------------------------------------- CUSTOMER ADD ADDRESS -----------------------------------------------
+
+    function getQueryParam(name) {
+        let urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Check if 'editid' exists in the URL
+    let editId = getQueryParam("editid");
+
+    if (editId) {
+        // Show the form automatically if editid is present
+        $("#address-form-container").removeClass("d-none").show();
+        $("#show-ca-form-btn").hide();
+    }
+    $("#show-ca-form-btn").click(function() {
+        $("#address-form-container").removeClass("d-none").hide().fadeIn();
+        $(this).hide();
+    });
+
+    $("#hide-ca-form-btn").click(function() {
+        $("#address-form-container").fadeOut(function() {
+            $("#show-ca-form-btn").fadeIn();
+        });
+    });
+
+    
+    $(".delete-address").click(function () {
+        let id = $(this).val(); // Get the address ID
+
+        if (confirm("Are you sure you want to delete this address?")) {
+            // Example: Perform an AJAX request to delete the address
+            $.ajax({
+                url: "http://localhost/MVC/customer/address/delete/", // Replace with the actual delete URL
+                type: "GET",
+                data: {
+                    id: id
+                },
+                success: function (response) {
+                    // console.log("Address deleted successfully:", response);
+                    // Optionally, remove the deleted address from the UI
+                    location.reload();
+
+                    // $("#address-container").html(response); // Refresh the page or remove the element dynamically
+                },
+                error: function (error) {
+                    console.error("Error deleting address:", error);
+                }
+
+            });
+        } else {
+            console.log("Address deletion canceled.");
+        }
+    });
+
+    $(".make-default").click(function () {
+        let id = $(this).val(); 
+        $.ajax({
+            url: "http://localhost/MVC/customer/dashboard/defaultAddress/", // Replace with the actual delete URL
+            type: "GET",
+            data: {
+                id: id
+            },
+            success: function (response) {
+                console.log(response);
+                // Optionally, remove the deleted address from the UI
+                location.reload();
+
+                // $("#address-container").html(response); // Refresh the page or remove the element dynamically
+            },
+            error: function (error) {
+                console.error("Error deleting address:", error);
+            }
+
+        });
+    });
 
 });
 function increaseQuantity(button) {
@@ -209,7 +289,7 @@ class FormValidator {
 
     // Email Validation
     validateEmail(input) {
-        const emailPattern = /^[^\s@]+[^\s@]+\.[^\s@]+$/;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(input.value) ? "" : "Invalid email format";
     }
 
@@ -244,14 +324,14 @@ class FormValidator {
         Object.keys(this.validationRules).forEach((rule) => {
             if (input.classList.contains(rule)) {
                 let error = this.validationRules[rule](input);
-                console.log( typeof(error) , error);
+                console.log(typeof (error), error);
                 if (error) {
                     errorMessage = error;
                 }// Last error will be shown           
             }
-            
+
         });
-        
+
         this.showError(input, errorMessage);
         this.toggleSubmitButton();
     }

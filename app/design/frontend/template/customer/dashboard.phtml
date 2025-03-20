@@ -1,0 +1,16 @@
+  <!-- Main Content -->
+  <div class="container py-5">
+      <div class="row">
+
+
+          <!-- Main Content -->
+          <div class="col-lg-9">
+              <?php echo $this->getChildHtml("customerorders"); ?>
+              <?php echo $this->getChildHtml("customerinfo"); ?>
+              <div id="address-container">
+                  <?php echo $this->getChildHtml("customeraddress"); ?>
+              </div>
+
+          </div>
+      </div>
+  </div>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="<?= $this->getUrl('') ?>">LOGO</a>
+        <a class="navbar-brand" href="<?= $this->getUrl('') ?>">Admin Page</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,10 +10,19 @@
                     <a class="nav-link active" aria-current="page" href="<?= $this->getUrl('') ?>">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?= $this->getUrl('admin/category_index/list') ?>">Category List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?= $this->getUrl('admin/product_index/list') ?>">Product List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?= $this->getUrl('admin/sales_order/list') ?>">Orders</a>
+                </li>
+                <li class="nav-item">
                     <?php if (isset($_SESSION['login']) && $_SESSION['login'] == 1): ?>
                         <a class="nav-link" href="<?= $this->getUrl('admin/account/logout') ?>">Logout</a>
                     <?php else: ?>
-                        <!-- <a class="nav-link" href="<?= $this->getUrl('admin/account/login') ?>">Login</a> -->
+                        <a class="nav-link" href="<?= $this->getUrl('admin/account/login') ?>">Login</a>
                     <?php endif; ?>
                 </li>
                 <li class="nav-item dropdown"></li>
@@ -23,23 +32,11 @@
                         Categories
                     </a>
                 </li>
+             
             </ul>
-            <?php if (isset($_SESSION['customerLogin']) && $_SESSION['customerLogin'] == 1): ?>
-                <a class="btn btn-outline-primary" href="<?= $this->getUrl('customer/dashboard/index') ?>">Dashboard</a>
-            <?php endif; ?>
-
             <div class="nav-item ms-2">
-                <a href="<?= $this->getUrl('checkout/cart/index') ?>" class="btn btn-outline-primary"><i class="fas fa-shopping-cart"></i></a>
-            </div>
-            <div class="nav-item ms-2">
-
-                <?php if (isset($_SESSION['customerLogin']) && $_SESSION['customerLogin'] == 1): ?>
-                    <a class="btn btn-danger" href="<?= $this->getUrl('customer/account/logout') ?>">Logout</a>
-
-                <?php else: ?>
-                    <a class="btn btn-success" href="<?= $this->getUrl('customer/account/login') ?>">Login</a>
-                    <a class="btn btn-success" href="<?= $this->getUrl('customer/account/signup') ?>">Signup</a>
-                <?php endif; ?>
+                
+                <a href="<?php echo $this->getUrl('admin/account/logout') ?>" class="btn btn-outline-danger">logout</a>
             </div>
         </div>
     </div>
@@ -55,19 +52,3 @@
 </div>
 
 
-
-
-<!-- <script type="text/javascript">
-    // alert(1);
-    let filter = {
-        xyz: function() {
-            console.log(1);
-            this.abc();
-        },
-        abc: function() {
-            console.log('abc')
-        }
-    }
-    filter.xyz();
-    filter.abc();
-</script> -->

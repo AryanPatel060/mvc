@@ -4,7 +4,7 @@ class Admin_Controller_Category_Index extends Core_Controller_Admin_Action
 {
     public function newAction()
     {
-        $layout = Mage::getBlock('core/layout');
+        $layout = $this->getLayout();
         $new = $layout->createBlock('Admin/Category_New');
         $layout->getChild('content')->addChild('newcategory',$new);
         $layout->toHtml();
@@ -12,7 +12,7 @@ class Admin_Controller_Category_Index extends Core_Controller_Admin_Action
 
     public function listAction()
     {
-        $layout = Mage::getBlock('core/layout');
+        $layout = $this->getLayout();
         $list = $layout->createBlock('Admin/Category_list');
         $layout->getChild('content')->addChild('list',$list);
         $layout->toHtml();
@@ -28,7 +28,7 @@ class Admin_Controller_Category_Index extends Core_Controller_Admin_Action
         {
             $list = Mage::getBlock('admin/category_list');
             $list->setMessage('can\'t delete this Category !!');
-            print_r($list);
+            // print_r($list);  
             // die();
            
             header("location:http://localhost/MVC/admin/category_index/list");
@@ -55,7 +55,7 @@ class Admin_Controller_Category_Index extends Core_Controller_Admin_Action
         $category_id = $model->save();
         if($category_id)
         {
-            print_r($category_id) ;
+            // print_r($category_id) ;
             echo 'saved success';
             header("location:http://localhost/MVC/admin/category_index/list");
         }

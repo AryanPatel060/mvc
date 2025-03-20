@@ -2,7 +2,7 @@
 {
     public function listAction()
     {
-        $layout = Mage::getBlock('core/layout');
+        $layout = $this->getLayout();
         $list = $layout->createBlock('admin/sales_order_list');
 
         $layout->getChild('content')->addChild('list', $list);
@@ -14,7 +14,7 @@
         $id = $this->getRequest()->getQuery('id');
         $orderModel = Mage::getModel('sales/order')->load($id);
 
-        $layout = Mage::getBlock('core/layout');
+        $layout = $this->getLayout();
         $order = $layout->createBlock('admin/sales_order');
         $order->setOrder($orderModel);
 

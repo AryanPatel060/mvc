@@ -10,11 +10,14 @@ class Checkout_Model_Session extends Core_Model_Session
         // var_dump($cart->getCartId());
         if ($cart->getCartId() == "") {
             // $cart = Mage::getModel('checkout/cart');
-            $emptyCart = [
-                'customer_id' => 0,
-                'total_amount' => 0,
-            ];
-            $cart->setData($emptyCart);
+            $customerId = $this->get('customerId');
+            if($customerId == ""){
+                $cart->setCustomerId(0);
+            }
+            else {
+                $cart->setCustomerId($customerId);
+            }
+            $cart->setTotalAmount(0);
             $savedCart = $cart->save();
             // if (!empty($savedCart->getCartId())) {/
                 $this->set('cart_id', $savedCart->getCartId());

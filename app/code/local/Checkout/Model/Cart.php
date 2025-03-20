@@ -1,6 +1,7 @@
 <?php
 class Checkout_Model_Cart extends Core_Model_Abstract
 {
+    
     public function init()
     {
         $this->_resourceClassName  = "Checkout_Model_Resource_Cart";
