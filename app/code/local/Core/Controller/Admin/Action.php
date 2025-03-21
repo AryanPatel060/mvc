@@ -21,6 +21,6 @@ class Core_Controller_Admin_Action extends Core_Controller_Front_Action
     }
     public function getLayout()
     {
-        return Mage::getBlock("core/layout_admin");
+        return Mage::getBlockSinglton("core/layout_admin");
     }
 }

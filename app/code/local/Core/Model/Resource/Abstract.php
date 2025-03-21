@@ -46,7 +46,7 @@ class Core_Model_Resource_Abstract
             $primaryId = $data[$this->_primaryKey];
         }
         if ($primaryId) {
-            $sql = "UPDATE {$this->_tableName} SET ";
+            $sql = "UPDATE `{$this->_tableName}` SET ";
             unset($data[$this->_primaryKey]);
             $columns = [];
             foreach ($data as $field => $value) {

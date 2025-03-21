@@ -3,7 +3,7 @@ class Core_Block_Template
 {
     protected $_child = [];
     protected $_template;
-    protected $_parent = null ; 
+    protected $_parent = null;
 
     public function toHtml()
     {
@@ -24,8 +24,7 @@ class Core_Block_Template
     public function addChild($key, $block)
     {
         $block->setParent($this);
-        if(!isset($this->_child[$key]))
-        {
+        if (!isset($this->_child[$key])) {
             $this->_child[$key] = $block;
         }
         return $this;
@@ -57,9 +56,8 @@ class Core_Block_Template
     }
     public function getUrl($url)
     {
-        if($url == "")
-        {
-            return Mage::getBaseUrl() ;
+        if ($url == "") {
+            return Mage::getBaseUrl();
         }
         $url = explode('/', $url);
         $request = Mage::getModel('core/request');
@@ -79,11 +77,16 @@ class Core_Block_Template
     }
     public function getImageUrl($url)
     {
-        return  Mage::getBaseUrl() .$url;
+        return  Mage::getBaseUrl() . $url;
     }
     public function getLayout()
     {
         return Mage::getBlockSinglton('core/layout');
+    }
+
+    public function getRequest()
+    {
+        return Mage::getModel('core/request');
     }
 
     // public function addJs($path)

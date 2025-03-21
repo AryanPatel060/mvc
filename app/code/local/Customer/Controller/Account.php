@@ -82,4 +82,5 @@ class Customer_Controller_Account extends Core_Controller_Customer_Action
             $this->redirect('');
         }
     }
+
 }

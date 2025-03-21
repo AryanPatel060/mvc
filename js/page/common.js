@@ -92,9 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 success: function (response) {
                     // console.log(response);
 
-                    location.reload();
+                    // location.reload();
 
-                    // $('.scc').html(response);
+                    $('#cartsummary').html(response);
                 },
                 error: function () {
                     $('#result').html('<p style="color: red;">Error fetching data</p>');
@@ -116,9 +116,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 contentType: false,
                 success: function (response) {
                     // console.log(response);
-                    location.reload();
+                    // location.reload();
 
-                    // $('.scc').html(response);
+                    $('#cartsummary').html(response);
                 },
                 error: function () {
                     $('#result').html('<p style="color: red;">Error fetching data</p>');
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Optionally, remove the deleted address from the UI
                 location.reload();
 
-                // $("#address-container").html(response); // Refresh the page or remove the element dynamically
+                // $("#content").html(response); // Refresh the page or remove the element dynamically
             },
             error: function (error) {
                 console.error("Error deleting address:", error);

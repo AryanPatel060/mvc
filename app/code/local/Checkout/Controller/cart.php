@@ -13,7 +13,13 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         if ($this->getRequest()->isAjax()) {
             $layout->removeChild('header');
             $layout->removeChild('footer');
-            // $layout->getChild('content')->getChild('list')->removeChild('filter');
+            $index = $layout->getChild('content')->getChild('index');
+            $index->removeChild('cartpayment');
+            $index->removeChild('cartaddress');
+            $index->removeChild('cartitems');
+            $index->removeChild('cartshipping');
+               
+
         }
         $layout->getChild('head')->addScript('https://code.jquery.com/jquery-3.6.0.min.js');
         $layout->getChild('head')->addCss('page/cart.css');
@@ -24,8 +30,8 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
     public function placeorderAction()
     {
         // Mage::log ($this->getRequest()->getIp());
-        // echo "excfvgbhnjmk";
-        // die();
+        echo "excfvgbhnjmk";
+        die();
         $cartModel = Mage::getSingleton("checkout/session")->getCart();
         $converter = Mage::getModel("checkout/converter_order");
         $converter->convert($cartModel);

@@ -8,10 +8,15 @@ class Catalog_Controller_Product extends Core_Controller_Front_Action
 
         $content = $layout->getChild('content');
         $content->addChild('list', $list);
-        if ($this->getRequest()->isAjax()) {
+        if ($this->getRequest()->isAjax()) {    
             $layout->removeChild('header');
             $layout->removeChild('footer');
-            $layout->getChild('content')->getChild('list')->removeChild('filter');
+            $layout->removeChild('head');
+            $product = $layout->getChild('content')->getChild('list')->getChild('product');
+            $layout->getChild('content')->removeChild('list');
+            $layout->getChild('content')->addChild('product', $product);
+            // ->removeChild('filter');
+
         }
         $layout->toHtml();
     }
@@ -42,7 +47,7 @@ class Catalog_Controller_Product extends Core_Controller_Front_Action
         $item = Mage::getSingleton("checkout/session")
             ->getCart()
             ->getItemCollection();
-        $item->select(['sum(main_table.sub_total)'=>'subTotal','item_id']);
+        $item->select(['sum(main_table.sub_total)' => 'subTotal', 'item_id']);
     }
 }
 

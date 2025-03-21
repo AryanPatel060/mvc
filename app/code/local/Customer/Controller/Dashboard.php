@@ -46,8 +46,20 @@ class Customer_Controller_Dashboard extends Core_Controller_Customer_Action
         $this->redirect("customer/dashboard/index");
     }
 
-    public function addInfoAction()
+    public function updateinfoAction()
     {
-        
+        $customerid = $this->getRequest()->getParam("id");
+        $field = $this->getRequest()->getParam("fieldname");
+        $value = $this->getRequest()->getParam("value");
+
+        $data = [];
+        $data[$field] = $value;
+        $data['customer_id'] = $customerid;
+        $model = mage::getModel('customer/account')
+            ->setData($data)
+            ->save();
+
+        mage::log($model);
     }
+
 }

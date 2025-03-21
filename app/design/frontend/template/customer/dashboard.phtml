@@ -4,13 +4,12 @@
 
 
           <!-- Main Content -->
-          <div class="col-lg-9">
-              <?php echo $this->getChildHtml("customerorders"); ?>
+          <div class="col">
               <?php echo $this->getChildHtml("customerinfo"); ?>
+              <?php echo $this->getChildHtml("customerorders"); ?>
               <div id="address-container">
                   <?php echo $this->getChildHtml("customeraddress"); ?>
               </div>
-
           </div>
       </div>
   </div>

@@ -1,70 +1,51 @@
-<style>
-    /* Table Styling */
-.table-row:hover {
-    background-color: #f1f1f1;
-    transition: 0.3s ease-in-out;
-}
 
-/* Status Badges */
-.badge {
-    font-size: 0.85rem;
-    padding: 6px 12px;
-    text-transform: capitalize;
-}
-
-/* Status Colors */
-.badge.pending { background-color: #d6d6d6; color: #505050; } /* Light Gray */
-.badge.completed { background-color: #a3c293; color: #2f4f2f; } /* Soft Green */
-.badge.canceled { background-color: #e0a4a4; color: #7a2a2a; } /* Muted Red */
-.badge.processing { background-color: #b3b3cc; color: #353563; } /* Subtle Blue */
-
-/* Button Styling */
-.btn-outline-dark {
-    border-color: #6c757d;
-    color: #343a40;
-}
-
-.btn-outline-dark:hover {
-    background-color: #343a40;
-    color: white;
-}
-
-</style>
+<?php $orders =  $this->getOrders() ?>
 <div class="card border-0 shadow-sm rounded-3 mb-4 bg-light">
-    <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
-        <h5 class="mb-0 text-secondary">Recent Orders</h5>
-    </div>
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th class="text-center text-secondary">Order ID</th>
-                        <th class="text-secondary">Date</th>
-                        <th class="text-secondary">Total</th>
-                        <th class="text-secondary">Status</th>
-                        <th class="text-center text-secondary">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($this->getOrders() as $order): ?>
-                        <tr class="table-row">
-                            <td class="text-center fw-semibold"><?php echo $order->getOrderNumber() ?></td>
-                            <td><?php echo date("d-m-Y", strtotime($order->getCreatedAt())) ?></td>
-                            <td class="fw-bold text-dark"><?php echo $order->getTotalAmount() ?></td>
-                            <td>
-                                <span class="badge rounded-pill <?php echo strtolower($order->getOrderStatus()) ?>">
-                                    <?php echo ucfirst($order->getOrderStatus()) ?>
-                                </span>
-                            </td>
-                            <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+    <?php if (count($orders) > 0): ?>
+        <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+            <h3 class="mb-0 text-secondary">Recent Orders</h3>
         </div>
-    </div>
-</div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="text-center text-secondary">Order ID</th>
+                            <th class="text-secondary">Date</th>
+                            <th class="text-secondary">Total</th>
+                            <th class="text-secondary">Status</th>
+                            <th class="text-center text-secondary">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
+                        <?php foreach ($orders as $order): ?>
+                            <tr class="table-row">
+                                <td class="text-center fw-semibold"><?php echo $order->getOrderNumber() ?></td>
+                                <td><?php echo date("d-m-Y", strtotime($order->getCreatedAt())) ?></td>
+                                <td class="fw-bold text-dark"><?php echo $order->getTotalAmount() ?></td>
+                                <td>
+                                    <span class="badge rounded-pill <?php echo strtolower($order->getOrderStatus()) ?>">
+                                        <?php echo ucfirst($order->getOrderStatus()) ?>
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" class="btn btn-sm btn-outline-dark px-3 rounded-pill">View</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+            <h3 class="mb-0 ">Recent Orders</h3>
+        </div>
+        <div class="text-center">
+            <h4 class="text-secondary">
+                No Orders Found
+            </h4>
+        </div>
+    <?php endif; ?>
+</div>

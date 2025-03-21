@@ -3,13 +3,13 @@
 <?php $address = $this->getAddressData(); ?>
 
 <div class="cart-container scc py-5">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-12">
             <h2 class="page-title text-center">
                 <i class="fas fa-shopping-cart me-2"></i>Shopping Cart
             </h2>
         </div>
-    </div>
+    </div> -->
     <?php if (count($this->getCartProductData()) < 1): ?>
         <div class="row">
             <div class="col-12">
@@ -21,86 +21,24 @@
     <?php else : ?>
         <div class="row mt-4">
             <!-- Main Cart Column -->
+
             <div class="col-lg-8 mb-4">
                 <!-- itemmmmmssssssss goes here ------------------------------------- -->
-                <?php echo $this->getChildHtml('cartitems') ?>
+                <?php $this->getChildHtml('cartitems') ?>
                 <!-- address goes here =-------------------------------- -->
-                <?php echo $this->getChildHtml('cartaddress') ?>
-                
+                <?php $this->getChildHtml('cartaddress') ?>
+
                 <!-- Shipping Method Selection Form -->
-                <?php echo $this->getChildHtml('cartshipping') ?>
-                
+                <?php $this->getChildHtml('cartshipping') ?>
+
                 <!-- payment methods  -->
-                <?php echo $this->getChildHtml('cartpayment') ?>
-                
+                <?php $this->getChildHtml('cartpayment') ?>
+
             </div>
 
             <!-- Order Summary Column -->
-            <div class="col-lg-4">
-                <div class="summary-card card p-4">
-                    <h4 class="summary-title text-center">
-                        <i class="fas fa-shopping-bag me-2"></i>Order Summary
-                    </h4>
-
-                    <div class="d-flex justify-content-between summary-item">
-                        <span>Total Items:</span>
-                        <span class="fw-bold"><?php echo count($this->getCartProductData()); ?></span>
-                    </div>
-                    <hr>
-
-                    <div class="d-flex justify-content-between summary-item fw-bold">
-                        <span>Items:</span>
-                        <span>Price</span>
-                    </div>
-
-                    <?php foreach ($this->getCartProductData() as $item): ?>
-                        <?php $product = $item->getProductData(); ?>
-                        <div class="d-flex justify-content-between summary-item">
-                            <span><?php echo ($product->getName()); ?></span>
-                            <span class="fw-bold">₹<?php echo ($item->getSubTotal()); ?></span>
-                        </div>
-                    <?php endforeach; ?>
-                    <hr>
-
-                    <!-- Discount Section -->
-                    <div class="d-flex justify-content-between summary-item discount-text">
-                        <span>Discount:</span>
-                        <span>- ₹<?php echo number_format($cartData->getCouponDiscount(), 2); ?></span>
-                    </div>
-
-                    <hr>
-                    <div class="d-flex justify-content-between summary-item fw-bold">
-                        <span>Shipping Charges:</span>
-                    </div>
-                    <div class="d-flex justify-content-between summary-item ">
-                        <span><?php echo $cartData->getShippingMethod(); ?></span>
-
-                        <span> ₹<?php echo number_format($cartData->getShippingCharges(), 2); ?></span>
-                    </div>
-                    <hr>
-                    <!-- Grand Total -->
-                    <div class="d-flex justify-content-between summary-total mb-3">
-                        <span>Grand Total:</span>
-                        <span>₹<?php echo $cartData->getTotalAmount(); ?></span>
-                    </div>
-
-                    <!-- Apply Coupon Form -->
-                    <div class="coupon-section">
-                        <h5 class="coupon-title">Apply Coupon</h5>
-                        <form method="POST" action="<?php echo $this->getUrl('*/*/applyCoupon'); ?>" class="d-flex">
-                            <input type="text" name="coupon_code" class="form-control coupon-input me-2"
-                                placeholder="Enter coupon code" required value="<?php echo $cartData->getCouponCode() ?>">
-                            <button type="submit" class="btn btn-primary">Apply</button>
-                        </form>
-                    </div>
-
-                    <!-- Checkout Button -->
-                    <div class="mt-4">
-                        <a href="<?php echo $this->getUrl('checkout/cart/placeorder'); ?>" class="btn btn-secondary checkoutbtn w-100">
-                            <i class="fas fa-credit-card me-2"></i>Proceed to Checkout
-                        </a>
-                    </div>
-                </div>
+            <div class="" style="display: contents;  " id="cartsummary">
+                <?php $this->getChildHtml('cartsummary') ?>
             </div>
         </div>
     <?php endif; ?>

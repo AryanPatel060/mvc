@@ -13,6 +13,8 @@ class Checkout_Block_Cart_Index extends Core_Block_Template
         $this->addChild('cartshipping',$shipping);
         $payment = $this->getLayout()->createBlock('Checkout/cart_index_payment');
         $this->addChild('cartpayment',$payment);
+        $summary = $this->getLayout()->createBlock('Checkout/cart_index_summary');
+        $this->addChild('cartsummary',$summary);
         
     }
     public function getCartProductData()

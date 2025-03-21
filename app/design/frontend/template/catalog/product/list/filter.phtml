@@ -83,6 +83,7 @@
             type: 'GET',
             data: filters,
             success: function(response) {
+                console.log(response)
                 $('#product-list').html(response);
             },
             error: function() {

@@ -117,7 +117,8 @@ class Core_Model_Resource_Collection_Abstract
         if (isset($this->_select['LIMIT'])) {
             $query = $query . " LIMIT " . $this->_select['LIMIT'];
             if (isset($this->_select['OFFSET'])) {
-                $query = $query . " OFFSET " . $this->_select['OFFSET'];
+
+                $query = $query . " OFFSET " . ( $this->_select['OFFSET'] - 1 )* $this->_select['LIMIT'];
             }
         }
         // echo $query;
@@ -234,6 +235,7 @@ class Core_Model_Resource_Collection_Abstract
     }
     public function offset($value)
     {
+
         $this->_select['OFFSET'] = $value;
         return $this;
     }

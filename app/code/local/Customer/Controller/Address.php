@@ -9,7 +9,7 @@
     }
 
 
-    public function addAction()
+    public function saveAction()
     {
         $address = $this->getRequest()->getParam('address');
 

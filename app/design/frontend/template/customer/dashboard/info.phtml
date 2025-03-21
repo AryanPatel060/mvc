@@ -1,30 +1,84 @@
 <?php $customer = $this->getCustomerInfo(); ?>
-<style>
-    
-</style>
 <div class="card border-0 shadow-sm rounded-3 mb-4 bg-light">
     <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
-        <h5 class="mb-0 text-secondary">Personal Information</h5>
+        <h3 class="mb-0">Personal Information</h3>
         <button class="btn btn-sm btn-outline-dark px-3 rounded-pill">Edit</button>
     </div>
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <p class="mb-1 text-muted small">Full Name</p>
-                <p class="mb-0 fw-bold text-dark"><?php echo $customer->getFullName() ?></p>
+        <form action="">
+            <div class="row">
+
+                <div class="col-md-6 ">
+                    <p class="mb-1 text-muted small">Full Name</p>
+                    <p class="mb-0 fw-bold text-dark edit"><?php echo $customer->getFullName(); ?></p>
+                    <input type="text" class="textedit" value="<?php echo $customer->getFullName(); ?>" id="Fullname-<?php echo $customer->getCustomerId(); ?>">
+                </div>
+
+                <div class="col-md-6">
+                    <p class="mb-1 text-muted small">Email Address</p>
+                    <p class="mb-0 fw-bold text-dark edit"><?php echo $customer->getEmail(); ?></p>
+                    <input type="text" class="textedit validate-email" value="<?php echo $customer->getEmail(); ?>" id="email-<?php echo $customer->getCustomerId(); ?>">
+
+                </div>
+                <div class="col-md-6 mt-3">
+                    <p class="mb-1 text-muted small">Phone Number</p>
+                    <p class="mb-0 fw-bold text-dark edit"><?php echo $customer->getPhone(); ?></p>
+                    <input type="text" class="textedit validate-phone" value="<?php echo $customer->getPhone(); ?>" id="phone-<?php echo $customer->getCustomerId(); ?>">
+
+                </div>
+                <div class="col-md-6 mt-3">
+                    <p class="mb-1 text-muted small">Date of Birth</p>
+                    <p class="mb-0 fw-bold text-dark">January 15, 1990</p>
+                </div>
+
             </div>
-            <div class="col-md-6 mb-3">
-                <p class="mb-1 text-muted small">Email Address</p>
-                <p class="mb-0 fw-bold text-dark"><?php echo $customer->getEmail() ?></p>
-            </div>
-            <div class="col-md-6 mb-3">
-                <p class="mb-1 text-muted small">Phone Number</p>
-                <p class="mb-0 fw-bold text-dark"><?php echo $customer->getPhone() ?></p>
-            </div>
-            <div class="col-md-6 mb-3">
-                <p class="mb-1 text-muted small">Date of Birth</p>
-                <p class="mb-0 fw-bold text-dark">January 15, 1990</p>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+
+
+
+<script>
+    $(document).ready(function() {
+
+        $(".textedit").hide();
+        $('.edit').click(function() {
+            $('.textedit').hide();
+            $(this).next('.textedit').show().focus();
+            $(this).hide();
+        });
+
+        $(".textedit").focusout(function() {
+            let id = this.id;
+            let split = id.split("-");
+            let fieldname = split[0];
+            let order_id = split[1];
+            let value = $(this).val();
+
+            $(this).hide();
+
+            $(this).prev('.edit').show();
+            $(this).prev('.edit').text(value);
+
+            console.log(value, split);
+            let data = {
+                id: order_id,
+                fieldname: fieldname,
+                value: value
+            };
+            if (confirm("Are you sure want to update state for selected order ?")) {
+
+                $.ajax({
+                    url: "<?php echo $this->getUrl('customer/dashboard/updateinfo'); ?>",
+                    type: 'POST',
+                    data: data,
+                    success: function(response) {
+                        console.log(response);
+                    }
+                });
+            } else {
+                alert("status updation canclled");
+            }
+        });
+    });
+</script>
