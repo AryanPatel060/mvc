@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2025 at 02:02 PM
+-- Generation Time: Mar 21, 2025 at 01:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -84,7 +84,14 @@ CREATE TABLE `cart` (
 INSERT INTO `cart` (`cart_id`, `customer_id`, `total_amount`, `created_at`, `updated_at`, `coupon_code`, `coupon_discount`, `customer_email`, `shipping_method`, `shipping_charges`, `payment_method`, `is_active`) VALUES
 (19, 0, 12891, '2025-03-12 04:25:02', '2025-03-17 00:51:52', 'abc20', 3217.80, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery', 0),
 (20, 0, 1461, '2025-03-17 13:00:02', '2025-03-17 19:51:55', 'abc20', 359.00, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 0),
-(21, 0, 0, '2025-03-18 07:52:01', '2025-03-17 19:52:01', '', 0.00, '', '', 0.00, '', 1);
+(21, 0, 24615, '2025-03-18 07:52:01', '2025-03-19 06:36:01', '', 0.00, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 0),
+(22, 0, 25, '2025-03-19 07:35:12', '2025-03-18 19:56:44', '', 0.00, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 0),
+(23, 0, 41407, '2025-03-19 07:56:47', '2025-03-18 20:05:53', 'abc10', 4598.00, '', 'fastpost', 25.00, '', 0),
+(24, 0, 28247, '2025-03-19 08:05:56', '2025-03-20 04:36:03', 'abc20', 7057.00, '', 'indianpost', 19.00, 'pay_on_delivery', 1),
+(25, 0, 11705, '2025-03-20 07:59:40', '2025-03-19 23:54:49', 'abc5', 614.75, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 0),
+(26, 6, 11515, '2025-03-20 11:54:54', '2025-03-19 23:57:07', '', 0.00, 'aryan2208patel@gmail.com', 'bluedart', 20.00, '', 0),
+(27, 6, 2420, '2025-03-20 11:57:13', '2025-03-20 00:05:48', '', 0.00, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery', 0),
+(28, 6, 23381, '2025-03-20 12:06:04', '2025-03-21 05:52:41', 'abc5', 1229.50, '', 'bluedart', 20.00, 'pay_on_delivery', 1);
 
 -- --------------------------------------------------------
 
@@ -116,7 +123,17 @@ INSERT INTO `cart_address` (`address_id`, `first_name`, `last_name`, `phone_numb
 (12, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 19, '2025-03-12 10:22:45', '2025-03-12 10:22:45'),
 (13, 'Bipinbhai', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 19, '2025-03-12 10:22:45', '2025-03-17 07:35:07'),
 (14, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 20, '2025-03-18 06:06:16', '2025-03-18 06:06:16'),
-(15, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 20, '2025-03-18 06:06:16', '2025-03-18 06:06:16');
+(15, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 20, '2025-03-18 06:06:16', '2025-03-18 06:06:16'),
+(16, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 21, '2025-03-19 06:32:19', '2025-03-19 06:35:57'),
+(17, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 21, '2025-03-19 06:32:19', '2025-03-19 06:32:19'),
+(18, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 22, '2025-03-19 07:35:36', '2025-03-19 07:35:36'),
+(19, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 22, '2025-03-19 07:35:36', '2025-03-19 07:42:46'),
+(20, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 25, '2025-03-20 11:54:18', '2025-03-20 11:54:18'),
+(21, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 25, '2025-03-20 11:54:18', '2025-03-20 11:54:18'),
+(22, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 26, '2025-03-20 11:56:53', '2025-03-20 11:56:53'),
+(23, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 26, '2025-03-20 11:56:53', '2025-03-20 11:56:53'),
+(24, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 27, '2025-03-20 12:05:35', '2025-03-20 12:05:35'),
+(25, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 27, '2025-03-20 12:05:35', '2025-03-20 12:05:35');
 
 -- --------------------------------------------------------
 
@@ -140,7 +157,15 @@ CREATE TABLE `cart_items` (
 INSERT INTO `cart_items` (`item_id`, `cart_id`, `product_id`, `product_quantity`, `price`, `sub_total`) VALUES
 (40, 19, 22, 1, 12295.00, 12295.00),
 (41, 19, 34, 2, 1897.00, 3794.00),
-(44, 20, 36, 1, 1795.00, 1795.00);
+(44, 20, 36, 1, 1795.00, 1795.00),
+(45, 21, 22, 2, 12295.00, 24590.00),
+(46, 23, 23, 4, 11495.00, 45980.00),
+(48, 24, 23, 2, 11495.00, 22990.00),
+(49, 24, 22, 1, 12295.00, 12295.00),
+(50, 25, 22, 1, 12295.00, 12295.00),
+(51, 26, 23, 1, 11495.00, 11495.00),
+(52, 27, 25, 2, 1200.00, 2400.00),
+(53, 28, 22, 2, 12295.00, 24590.00);
 
 -- --------------------------------------------------------
 
@@ -417,8 +442,19 @@ CREATE TABLE `customer` (
   `email` varchar(255) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `password` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `email`, `phone`, `created_at`, `updated_at`, `password`) VALUES
+(1, 'user1', 'lastname', 'usr1@gmail.co', '0000000302', '2025-03-19 12:35:00', '2025-03-21 09:51:21', '1234'),
+(2, '', '', 'aryan2208patel@gmail.com', '09714560206', '2025-03-20 11:01:35', '2025-03-20 11:01:35', '1234'),
+(4, 'bipin kumar', 'Patel', 'aryan220patel@gmail.com', '09714560206', '2025-03-20 11:06:29', '2025-03-20 11:06:29', '1234'),
+(6, 'Aryan', 'Patel', 'aryan1patel@gmail.com', '09714560206', '2025-03-20 11:18:04', '2025-03-20 11:18:04', '12341');
 
 -- --------------------------------------------------------
 
@@ -434,8 +470,23 @@ CREATE TABLE `customer_address` (
   `state` varchar(100) NOT NULL,
   `zip_code` varchar(20) NOT NULL,
   `country` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_default` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customer_address`
+--
+
+INSERT INTO `customer_address` (`address_id`, `customer_id`, `street`, `city`, `state`, `zip_code`, `country`, `created_at`, `is_default`) VALUES
+(1, 1, '801 sector 27', 'Gandhinagar', 'Gujarat', '382027', 'India', '2025-03-20 08:21:17', 0),
+(9, 1, 'Jantral,Jaguvado', 'Vijapur', 'Gujarat', '382860', 'India', '2025-03-20 10:07:40', 1),
+(11, 6, '801 sector 27', 'Gandhinagar', 'Gujarat', '382027', 'India', '2025-03-20 11:18:04', 1),
+(12, NULL, '', '', '', '', '', '2025-03-20 11:18:17', 0),
+(13, 6, 'Jantral,Jaguvado', 'Vijapur', 'Gujarat', '382860', 'India', '2025-03-20 12:02:27', 0),
+(15, 2, 'Jantral,Jaguvado', 'Vijapur', 'Gujarat', '382860', 'India', '2025-03-21 04:14:07', 1),
+(16, NULL, '', '', '', '', '', '2025-03-21 04:14:09', 0),
+(17, 2, '801 sector 27', 'Gandhinagar', 'Gujarat', '382027', 'India', '2025-03-21 04:14:19', 0);
 
 -- --------------------------------------------------------
 
@@ -464,8 +515,17 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_id`, `customer_id`, `total_amount`, `order_status`, `created_at`, `updated_at`, `coupon_code`, `coupon_discount`, `customer_email`, `shipping_method`, `shipping_charges`, `payment_method`, `order_number`) VALUES
-(33, 0, 12891.00, 'pending', '2025-03-17 00:51:51', '2025-03-18 12:43:12', 'abc20', 3217.80, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery', 'ORD17422843159598'),
-(34, 0, 1461.00, 'pending', '2025-03-17 19:51:55', '2025-03-17 19:51:55', 'abc20', 359.00, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 'ORD17422843159597');
+(33, 0, 12891.00, '', '2025-03-17 00:51:51', '2025-03-21 08:52:37', 'abc20', 3217.80, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery', 'ORD17422843159598'),
+(34, 0, 1461.00, 'delivered', '2025-03-17 19:51:55', '2025-03-21 09:04:43', 'abc20', 359.00, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 'ORD17422843159597'),
+(35, 1, 24615.00, 'delivered', '2025-03-19 06:36:00', '2025-03-21 08:57:59', '', 0.00, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 'ORD17423661603505'),
+(37, 1, 41407.00, 'pending', '2025-03-18 20:05:52', '2025-03-20 05:56:35', 'abc10', 4598.00, '', 'fastpost', 25.00, '', 'ORD17423715528396'),
+(38, 0, 11705.00, 'pending', '2025-03-19 23:54:48', '2025-03-19 23:54:48', 'abc5', 614.75, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 'ORD17424716886653'),
+(39, 6, 11515.00, 'pending', '2025-03-19 23:57:06', '2025-03-19 23:57:06', '', 0.00, 'aryan2208patel@gmail.com', 'bluedart', 20.00, '', 'ORD17424718268671'),
+(40, 6, 2420.00, 'pending', '2025-03-20 00:05:48', '2025-03-20 00:05:48', '', 0.00, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery', 'ORD17424723487672'),
+(41, NULL, 0.00, 'pending', '2025-03-21 09:37:50', '2025-03-21 09:37:50', '', 0.00, '', '', 0.00, '', ''),
+(42, NULL, 0.00, 'pending', '2025-03-21 09:37:51', '2025-03-21 09:37:51', '', 0.00, '', '', 0.00, '', ''),
+(43, NULL, 0.00, 'pending', '2025-03-21 09:37:52', '2025-03-21 09:37:52', '', 0.00, '', '', 0.00, '', ''),
+(44, NULL, 0.00, 'pending', '2025-03-21 09:39:47', '2025-03-21 09:39:47', '', 0.00, '', '', 0.00, '', '');
 
 -- --------------------------------------------------------
 
@@ -497,7 +557,19 @@ INSERT INTO `order_address` (`address_id`, `first_name`, `last_name`, `phone_num
 (9, 'Bipinbhai', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 33, '2025-03-17 00:51:51', '2025-03-18 12:49:49'),
 (10, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 33, '2025-03-17 00:51:51', '2025-03-18 12:49:53'),
 (11, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 34, '2025-03-17 19:51:55', '2025-03-18 12:49:57'),
-(12, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 34, '2025-03-17 19:51:55', '2025-03-18 12:50:01');
+(12, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 34, '2025-03-17 19:51:55', '2025-03-18 12:50:01'),
+(13, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 0, '2025-03-19 06:36:00', '2025-03-19 06:36:00'),
+(14, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 0, '2025-03-19 06:36:00', '2025-03-19 06:36:00'),
+(15, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 0, '2025-03-18 19:56:44', '2025-03-18 19:56:44'),
+(16, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 0, '2025-03-18 19:56:44', '2025-03-18 19:56:44'),
+(17, '', '', '', '', '', '', '', '', NULL, 0, '2025-03-18 20:05:53', '2025-03-18 20:05:53'),
+(18, '', '', '', '', '', '', '', '', NULL, 0, '2025-03-18 20:05:53', '2025-03-18 20:05:53'),
+(19, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 0, '2025-03-19 23:54:49', '2025-03-19 23:54:49'),
+(20, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 0, '2025-03-19 23:54:49', '2025-03-19 23:54:49'),
+(21, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 0, '2025-03-19 23:57:07', '2025-03-19 23:57:07'),
+(22, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 0, '2025-03-19 23:57:07', '2025-03-19 23:57:07'),
+(23, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Billing', 0, '2025-03-20 00:05:48', '2025-03-20 00:05:48'),
+(24, 'Aryan', 'Patel', '09714560206', '801 sector 27', 'Gandhinagar', '382027', 'Gujarat', 'India', 'Shipping', 0, '2025-03-20 00:05:48', '2025-03-20 00:05:48');
 
 -- --------------------------------------------------------
 
@@ -534,7 +606,12 @@ CREATE TABLE `order_items` (
 INSERT INTO `order_items` (`item_id`, `order_id`, `product_id`, `product_quantity`, `price`, `sub_total`) VALUES
 (49, 33, 22, 1, 12295.00, 12295.00),
 (50, 33, 34, 2, 1897.00, 3794.00),
-(51, 34, 36, 1, 1795.00, 1795.00);
+(51, 34, 36, 1, 1795.00, 1795.00),
+(52, 35, 22, 2, 12295.00, 24590.00),
+(53, 37, 23, 4, 11495.00, 45980.00),
+(54, 38, 22, 1, 12295.00, 12295.00),
+(55, 39, 23, 1, 11495.00, 11495.00),
+(56, 40, 25, 2, 1200.00, 2400.00);
 
 -- --------------------------------------------------------
 
@@ -780,19 +857,19 @@ ALTER TABLE `admin_user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `cart_address`
 --
 ALTER TABLE `cart_address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `catalog_attribute`
@@ -840,25 +917,25 @@ ALTER TABLE `cms_page`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `customer_address`
 --
 ALTER TABLE `customer_address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `order_address`
 --
 ALTER TABLE `order_address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `order_invoice`
@@ -870,7 +947,7 @@ ALTER TABLE `order_invoice`
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `order_payment`
