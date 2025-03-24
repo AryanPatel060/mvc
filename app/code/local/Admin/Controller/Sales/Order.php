@@ -9,6 +9,8 @@
         $layout->toHtml();
     }
 
+    
+
     public function viewAction()
     {
         $id = $this->getRequest()->getQuery('id');
@@ -48,5 +50,12 @@
 
         Mage::log($model);
         // echo$order_id , $fieldname , $value;
+    }
+
+    public function exportOrdersAction()
+    {
+        Mage::getModel("sales/order")
+            ->exportData();
+        
     }
 }

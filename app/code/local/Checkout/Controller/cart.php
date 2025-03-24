@@ -21,7 +21,6 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
                
 
         }
-        $layout->getChild('head')->addScript('https://code.jquery.com/jquery-3.6.0.min.js');
         $layout->getChild('head')->addCss('page/cart.css');
         $layout->getChild('head')->addJs('cart/Index.js');
         $layout->toHtml();

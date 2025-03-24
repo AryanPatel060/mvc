@@ -31,7 +31,7 @@ class Customer_Controller_Account extends Core_Controller_Customer_Action
 
         mage::log($customer);
         $account = Mage::getModel("customer/account");
-        $email = $account->load($customer['email'],'email');
+        $email = $account->load($customer['email'], 'email');
         mage::log($email->getData());
         if (!$email->getData()) {
             $new = $account->setData($customer)
@@ -41,12 +41,11 @@ class Customer_Controller_Account extends Core_Controller_Customer_Action
                 ->setCustomerId($new->getCustomerId())
                 ->setIsDefault(1)
                 ->save();
-            
-            $this->getSession()->set('customerLogin',1);
-            $this->getSession()->set('customerId',$new->getCustomerId());
+
+            $this->getSession()->set('customerLogin', 1);
+            $this->getSession()->set('customerId', $new->getCustomerId());
             $this->redirect("customer/dashboard/index");
-        }
-        else{
+        } else {
             echo "email already exits";
         }
     }
@@ -83,4 +82,25 @@ class Customer_Controller_Account extends Core_Controller_Customer_Action
         }
     }
 
+    public function changePassAction()
+    {
+        $current =  $this->getRequest()->getParam("currentPassword");
+        $new  = $this->getRequest()->getParam("newPassword");
+        $id  = $this->getRequest()->getParam("id");
+
+        $result = Mage::getModel("customer/account")
+            ->getCollection()
+            ->addFieldToFilter('customer_id',$id)
+            ->addFieldToFilter('password',$current)
+            ->getFirstItem();
+        if($result->getCustomerId())
+        {
+            $result->setPassword($new);
+            $result->save();
+            echo "password changed successfully !";
+        }
+        else {
+            echo "cant do this operation now !";
+        }
+    }
 }

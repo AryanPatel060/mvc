@@ -35,17 +35,16 @@ class Core_Block_Layout extends Core_Block_Template
 
                 // ->addCss('page/common.css');
     }
-    // public function addJs($js)
-    // {
-    //     $this->_js[] = $js;
-    //     return $this;
-    // }
-    // public function addCss($css)
-    // {
-    //     $this->_css[] = $css;
-    //     return $this;
-    // }
-
+    public function addJs($js)
+    {
+        $this->_js[] = $js;
+        return $this;
+    }
+    public function addCss($css)
+    {
+        $this->_css[] = $css;
+        return $this;
+    }
 
     public function createBlock($block)
     {
