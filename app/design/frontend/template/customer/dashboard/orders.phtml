@@ -25,7 +25,7 @@
                                 <td><?php echo date("d-m-Y", strtotime($order->getCreatedAt())) ?></td>
                                 <td class="fw-bold text-dark"><?php echo $order->getTotalAmount() ?></td>
                                 <td>
-                                    <span class="badge rounded-pill <?php echo strtolower($order->getOrderStatus()) ?>">
+                                    <span class="badge rounded-pill  text-dark">
                                         <?php echo ucfirst($order->getOrderStatus()) ?>
                                     </span>
                                 </td>
