@@ -53,12 +53,10 @@ class Admin_Controller_Product_Index extends Core_Controller_Admin_Action
     }
     public function abcAction()
     {
-        $layout = $this->getLayout();
-        $new = $layout->createBlock('Admin/Product_Index_New')
-            ->setTemplate('Admin/Product/Index/abc.phtml');
-        $layout->getChild('content')->addChild('new', $new);
-        $layout->getChild('head')->addCss('main2.css');
-        $layout->toHtml();
+        $new = $this->getLayout()->createBlock('Admin/Demo_List');
+        $this->getLayout()->getChild('content')->addChild('new', $new);
+        $this->getLayout()->getChild('head')->addCss('main2.css');
+        $this->getLayout()->toHtml();
     }
 
     public function exportProductsAction()

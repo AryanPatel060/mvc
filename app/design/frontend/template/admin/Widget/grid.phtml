@@ -1,0 +1,41 @@
+<div class="container mt-5 mb-5">
+    <?php $this->getChildHtml('toolbar') ?>
+
+    <table class="table">
+        <thead>
+            <?php foreach ($this->getColumns() as $column): ?>
+                <td>
+                    <?php $this->renderColumn($column); ?>
+                </td>
+            <?php endforeach; ?>
+        </thead>
+        <tbody>
+            <tr>
+                <?php foreach ($this->getColumns() as $filter): ?>
+
+                    <td>
+                        <?php $this->renderFilter($filter) ?>
+                    </td>
+
+                <?php endforeach ?>
+            </tr>
+            <?php foreach ($this->getCollection()->getData() as $data): ?>
+                <tr>
+                    <?php foreach ($this->getColumns() as $column): ?>
+
+                        <td>
+                            <?php if ($column['type'] == 'text'): ?>
+                                <?php echo $data->{$column['data-index']} ?>
+                            <?php elseif($column['type'] == 'link'): ?>
+                                <?php $this->renderButton($column , $data->getProductId());?>
+                            <?php endif; ?>
+                        </td>
+
+                    <?php endforeach ?>
+                                
+
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+</div>

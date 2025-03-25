@@ -1,0 +1,6 @@
+<select class="form-control" name="select" id="select">
+<option  value="">-select-</option>
+    <?php foreach($this->getOption() as $option): ?>
+        <option  value="<?php echo $option->getCategoryId() ?>"><?php echo $option->getName() ?></option>
+        <?php endforeach; ?>
+</select>

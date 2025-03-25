@@ -6,7 +6,7 @@ class Admin_Block_Product_Index_List extends Core_Block_Template
     public function __construct()
     {
         $this->setTemplate('Admin/Product/Index/List.phtml');
-        $toolbar = $this->getLayout()->createBlock("admin/grid_toolbar");
+        $toolbar = $this->getLayout()->createBlock("admin/widget_grid_toolbar");
         $this->addChild('toolbar', $toolbar);
         $this->init();
     }

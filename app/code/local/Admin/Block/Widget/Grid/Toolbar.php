@@ -1,11 +1,11 @@
-<?php class Admin_Block_Grid_Toolbar extends Core_Block_Layout
+<?php class Admin_Block_Widget_Grid_Toolbar extends Core_Block_Layout
 {
     protected $_limit = 5;
     protected $_page = 1;
     protected $_collection;
     public function __construct()
     {
-        $this->setTemplate('admin/grid/toolbar.phtml');
+        $this->setTemplate('admin/widget/grid/toolbar.phtml');
     }
     public function prepareToolbar()
     {
