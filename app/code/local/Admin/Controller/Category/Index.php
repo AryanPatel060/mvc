@@ -17,6 +17,13 @@ class Admin_Controller_Category_Index extends Core_Controller_Admin_Action
         $list =  $this->getLayout()->createBlock('Admin/Category_list');
         $this->getLayout()->getChild('content')->addChild('list', $list);
         $this->getLayout()->getChild('head')->addJs('admin/new.js');
+        // if($this->getRequest()->isAjax())
+        // {
+        //     $this->getLayout()->removeChild('header');
+        //     $this->getLayout()->removeChild('head');
+        //     $this->getLayout()->removeChild('footer');
+        //     $list->applyfilter();
+        // }
         $this->getLayout()->toHtml();
     }
     public function deleteAction()

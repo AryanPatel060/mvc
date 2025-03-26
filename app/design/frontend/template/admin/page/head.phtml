@@ -1,7 +1,5 @@
 <head>
-    <?php foreach ($this->getJs() as $js): ?>
-        <script src="<?php echo Mage::getBaseUrl().'js/'.$js ?>"></script>
-    <?php endforeach; ?>
+    
     <?php foreach ($this->getCss() as $css): ?>
         <link rel="stylesheet" href="<?php echo Mage::getBaseUrl().'css/'.$css ?>">
     <?php endforeach; ?>
@@ -10,5 +8,8 @@
     <?php endforeach; ?>
     <?php foreach ($this->getScript() as $script): ?>
         <script src="<?php echo $script ?>"></script>
+    <?php endforeach; ?>
+    <?php foreach ($this->getJs() as $js): ?>
+        <script src="<?php echo Mage::getBaseUrl().'js/'.$js ?>"></script>
     <?php endforeach; ?>
 </head>

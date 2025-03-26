@@ -324,7 +324,6 @@ class FormValidator {
         Object.keys(this.validationRules).forEach((rule) => {
             if (input.classList.contains(rule)) {
                 let error = this.validationRules[rule](input);
-                console.log(typeof (error), error);
                 if (error) {
                     errorMessage = error;
                 }// Last error will be shown           
@@ -407,7 +406,7 @@ class FormValidator {
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("form").forEach((form) => {
         new FormValidator(form);
-        // console.log(form);
+        console.log(form);
     });
 });
 

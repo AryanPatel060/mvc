@@ -47,13 +47,11 @@ class Admin_Block_Category_List extends Admin_Block_Widget_Grid
         $this->setCollection(
             Mage::getModel('catalog/category')
                 ->getCollection()
-                // ->addFieldToFilter('Parent_id', ['IS NOT' => NULL])
                 ->join(
                     ["c2" => "catalog_category"],
                     "c2.category_id = main_table.parent_id",
                     ["parent_name" => "name"]
                 )
-
         );
         $this->addColumn(
             "category_id",
@@ -73,7 +71,7 @@ class Admin_Block_Category_List extends Admin_Block_Widget_Grid
                 'type' => "text",
                 "label" => "Name",
                 "filter" => "text",
-                "validation"=>"validate-name",
+                "validation" => "validate-name",
                 "data-index" => "name",
             ]
         );
@@ -127,4 +125,5 @@ class Admin_Block_Category_List extends Admin_Block_Widget_Grid
 
         return $category->getData();
     }
+ 
 }

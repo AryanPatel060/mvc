@@ -21,6 +21,7 @@ class Catalog_Model_Filter extends Core_Model_Abstract
             $collection->addCategoryFilter($parameter['cid']);
             unset($parameter['cid']);
         }
+        
 
         if (isset($parameter['minprice']) && strlen($parameter['minprice'])) {
             $collection->addFieldToFilter('price', ['>' => $parameter['minprice']]);

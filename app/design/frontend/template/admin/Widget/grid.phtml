@@ -1,39 +1,67 @@
-<div class="container mt-5 mb-5">
-    <?php $this->getChildHtml('toolbar') ?>
+<div class="container mt-5 mb-5" id="grid-container">
 
-    <table class="table">
-        <thead>
-            <?php foreach ($this->getColumns() as $column): ?>
-                <td>
-                    <?php $this->renderColumn($column); ?>
-                </td>
-            <?php endforeach; ?>
-        </thead>
-        <tbody>
+    
+
+    <form action="" id="gridform">
+
+        <table class="table">
+            <thead>
+                <?php foreach ($this->getColumns() as $column): ?>
+                    <td>
+                        <?php $this->renderColumn($column); ?>
+                    </td>
+                <?php endforeach; ?>
+            </thead>
             <tr>
-                <form action="">
-                    <?php foreach ($this->getColumns() as $filter): ?>
-                        <td>
-                            <?php $this->renderFilter($filter) ?>
-                        </td>
-                    <?php endforeach ?>
-                </form>
+                <?php foreach ($this->getColumns() as $filter): ?>
+                    <td>
+                        <?php $this->renderFilter($filter) ?>
+                    </td>
+                <?php endforeach ?>
             </tr>
-            <?php foreach ($this->getCollection()->getData() as $data): ?>
-                <tr>
-                    <?php foreach ($this->getColumns() as $column): ?>
+            <tbody id="grid-body">
+                <?php foreach ($this->getCollection()->getData() as $data): ?>
+                    <tr>
+                        <?php foreach ($this->getColumns() as $column): ?>
 
-                        <td>
-                            <?php if ($column['type'] == 'text'): ?>
-                                <?php echo $data->{$column['data-index']} ?>
-                            <?php elseif ($column['type'] == 'link'): ?>
-                                <?php $this->renderButton($column, $data->{$this->getPrimarykey()}); ?>
-                            <?php endif; ?>
-                        </td>
+                            <td>
+                                <?php if ($column['type'] == 'text'): ?>
+                                    <?php echo $data->{$column['data-index']} ?>
+                                <?php elseif ($column['type'] == 'link'): ?>
+                                    <?php $this->renderButton($column, $data->{$this->getPrimarykey()}); ?>
+                                <?php endif; ?>
+                            </td>
 
-                    <?php endforeach ?>
-                </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
+                        <?php endforeach ?>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </form>
+    <div class="col justify-content-end d-flex m-4">
+        <?php $this->getChildHtml('toolbar') ?>
+    </div>
 </div>
+
+
+<script>
+    console.log($("#gridform").find("input"));
+    data = {}
+    let formData = new FormData();
+    $("#gridform").find("input").on("change", function() {
+        formData.append(($(this).attr("id").split("-"))[1], $(this).val()); // Adds the changed input
+        console.log(Array.from(formData.entries()));
+        data[($(this).attr("id").split("-"))[1]] = $(this).val();
+        console.log(data);
+        $.ajax({
+            url: "<?php echo $this->getUrl("*/*/*") . "/" ?>",
+            type: "GET",
+            data: data,
+            success: function(res) {
+                console.log();
+                $("#grid-body").html(((res.split(`<tbody id="grid-body">`))[1].split("</tbody>"))[0]);
+            }
+
+        })
+    });
+</script>

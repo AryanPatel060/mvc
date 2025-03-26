@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2025 at 01:33 PM
+-- Generation Time: Mar 26, 2025 at 09:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -451,8 +451,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `first_name`, `last_name`, `email`, `phone`, `created_at`, `updated_at`, `password`) VALUES
-(1, 'user1', 'lastname', 'usr1@gmail.co', '0000000302', '2025-03-19 12:35:00', '2025-03-21 09:51:21', '1234'),
-(2, '', '', 'aryan2208patel@gmail.com', '09714560206', '2025-03-20 11:01:35', '2025-03-20 11:01:35', '1234'),
+(1, 'user1', 'lastname', 'user1@gmail.com', '0000000302', '2025-03-19 12:35:00', '2025-03-24 07:20:27', '12345'),
 (4, 'bipin kumar', 'Patel', 'aryan220patel@gmail.com', '09714560206', '2025-03-20 11:06:29', '2025-03-20 11:06:29', '1234'),
 (6, 'Aryan', 'Patel', 'aryan1patel@gmail.com', '09714560206', '2025-03-20 11:18:04', '2025-03-20 11:18:04', '12341');
 
@@ -479,14 +478,12 @@ CREATE TABLE `customer_address` (
 --
 
 INSERT INTO `customer_address` (`address_id`, `customer_id`, `street`, `city`, `state`, `zip_code`, `country`, `created_at`, `is_default`) VALUES
-(1, 1, '801 sector 27', 'Gandhinagar', 'Gujarat', '382027', 'India', '2025-03-20 08:21:17', 0),
-(9, 1, 'Jantral,Jaguvado', 'Vijapur', 'Gujarat', '382860', 'India', '2025-03-20 10:07:40', 1),
+(1, 1, '801 sector 27', 'Gandhinagar', 'Gujarat', '382027', 'India', '2025-03-20 08:21:17', 1),
+(9, 1, 'Jantral,Jaguvado', 'Vijapur', 'Gujarat', '382860', 'India', '2025-03-20 10:07:40', 0),
 (11, 6, '801 sector 27', 'Gandhinagar', 'Gujarat', '382027', 'India', '2025-03-20 11:18:04', 1),
 (12, NULL, '', '', '', '', '', '2025-03-20 11:18:17', 0),
 (13, 6, 'Jantral,Jaguvado', 'Vijapur', 'Gujarat', '382860', 'India', '2025-03-20 12:02:27', 0),
-(15, 2, 'Jantral,Jaguvado', 'Vijapur', 'Gujarat', '382860', 'India', '2025-03-21 04:14:07', 1),
-(16, NULL, '', '', '', '', '', '2025-03-21 04:14:09', 0),
-(17, 2, '801 sector 27', 'Gandhinagar', 'Gujarat', '382027', 'India', '2025-03-21 04:14:19', 0);
+(16, NULL, '', '', '', '', '', '2025-03-21 04:14:09', 0);
 
 -- --------------------------------------------------------
 
@@ -515,17 +512,13 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_id`, `customer_id`, `total_amount`, `order_status`, `created_at`, `updated_at`, `coupon_code`, `coupon_discount`, `customer_email`, `shipping_method`, `shipping_charges`, `payment_method`, `order_number`) VALUES
-(33, 0, 12891.00, '', '2025-03-17 00:51:51', '2025-03-21 08:52:37', 'abc20', 3217.80, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery', 'ORD17422843159598'),
+(33, 0, 12891.00, 'shipped', '2025-03-17 00:51:51', '2025-03-24 05:28:33', 'abc20', 3217.80, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery', 'ORD17422843159598'),
 (34, 0, 1461.00, 'delivered', '2025-03-17 19:51:55', '2025-03-21 09:04:43', 'abc20', 359.00, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 'ORD17422843159597'),
 (35, 1, 24615.00, 'delivered', '2025-03-19 06:36:00', '2025-03-21 08:57:59', '', 0.00, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 'ORD17423661603505'),
 (37, 1, 41407.00, 'pending', '2025-03-18 20:05:52', '2025-03-20 05:56:35', 'abc10', 4598.00, '', 'fastpost', 25.00, '', 'ORD17423715528396'),
 (38, 0, 11705.00, 'pending', '2025-03-19 23:54:48', '2025-03-19 23:54:48', 'abc5', 614.75, 'aryan2208patel@gmail.com', 'fastpost', 25.00, 'pay_on_delivery', 'ORD17424716886653'),
 (39, 6, 11515.00, 'pending', '2025-03-19 23:57:06', '2025-03-19 23:57:06', '', 0.00, 'aryan2208patel@gmail.com', 'bluedart', 20.00, '', 'ORD17424718268671'),
-(40, 6, 2420.00, 'pending', '2025-03-20 00:05:48', '2025-03-20 00:05:48', '', 0.00, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery', 'ORD17424723487672'),
-(41, NULL, 0.00, 'pending', '2025-03-21 09:37:50', '2025-03-21 09:37:50', '', 0.00, '', '', 0.00, '', ''),
-(42, NULL, 0.00, 'pending', '2025-03-21 09:37:51', '2025-03-21 09:37:51', '', 0.00, '', '', 0.00, '', ''),
-(43, NULL, 0.00, 'pending', '2025-03-21 09:37:52', '2025-03-21 09:37:52', '', 0.00, '', '', 0.00, '', ''),
-(44, NULL, 0.00, 'pending', '2025-03-21 09:39:47', '2025-03-21 09:39:47', '', 0.00, '', '', 0.00, '', '');
+(40, 6, 2420.00, 'pending', '2025-03-20 00:05:48', '2025-03-20 00:05:48', '', 0.00, 'aryan2208patel@gmail.com', 'bluedart', 20.00, 'pay_on_delivery', 'ORD17424723487672');
 
 -- --------------------------------------------------------
 
@@ -917,7 +910,7 @@ ALTER TABLE `cms_page`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `customer_address`

@@ -53,13 +53,13 @@ class Admin_Block_Product_Index_List extends Admin_Block_Widget_Grid
                 ->addAttributeToSelect(['color', 'brand', 'material', 'releasedate', 'madein'])
                 ->leftJoin(['cat' => 'catalog_category'], 'cat.category_id = main_table.category_id', ['category_name' => 'name'])
         );
-
+        $this->applyFilter();
         $this->addColumn(
             "product_id",
             [
                 "label" => "Id",
                 "type" => "text",
-                "filter" => "text",
+                "filter" => "number",
                 "data-index" => "product_id",
             ]
         );
@@ -68,7 +68,7 @@ class Admin_Block_Product_Index_List extends Admin_Block_Widget_Grid
             [
                 "label" => "Name",
                 "type" => "text",
-                "filter" => "number",
+                "filter" => "text",
                 "data-index" => "name",
             ]
         );
@@ -77,7 +77,7 @@ class Admin_Block_Product_Index_List extends Admin_Block_Widget_Grid
             [
                 "label" => "Description",
                 "type" => "text",
-                "filter" => "number",
+                "filter" => "text",
                 "data-index" => "description",
             ]
         );
@@ -141,4 +141,12 @@ class Admin_Block_Product_Index_List extends Admin_Block_Widget_Grid
 
         return $category->getData();
     }
+    // public function applyfilter()
+    // {
+    //     $this->getCollection()
+    //         ->addFieldToFilter(
+    //             "main_table.product_id",
+    //             $this->getLayout()->getRequest()->getQuery('product_id')
+    //         );
+    // }
 }

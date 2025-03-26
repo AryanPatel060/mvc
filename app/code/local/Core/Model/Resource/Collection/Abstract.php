@@ -12,7 +12,7 @@ class Core_Model_Resource_Collection_Abstract
     }
     public function getResource()
     {
-        return $this->_resource ;
+        return $this->_resource;
     }
     public function setModel($model)
     {
@@ -122,7 +122,7 @@ class Core_Model_Resource_Collection_Abstract
             $query = $query . " LIMIT " . $this->_select['LIMIT'];
             if (isset($this->_select['OFFSET'])) {
 
-                $query = $query . " OFFSET " . ( $this->_select['OFFSET'] - 1 )* $this->_select['LIMIT'];
+                $query = $query . " OFFSET " . ($this->_select['OFFSET'] - 1) * $this->_select['LIMIT'];
             }
         }
         // echo $query;
@@ -164,6 +164,10 @@ class Core_Model_Resource_Collection_Abstract
                         break;
                     case 'EQ':
                         $where = "{$field} = '{$_value}'";
+                        break;
+
+                    case 'LIKE':
+                        $where = "{$field} LIKE '%{$_value}%'";
                         break;
 
                     default:

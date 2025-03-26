@@ -81,7 +81,6 @@
     {
         if (isset($this->getData()['filter'])) {
             return $this->getData()['filter'];
-
         }
         return "";
     }
@@ -112,5 +111,18 @@
     public function getPrimarykey()
     {
         return $this->getCollection()->getResource()->getPrimarykey();
+    }
+
+    public function applyFilter()
+    {
+        // $request = Mage::getSingleton('core/request');
+        $parameters = $this->getRequest()->getQuery();
+        $ignore = ['page','limit'];
+        foreach ($parameters as $field => $parameter) {
+            if( !in_array($field , $ignore))
+            {
+                $this->_collection->addFieldToFilter('main_table.'.$field, ["LIKE" =>$parameter]);
+            }
+        }
     }
 }

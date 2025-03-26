@@ -23,7 +23,12 @@ class Admin_Controller_Product_Index extends Core_Controller_Admin_Action
         $this->getLayout()->getChild('content')->addChild('list', $list);
         $this->getLayout()->getChild('head')->addCss('admin/main.css');
         $this->getLayout()->getChild('head')->addJs('admin/new.js');
-
+        if ($this->getRequest()->isAjax()) {
+            $this->getLayout()->removeChild('header');
+            $this->getLayout()->removeChild('head');
+            $this->getLayout()->removeChild('footer');
+            $list->applyfilter();
+        }
         $this->getLayout()->toHtml();
     }
     public function deleteAction()
@@ -44,7 +49,7 @@ class Admin_Controller_Product_Index extends Core_Controller_Admin_Action
     }
     public function saveAction()
     {
-  
+
         $data = $this->getRequest()->getParam('catlog_product');
         $product = Mage::getModel('catalog/product')
             ->setData($data);
