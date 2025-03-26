@@ -1,3 +1,7 @@
 <div class="mb-3">
-    <input class="form-control" type="text" placeholder="<?php echo $this->_data['label'] ?>" value="">
+    <input
+        class="form-control <?php echo $this->getClassList() ?>  <?php echo $this->getValidation() ?>"
+        type="number"
+        placeholder="<?php echo $this->_data['label'] ?>"
+        value="">
 </div>

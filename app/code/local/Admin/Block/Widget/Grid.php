@@ -58,8 +58,7 @@
             // echo ($class);
             $column->setData($data);
             return $column->toHtmlTag();
-        }
-        else return "";
+        } else return "";
     }
 
 
@@ -78,8 +77,22 @@
         $this->_collection = $collection;
         return $this;
     }
-    public function getFilters() {}
-    public function getStyleClass()
+    public function getFilter()
+    {
+        if (isset($this->getData()['filter'])) {
+            return $this->getData()['filter'];
+
+        }
+        return "";
+    }
+    public function getValidation()
+    {
+        if (isset($this->getData()['validation'])) {
+            return $this->getData()['validation'];
+        }
+        return "";
+    }
+    public function getClassList()
     {
         if (isset($this->getData()['class-list'])) {
             return $this->getData()['class-list'];
@@ -95,5 +108,9 @@
     public function getData()
     {
         return $this->_data;
+    }
+    public function getPrimarykey()
+    {
+        return $this->getCollection()->getResource()->getPrimarykey();
     }
 }

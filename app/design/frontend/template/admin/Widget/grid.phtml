@@ -11,13 +11,13 @@
         </thead>
         <tbody>
             <tr>
-                <?php foreach ($this->getColumns() as $filter): ?>
-
-                    <td>
-                        <?php $this->renderFilter($filter) ?>
-                    </td>
-
-                <?php endforeach ?>
+                <form action="">
+                    <?php foreach ($this->getColumns() as $filter): ?>
+                        <td>
+                            <?php $this->renderFilter($filter) ?>
+                        </td>
+                    <?php endforeach ?>
+                </form>
             </tr>
             <?php foreach ($this->getCollection()->getData() as $data): ?>
                 <tr>
@@ -26,14 +26,12 @@
                         <td>
                             <?php if ($column['type'] == 'text'): ?>
                                 <?php echo $data->{$column['data-index']} ?>
-                            <?php elseif($column['type'] == 'link'): ?>
-                                <?php $this->renderButton($column , $data->getProductId());?>
+                            <?php elseif ($column['type'] == 'link'): ?>
+                                <?php $this->renderButton($column, $data->{$this->getPrimarykey()}); ?>
                             <?php endif; ?>
                         </td>
 
                     <?php endforeach ?>
-                                
-
                 </tr>
             <?php endforeach ?>
         </tbody>

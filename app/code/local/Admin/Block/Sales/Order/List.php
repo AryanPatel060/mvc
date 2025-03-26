@@ -5,7 +5,7 @@
     public function __construct()
     {
         $this->setTemplate("admin/sales/list.phtml");
-        $toolbar = $this->getLayout()->createBlock("admin/grid_toolbar");
+        $toolbar = $this->getLayout()->createBlock("admin/widget_grid_toolbar");
         $this->addChild('toolbar', $toolbar);
         $this->init();
     }

@@ -96,4 +96,8 @@ class Core_Model_Resource_Abstract
     {
         return $this->_tableName;
     }
+    public function getPrimaryKey()
+    {
+        return $this->_primaryKey;
+    }
 }

@@ -6,9 +6,9 @@
 
         $this->setCollection(
             Mage::getModel("catalog/product")
-            ->getCollection()
-            ->addAttributeToSelect(['color', 'brand', 'material', 'releasedate', 'madein'])
-            ->leftJoin(['cat' => 'catalog_category'], 'cat.category_id = main_table.category_id', ['category_name' => 'name'])
+                ->getCollection()
+                ->addAttributeToSelect(['color', 'brand', 'material', 'releasedate', 'madein'])
+                ->leftJoin(['cat' => 'catalog_category'], 'cat.category_id = main_table.category_id', ['category_name' => 'name'])
         );
 
         $this->addColumn(
@@ -16,8 +16,8 @@
             [
                 "label" => "Id",
                 "type" => "text",
-                "filter"=>"text",
-                "data-index"=>"product_id",
+                "filter" => "text",
+                "data-index" => "product_id",
             ]
         );
         $this->addColumn(
@@ -25,8 +25,8 @@
             [
                 "label" => "Name",
                 "type" => "text",
-                "filter"=>"number",
-                "data-index"=>"name",
+                "filter" => "number",
+                "data-index" => "name",
             ]
         );
         $this->addColumn(
@@ -34,8 +34,8 @@
             [
                 "label" => "Description",
                 "type" => "text",
-                "filter"=>"number",
-                "data-index"=>"description",
+                "filter" => "number",
+                "data-index" => "description",
             ]
         );
         $this->addColumn(
@@ -43,8 +43,8 @@
             [
                 "label" => "Price",
                 "type" => "text",
-                "filter"=>"number",
-                "data-index"=>"price",
+                "filter" => "number",
+                "data-index" => "price",
             ]
         );
         $this->addColumn(
@@ -52,8 +52,8 @@
             [
                 "label" => "Stocks",
                 "type" => "text",
-                "filter"=>"number",
-                "data-index"=>"stock_quantity",
+                "filter" => "number",
+                "data-index" => "stock_quantity",
             ]
         );
         $this->addColumn(
@@ -61,9 +61,9 @@
             [
                 "label" => "Category",
                 "type" => "text",
-                "filter"=>"dropdown",
-                "option"=>$this->getCategoryData(),
-                "data-index"=>"category_name",
+                "filter" => "dropdown",
+                "option" => $this->getCategoryData(),
+                "data-index" => "category_name",
             ]
         );
         $this->addColumn(
@@ -72,8 +72,8 @@
                 "label" => "Action",
                 "button-label" => "Edit",
                 "type" => "link",
-                "class-list"=>"btn btn-primary",
-                "link"=>$this->getUrl("admin/product_index/new")
+                "class-list" => "btn btn-primary",
+                "link" => $this->getUrl("admin/product_index/new")
             ]
         );
         $this->addColumn(
@@ -82,8 +82,8 @@
                 "label" => "Action",
                 "button-label" => "Delete",
                 "type" => "link",
-                "class-list"=>"btn btn-danger ",
-                "link"=>$this->getUrl("admin//")
+                "class-list" => "btn btn-danger ",
+                "link" => $this->getUrl("admin//")
             ]
         );
 
@@ -95,7 +95,7 @@
     {
         $category = Mage::getModel('catalog/category')
             ->getCollection();
-            
+
         return $category->getData();
     }
 }
