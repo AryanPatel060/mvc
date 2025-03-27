@@ -1,6 +1,6 @@
 <div class="container mt-5 mb-5" id="grid-container">
 
-    
+
 
     <form action="" id="gridform">
 
@@ -8,14 +8,14 @@
             <thead>
                 <?php foreach ($this->getColumns() as $column): ?>
                     <td>
-                        <?php $this->renderColumn($column); ?>
+                        <?php echo $column->getLabel() ?>
                     </td>
                 <?php endforeach; ?>
             </thead>
             <tr>
-                <?php foreach ($this->getColumns() as $filter): ?>
+                <?php foreach ($this->getColumns() as $column): ?>
                     <td>
-                        <?php $this->renderFilter($filter) ?>
+                        <?php echo $column->getFilter()->render() ?>
                     </td>
                 <?php endforeach ?>
             </tr>
@@ -24,18 +24,16 @@
                     <tr>
                         <?php foreach ($this->getColumns() as $column): ?>
 
-                            <td>
-                                <?php if ($column['type'] == 'text'): ?>
-                                    <?php echo $data->{$column['data-index']} ?>
-                                <?php elseif ($column['type'] == 'link'): ?>
-                                    <?php $this->renderButton($column, $data->{$this->getPrimarykey()}); ?>
-                                <?php endif; ?>
+                            <td style="max-width:700px">
+                                <?php $column->setRow($data); ?>
+                                <?php echo $column->render() ?>
                             </td>
 
                         <?php endforeach ?>
                     </tr>
                 <?php endforeach ?>
             </tbody>
+
         </table>
     </form>
     <div class="col justify-content-end d-flex m-4">
@@ -46,22 +44,40 @@
 
 <script>
     console.log($("#gridform").find("input"));
-    data = {}
-    let formData = new FormData();
-    $("#gridform").find("input").on("change", function() {
-        formData.append(($(this).attr("id").split("-"))[1], $(this).val()); // Adds the changed input
-        console.log(Array.from(formData.entries()));
-        data[($(this).attr("id").split("-"))[1]] = $(this).val();
+    data = {};
+    $("#gridform").find("input").on("change", filter);
+    $("#gridform").find("select").on("change", filter);
+
+    function filter(event) {
+        let fieldParts = $(this).attr("id").split("-");
+        let fieldType = fieldParts[1]; // "price", "id", etc.
+        let rangeType = fieldParts[2]; // "from" or "to"
+
+        if (!data[fieldType]) {
+            data[fieldType] = {
+                from: "",
+                to: ""
+            }
+        }
+
+        if (rangeType == "from") {
+            data[fieldType].from = $(this).val();
+        } else if (rangeType == "to") {
+            data[fieldType].to = $(this).val();
+        } else {
+            data[fieldType] = $(this).val();
+        }
         console.log(data);
         $.ajax({
             url: "<?php echo $this->getUrl("*/*/*") . "/" ?>",
             type: "GET",
             data: data,
             success: function(res) {
-                console.log();
+                console.log(res);
                 $("#grid-body").html(((res.split(`<tbody id="grid-body">`))[1].split("</tbody>"))[0]);
             }
 
+
         })
-    });
+    }
 </script>

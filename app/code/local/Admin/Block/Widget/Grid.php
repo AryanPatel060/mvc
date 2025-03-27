@@ -23,7 +23,10 @@
 
     public function addColumn($key, $data)
     {
-        $this->_columns[$key] = $data;
+        $class = "Admin_Block_Widget_Grid_Column_" . ucfirst($data['type']);
+        $object = new $class;
+        $this->_columns[$key] = $object;
+        $object->setData($data);
         return $this;
     }
 
@@ -42,7 +45,6 @@
 
     public function renderButton($data, $id = "")
     {
-
         $class = "Admin_Block_Widget_Grid_Columns_" . ucfirst($data['type']);
         $buttons = new $class();
         $data['id'] = $id;
@@ -53,7 +55,7 @@
     public function renderColumn($data)
     {
         if (isset($data['type']) && $data['type'] == "text") {
-            $class = "Admin_Block_Widget_Grid_Columns_" . ucfirst($data['type']);
+            $class = "Admin_Block_Widget_Grid_Column_" . ucfirst($data['type']);
             $column = new $class();
             // echo ($class);
             $column->setData($data);
@@ -119,10 +121,24 @@
         $parameters = $this->getRequest()->getQuery();
         $ignore = ['page','limit'];
         foreach ($parameters as $field => $parameter) {
-            if( !in_array($field , $ignore))
+            if(is_array($parameter) )
+            {
+                if(isset($parameter['from']) && $parameter['from'] != "" )
+                {
+                   $this->_collection->addFieldToFilter('main_table.'.$field, [">=" =>$parameter['from']]);
+                }
+                if(isset($parameter['to']) && $parameter['to'] != "" )
+                {
+                   $this->_collection->addFieldToFilter('main_table.'.$field, ["<=" =>$parameter['to']]);
+                }
+                
+            }
+            else if( !in_array($field , $ignore))
             {
                 $this->_collection->addFieldToFilter('main_table.'.$field, ["LIKE" =>$parameter]);
             }
+
+        
         }
     }
 }

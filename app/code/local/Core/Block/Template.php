@@ -89,6 +89,11 @@ class Core_Block_Template
         return Mage::getBlockSinglton('core/layout');
     }
 
+    public function getMessage()
+    {
+        return Mage::getSingleton('core/message');
+    }
+
     public function getRequest()
     {
         return Mage::getModel('core/request');
