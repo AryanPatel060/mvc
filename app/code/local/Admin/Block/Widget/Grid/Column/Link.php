@@ -2,6 +2,7 @@
 {
     protected $_data;
     protected $_row;
+    protected $_instance;
 
     public function __construct()
     {
@@ -12,6 +13,7 @@
         $this->_data = $data;
         return $this;
     }
+
 
     public function getData()
     {
@@ -24,7 +26,8 @@
     }
     public function getLink()
     {
-        return $this->getData()['link'];
+        $callback = $this->getData()['link'];
+        return $this->getInstance()->$callback($this->getRow());
     }
     public function getPrimarykey()
     {
@@ -37,8 +40,10 @@
     public function render()
     {
         return '<a
-                href="' . $this->getLink() . '/?id=' . $this->getId() . '"
-                class="' . $this->getClassList() . '">
+                href="' . $this->getLink() . '"
+                class="' . $this->getClassList() . '" 
+                onclick="return confirm(`Are you sure Want To delete?`)"
+                 >
                 ' . $this->getBtnLabel() . '
             </a>';
     }

@@ -1,7 +1,8 @@
 <div class="container mt-5 mb-5" id="grid-container">
-
-
-
+    <div class="col justify-content-between d-flex m-4">
+        <h3 class="title"><?php echo $this->getTitle() ?></h3>
+        <button id="applyfilter" class="btn btn-primary">apply filter</button>
+    </div>
     <form action="" id="gridform">
 
         <table class="table">
@@ -12,12 +13,13 @@
                     </td>
                 <?php endforeach; ?>
             </thead>
-            <tr>
+            <tr id="filter-row">
                 <?php foreach ($this->getColumns() as $column): ?>
                     <td>
                         <?php echo $column->getFilter()->render() ?>
                     </td>
                 <?php endforeach ?>
+
             </tr>
             <tbody id="grid-body">
                 <?php foreach ($this->getCollection()->getData() as $data): ?>
@@ -43,10 +45,9 @@
 
 
 <script>
-    console.log($("#gridform").find("input"));
     data = {};
-    $("#gridform").find("input").on("change", filter);
-    $("#gridform").find("select").on("change", filter);
+    $("#gridfor").find("input").on("change", filter);
+    $("#gridfor").find("select").on("change", filter);
 
     function filter(event) {
         let fieldParts = $(this).attr("id").split("-");
@@ -80,4 +81,51 @@
 
         })
     }
+
+    $("#applyfilter").click(function() {
+        let inputs = $("#filter-row").find("input");
+
+        console.log(typeof(inputs)); // Still an object, but jQuery wrapped
+        let data = {}; // Initialize empty object
+
+        inputs.each(function() { // Use `.each()` instead of `.forEach()`
+            let fieldParts = $(this).attr("id").split("-");
+            let fieldType = fieldParts[1]; // "price", "id", etc.
+            let rangeType = fieldParts[2]; // "from" or "to"
+
+            if (!data[fieldType]) {
+                data[fieldType] = {
+                    from: "",
+                    to: ""
+                };
+            }
+
+            if ($(this).val() !== "") { // Update only if input has a value
+                if (rangeType === "from") {
+                    data[fieldType].from = $(this).val();
+                } else if (rangeType === "to") {
+                    data[fieldType].to = $(this).val();
+                } else {
+                    data[fieldType] = $(this).val();
+                }
+            }
+        });
+
+        Object.keys(data).forEach(function(key) {
+            if (data[key] === "" || (typeof data[key] === "object" && data[key].from === "" && data[key].to === "")) {
+                delete data[key];
+            }
+        });
+
+        $.ajax({
+            url: "<?php echo $this->getUrl("*/*/*") . "/" ?>",
+            type: "GET",
+            data: data,
+            success: function(res) {
+                console.log(res);
+                $("#grid-body").html(((res.split(`<tbody id="grid-body">`))[1].split("</tbody>"))[0]);
+            }
+        })
+        console.log(data);
+    });
 </script>

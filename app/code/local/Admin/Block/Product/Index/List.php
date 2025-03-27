@@ -116,7 +116,9 @@ class Admin_Block_Product_Index_List extends Admin_Block_Widget_Grid
                 "button-label" => "Edit",
                 "type" => "link",
                 "class-list" => "btn btn-primary",
-                "link" => $this->getUrl("admin/product_index/new")
+                "link" => 'getEditLink',
+
+                // "link" => $this->getUrl("admin/product_index/new")
             ]
         );
         $this->addColumn(
@@ -126,7 +128,7 @@ class Admin_Block_Product_Index_List extends Admin_Block_Widget_Grid
                 "button-label" => "Delete",
                 "type" => "link",
                 "class-list" => "btn btn-danger ",
-                "link" => $this->getUrl("admin//")
+                "link" => 'getDeleteLink',
             ]
         );
 
@@ -141,6 +143,18 @@ class Admin_Block_Product_Index_List extends Admin_Block_Widget_Grid
 
         return $category->getData();
     }
+
+    public function getEditLink($data)
+    {
+        // mage::log($data);
+        return $this->getUrl("admin/product_index/new").'/?id='.$data->getProductId();
+    }
+    public function getDeleteLink($data)
+    {
+        // mage::log($data);
+        return $this->getUrl("admin/product_index/delete").'/?deleteid='.$data->getProductId();
+    }
+    
     // public function applyfilter()
     // {
     //     $this->getCollection()

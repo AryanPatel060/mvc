@@ -4,6 +4,11 @@
     protected $_columns = [];
     protected $_collection;
     protected $_data;
+    protected $_title = [
+        "Product",
+        "Category",
+        "Order",
+    ];
 
     public function __construct()
     {
@@ -20,6 +25,18 @@
         return $this;
     }
 
+    public function getTitle()
+    {
+        // echo strstr(get_class($this),"Category");
+        foreach ($this->_title as $title) {
+            if (strstr(get_class($this), $title)) {
+
+                return $title . " List";
+
+            } 
+        }
+        return "List";
+    }
 
     public function addColumn($key, $data)
     {
@@ -27,42 +44,9 @@
         $object = new $class;
         $this->_columns[$key] = $object;
         $object->setData($data);
+        $object->setInstance($this);
         return $this;
     }
-
-
-
-    public function renderFilter($data)
-    {
-        if (isset($data['filter'])) {
-            $class = "Admin_Block_Widget_Grid_Filter_" . ucfirst($data['filter']);
-            $filter = new $class();
-            $filter->setData($data);
-            return $filter->toHtmlTag();
-        } else return "";
-    }
-
-
-    public function renderButton($data, $id = "")
-    {
-        $class = "Admin_Block_Widget_Grid_Columns_" . ucfirst($data['type']);
-        $buttons = new $class();
-        $data['id'] = $id;
-        $buttons->setData($data);
-        return $buttons->toHtmlTag();
-    }
-
-    public function renderColumn($data)
-    {
-        if (isset($data['type']) && $data['type'] == "text") {
-            $class = "Admin_Block_Widget_Grid_Column_" . ucfirst($data['type']);
-            $column = new $class();
-            // echo ($class);
-            $column->setData($data);
-            return $column->toHtmlTag();
-        } else return "";
-    }
-
 
     public function getColumns()
     {
@@ -119,26 +103,18 @@
     {
         // $request = Mage::getSingleton('core/request');
         $parameters = $this->getRequest()->getQuery();
-        $ignore = ['page','limit'];
+        $ignore = ['page', 'limit'];
         foreach ($parameters as $field => $parameter) {
-            if(is_array($parameter) )
-            {
-                if(isset($parameter['from']) && $parameter['from'] != "" )
-                {
-                   $this->_collection->addFieldToFilter('main_table.'.$field, [">=" =>$parameter['from']]);
+            if (is_array($parameter)) {
+                if (isset($parameter['from']) && $parameter['from'] != "") {
+                    $this->_collection->addFieldToFilter('main_table.' . $field, [">=" => $parameter['from']]);
                 }
-                if(isset($parameter['to']) && $parameter['to'] != "" )
-                {
-                   $this->_collection->addFieldToFilter('main_table.'.$field, ["<=" =>$parameter['to']]);
+                if (isset($parameter['to']) && $parameter['to'] != "") {
+                    $this->_collection->addFieldToFilter('main_table.' . $field, ["<=" => $parameter['to']]);
                 }
-                
+            } else if (!in_array($field, $ignore)) {
+                $this->_collection->addFieldToFilter('main_table.' . $field, ["LIKE" => $parameter]);
             }
-            else if( !in_array($field , $ignore))
-            {
-                $this->_collection->addFieldToFilter('main_table.'.$field, ["LIKE" =>$parameter]);
-            }
-
-        
         }
     }
 }

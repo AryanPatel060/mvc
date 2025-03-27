@@ -10,7 +10,6 @@
         $this->init();
     }
 
-
     public function init()
     {
         $this->_collection =  Mage::getModel('sales/order')

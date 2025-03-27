@@ -1,6 +1,7 @@
 <?php class Admin_Block_Widget_Grid_Column_Abstract
 {
     protected $_row;
+    protected $_instance;
     public function render()
     {
         print_r($this->getRow()->getData()[$this->getData()['data-index']]);
@@ -12,8 +13,7 @@
         $data = $this->getData();
         if (isset($data['filter'])) {
             $class = "Admin_Block_Widget_Grid_Filter_" . ucfirst($data['filter']);
-        }
-        else $class = "Admin_Block_Widget_Grid_Filter_Text";
+        } else $class = "Admin_Block_Widget_Grid_Filter_Text";
         $filter = new $class();
         $filter->setData($data);
         return $filter;
@@ -45,6 +45,14 @@
     {
         echo $this->getData()['label'];
     }
-    // get filter -  filter block object - number - text 
-    // grid.phtml column.getFilter().render()
+    public function setInstance($instance)
+    {
+        $this->_instance = $instance;
+        return $this;
+    }
+    public function getInstance()
+
+    {
+        return $this->_instance;
+    }
 }

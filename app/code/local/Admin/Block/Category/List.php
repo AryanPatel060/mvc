@@ -100,7 +100,7 @@ class Admin_Block_Category_List extends Admin_Block_Widget_Grid
                 "button-label" => "Edit",
                 "type" => "link",
                 "class-list" => "btn btn-primary",
-                "link" => $this->getUrl("admin/category_index/new")
+                "link" => "getEditLink"
             ]
         );
         $this->addColumn(
@@ -110,7 +110,7 @@ class Admin_Block_Category_List extends Admin_Block_Widget_Grid
                 "button-label" => "Delete",
                 "type" => "link",
                 "class-list" => "btn btn-danger ",
-                "link" => $this->getUrl("admin//")
+                "link" => "getDeleteLink"
             ]
         );
 
@@ -126,4 +126,15 @@ class Admin_Block_Category_List extends Admin_Block_Widget_Grid
         return $category->getData();
     }
  
+    public function getEditLink($data)
+    {
+        // mage::log($data);
+        return $this->getUrl("admin/category_index/new").'/?id='.$data->getCategoryId();
+    }
+    public function getDeleteLink($data)
+    {
+        // mage::log($data);
+        return $this->getUrl("admin/category_index/delete").'/?deleteid='.$data->getCategoryId();
+    }
+    
 }
