@@ -44,8 +44,16 @@ class Customer_Controller_Account extends Core_Controller_Customer_Action
 
             $this->getSession()->set('customerLogin', 1);
             $this->getSession()->set('customerId', $new->getCustomerId());
+            $message = $this->getMessage();
+            $message->addMessage()->addSuccess("Signup_success","You Signed Up SuccessFully!");
+            
             $this->redirect("customer/dashboard/index");
         } else {
+            
+            $message = $this->getMessage();
+            $message->addMessage()->addWarning("Invalid_Email","Email Already Exits In Database!");
+            
+            $this->redirect('customer/dashboard/index');
             echo "email already exits";
         }
     }
@@ -66,8 +74,14 @@ class Customer_Controller_Account extends Core_Controller_Customer_Action
             $this->getSession()->set('customerLogin', 1);
             $this->getSession()->set('customerId', $result->getCustomerId());
 
+            $message = $this->getMessage();
+            $message->addMessage()->addSuccess("welcome_Dashboard","You Logged In SuccessFully! Welcome To Dashboard");
+            
             $this->redirect('customer/dashboard/index');
         } else {
+            $msg = Mage::getBlock('core/message');
+            $message = Mage::getSingleton('core/message');
+            $message->addMessage()->addError("invalid_email","invalid user name or password!");
             $this->getSession()->remove('customerLogin');
             $this->redirect('customer/account/login');
         }

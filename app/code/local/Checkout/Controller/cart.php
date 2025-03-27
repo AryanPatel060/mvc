@@ -29,8 +29,7 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
     public function placeorderAction()
     {
         // Mage::log ($this->getRequest()->getIp());
-        echo "excfvgbhnjmk";
-        die();
+       
         $cartModel = Mage::getSingleton("checkout/session")->getCart();
         $converter = Mage::getModel("checkout/converter_order");
         $converter->convert($cartModel);
@@ -39,6 +38,10 @@ class Checkout_Controller_Cart extends Core_Controller_Front_Action
         // die;
         $cartModel->save();
         $this->getSession()->remove('cart_id');
+        $message = $this->getMessage();
+        $message->addMessage()->addSuccess("Order_placed_success","Order Is Placed SuccessFully!");
+        $this->redirect("checkout/cart/index");
+        
 
     }
     public function updateAction()

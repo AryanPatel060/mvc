@@ -19,27 +19,43 @@
 
         return $this;
     }
-    public function addError($message)
+    public function addError($key,$message)
     {
         $messages = $this->get('messages');
-        $messages['error'][] = $message;
+        $messages['error'][$key] = $message;
         $this->set('messages', $messages);
         return $this;
     }
-    public function addWarning($message)
+    public function addWarning($key,$message)
     {
         $messages = $this->get('messages');
-        $messages['warning'][] = $message;
+        $messages['warning'][$key] = $message;
         $this->set('messages', $messages);
 
         return $this;
     }
     public function getSuccess()
     {
-        $messages = $this->get('messages')['success'];
+        $messages = $this->get('messages');
         $message = $messages['success'];
         $messages['success'] = [];
         $this->set('messages', $messages);
         return $message;
     }
+    public function getError()
+    {
+        $messages = $this->get('messages');
+        $message = $messages['error'];
+        $messages['error'] = [];
+        $this->set('messages', $messages);
+        return $message;
+    } public function getWarning()
+    {
+        $messages = $this->get('messages');
+        $message = $messages['warning'];
+        $messages['warning'] = [];
+        $this->set('messages', $messages);
+        return $message;
+    }
+
 }

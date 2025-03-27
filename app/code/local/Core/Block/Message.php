@@ -8,6 +8,18 @@
         $message = $this->getMessage();
         return $message->getSuccess();
     }
+    public function getError()
+    {
+        $message = $this->getMessage();
+        return $message->getError();
+    }
+
+    public function getWarning()
+    {
+        $message = $this->getMessage();
+        return $message->getWarning();
+    }
+
 
 
 } ?>

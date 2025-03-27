@@ -13,6 +13,10 @@ class Core_Controller_Front_Action extends Core_Controller_Front
     {
         return Mage::getSingleton('core/session');
     }
+    public function getMessage()
+    {
+        return Mage::getSingleton('core/message');
+    }
     public function redirect($url)
     {
         $_url = MAge::getBaseUrl() . $url;
