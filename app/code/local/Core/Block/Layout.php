@@ -16,6 +16,10 @@ class Core_Block_Layout extends Core_Block_Template
         $this->addChild('head',$head);
         $header = $this->createBlock('page/header');
         $this->addChild('header',$header);
+
+        $message = $this->createBlock('core/message');
+        $this->addChild('message',$message);
+        
         $content = $this->createBlock('page/content');
         $this->addChild('content',$content);
         $footer = $this->createBlock('page/footer');
@@ -30,21 +34,21 @@ class Core_Block_Layout extends Core_Block_Template
                 ->addCss('page/common.css')
                 ->addLink('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
                 ->addScript('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js')
-                ->addLink('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
+                ->addLink('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css')
+                ->addScript('https://code.jquery.com/jquery-3.6.0.min.js');
 
                 // ->addCss('page/common.css');
     }
-    // public function addJs($js)
-    // {
-    //     $this->_js[] = $js;
-    //     return $this;
-    // }
-    // public function addCss($css)
-    // {
-    //     $this->_css[] = $css;
-    //     return $this;
-    // }
-
+    public function addJs($js)
+    {
+        $this->_js[] = $js;
+        return $this;
+    }
+    public function addCss($css)
+    {
+        $this->_css[] = $css;
+        return $this;
+    }
 
     public function createBlock($block)
     {
@@ -79,10 +83,6 @@ class Core_Block_Layout extends Core_Block_Template
         }
         return $files;
     }
-    public function setMessage($msg)
-    {
-        $this->messages[] = $msg ;
-        return $this;
-    }
+
 
 }

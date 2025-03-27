@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="<?= $this->getUrl('') ?>">Admin Page</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?= $this->getUrl('') ?>">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?= $this->getUrl('admin/category_index/list') ?>">Category List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?= $this->getUrl('admin/product_index/list') ?>">Product List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?= $this->getUrl('admin/sales_order/list') ?>">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <?php if (isset($_SESSION['login']) && $_SESSION['login'] == 1): ?>
+                        <a class="nav-link" href="<?= $this->getUrl('admin/account/logout') ?>">Logout</a>
+                    <?php else: ?>
+                        <a class="nav-link" href="<?= $this->getUrl('admin/account/login') ?>">Login</a>
+                    <?php endif; ?>
+                </li>
+                <li class="nav-item dropdown"></li>
+                <!-- Sidebar Toggle Button -->
+                <li class="nav-item">
+                    <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#categoryMenu">
+                        Categories
+                    </a>
+                </li>
+             
+            </ul>
+            <div class="nav-item ms-2">
+                
+                <a href="<?php echo $this->getUrl('admin/account/logout') ?>" class="btn btn-outline-danger">logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="categoryMenu" aria-labelledby="categoryMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="categoryMenuLabel">Categories</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <?php echo $this->renderCategoryMenu($this->getCategoryTree($this->getCategoryData())); ?>
+    </div>
+</div>
+
+

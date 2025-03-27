@@ -24,7 +24,7 @@ class Checkout_Model_Coupon extends Core_Model_Abstract
         // } else {
         if (array_key_exists($code, $this->couponCode)) {
             $discount = $this->couponCode[$code];
-            $discountedPrice = ($subTotal * $discount) / 100;
+            $discountedPrice = ((int)$subTotal * $discount) / 100;
             return $discountedPrice;
         }
         // }

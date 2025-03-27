@@ -1,0 +1,41 @@
+<?php $cartData = $this->getCart(); ?>
+<?php $shippingMethods = $this->getMethods(); ?>
+<?php $address = $this->getAddressData(); ?>
+<div>
+
+<?php if ($address): ?>
+    <div class="row">
+        <?php foreach ($address as $addressData): ?>
+            <div class="col-md-6">
+                <div class="card addresscard shadow-sm p-3 position-relative">
+                    <!-- Edit Button -->
+                    <a href="<?php echo $this->getUrl('Checkout/cart_address/new'); ?>"
+                        class="position-absolute top-0 end-0 m-2 text-decoration-none">
+                        <p class="btn btn-primary">Edit</p>
+                    </a>
+
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">
+                            <?php echo ucfirst($addressData->getAddressType()); ?> Address
+                        </h5>
+                        <p class="card-text">
+                            <strong><?php echo $addressData->getFirstName() . ' ' . $addressData->getLastName(); ?></strong><br>
+                            <?php echo $addressData->getPhoneNumber(); ?><br>
+                            <?php echo $addressData->getStreetAddress(); ?>, <?php echo $addressData->getCity(); ?><br>
+                            <?php echo $addressData->getRegion(); ?>, <?php echo $addressData->getCountry(); ?> - <?php echo $addressData->getZipcode(); ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+<?php else: ?>
+    <h4>Shipping Address</h4>
+    <div class="mt-4">
+        <a href="<?php echo $this->getUrl('checkout/cart_address/new'); ?>" class="btn btn-success w-100">
+            <Address> <i class="fas fa-credit-card me-2"></i>Add Address</Address>
+        </a>
+    </div>
+<?php endif; ?>
+</div>

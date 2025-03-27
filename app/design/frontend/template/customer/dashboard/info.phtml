@@ -1,0 +1,165 @@
+<?php $customer = $this->getCustomerInfo(); ?>
+<div class="card border-0 shadow-sm rounded-3 mb-4 bg-light">
+    <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Personal Information</h3>
+        <!-- Change Password Button -->
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+            Change Password
+        </button>
+
+    </div>
+    <div class="card-body">
+        <form action="">
+            <div class="row">
+
+                <div class="col-md-6 ">
+                    <p class="mb-1 text-muted small">Full Name</p>
+                    <p class="mb-0 fw-bold text-dark edit"><?php echo $customer->getFullName(); ?></p>
+                    <input type="text" class="textedit" value="<?php echo $customer->getFullName(); ?>" id="Fullname-<?php echo $customer->getCustomerId(); ?>">
+                </div>
+
+                <div class="col-md-6">
+                    <p class="mb-1 text-muted small">Email Address</p>
+                    <p class="mb-0 fw-bold text-dark edit"><?php echo $customer->getEmail(); ?></p>
+                    <input type="text" class="textedit validate-email" value="<?php echo $customer->getEmail(); ?>" id="email-<?php echo $customer->getCustomerId(); ?>">
+
+                </div>
+                <div class="col-md-6 mt-3">
+                    <p class="mb-1 text-muted small">Phone Number</p>
+                    <p class="mb-0 fw-bold text-dark edit"><?php echo $customer->getPhone(); ?></p>
+                    <input type="text" class="textedit validate-phone" value="<?php echo $customer->getPhone(); ?>" id="phone-<?php echo $customer->getCustomerId(); ?>">
+
+                </div>
+                <div class="col-md-6 mt-3">
+                    <p class="mb-1 text-muted small">Date of Birth</p>
+                    <p class="mb-0 fw-bold text-dark">January 15, 1990</p>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordLabel">Change Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <input type="hidden" id="cuatomerId" value="<?php echo $customer->getCustomerId(); ?>" name="customer_id">
+                    <div class="mb-3">
+                        <label for="currentPassword" class="form-label">Current Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="currentPassword" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="newPassword" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                    </div>
+                    <div id="error-message" class="text-danger"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="savePassword">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Password Toggle & Validation -->
+<script>
+    $(document).ready(function() {
+        $("#savePassword").click(function() {
+            let currentPassword = $("#currentPassword").val().trim();
+            let newPassword = $("#newPassword").val().trim();
+            let confirmPassword = $("#confirmPassword").val().trim();
+            let id = $("#cuatomerId").val();
+            let errorMessage = $("#error-message");
+
+            if (newPassword.length > 10) {
+                errorMessage.text("New password must be at most 10 characters.");
+            } else if (newPassword !== confirmPassword) {
+                errorMessage.text("New password and confirmation do not match.");
+            } else {
+                errorMessage.text("");
+
+                // Send AJAX request (Modify this to fit your backend)
+                $.ajax({
+                    url: "http://localhost/MVC/customer/account/changePass", // Your backend script
+                    type: "POST",
+                    data: {
+                        currentPassword,
+                        newPassword,
+                        id
+                    },
+                    success: function(response) {
+                        alert(response); // Show response message
+                        $("#changePasswordForm")[0].reset(); // Reset form
+                        $("#changePasswordModal").modal("hide"); // Hide modal
+                    },
+                    error: function() {
+                        alert("Error updating password.");
+                    }
+                });
+            }
+        });
+
+
+        $(".textedit").hide();
+        $('.edit').click(function() {
+            $('.textedit').hide();
+            $(this).next('.textedit').show().focus();
+            $(this).hide();
+        });
+
+        $(".textedit").focusout(function() {
+            let id = this.id;
+            let split = id.split("-");
+            let fieldname = split[0];
+            let order_id = split[1];
+            let value = $(this).val();
+
+            $(this).hide();
+
+            $(this).prev('.edit').show();
+            $(this).prev('.edit').text(value);
+
+            console.log(value, split);
+            let data = {
+                id: order_id,
+                fieldname: fieldname,
+                value: value
+            };
+            if (confirm("Are you sure want to update state for selected order ?")) {
+
+                $.ajax({
+                    url: "<?php echo $this->getUrl('customer/dashboard/updateinfo'); ?>",
+                    type: 'POST',
+                    data: data,
+                    success: function(response) {
+                        console.log(response);
+                    }
+                });
+            } else {
+                alert("status updation canclled");
+            }
+        });
+    });
+</script>

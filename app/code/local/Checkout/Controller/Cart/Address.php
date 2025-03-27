@@ -7,6 +7,7 @@ class Checkout_Controller_Cart_Address extends Core_Controller_Front_Action
         $new = $layout->createBlock('checkout/cart_new');
 
         $layout->getChild('content')->addchild('new', $new);
+        $layout->getChild('head')->addJs('cart/address.js');
         $layout->toHtml();
     }
 
@@ -27,6 +28,7 @@ class Checkout_Controller_Cart_Address extends Core_Controller_Front_Action
         $cartAddress->setData($billing);
         $cartAddress->save();
         $cart->save();
-        $this->redirect('');
+        $this->redirect("checkout/cart/index");
+
     }
 }

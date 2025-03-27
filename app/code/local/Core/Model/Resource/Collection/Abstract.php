@@ -10,6 +10,10 @@ class Core_Model_Resource_Collection_Abstract
         $this->_resource = $resource;
         return $this;
     }
+    public function getResource()
+    {
+        return $this->_resource;
+    }
     public function setModel($model)
     {
         $this->_model = $model;
@@ -50,7 +54,7 @@ class Core_Model_Resource_Collection_Abstract
     }
     public function prepareQuery()
     {
-        $query = sprintf("SELECT %s FROM %s AS %s", implode(',', $this->_select['COLUMNS']), array_values($this->_select['FROM'])[0], array_keys($this->_select['FROM'])[0]);
+        $query = sprintf("SELECT %s FROM `%s` AS %s", implode(',', $this->_select['COLUMNS']), array_values($this->_select['FROM'])[0], array_keys($this->_select['FROM'])[0]);
 
         if (isset($this->_select['LEFT_JOIN'])) {
             $joinsql = "";
@@ -62,14 +66,14 @@ class Core_Model_Resource_Collection_Abstract
         if (isset($this->_select['RIGHT_JOIN'])) {
             $joinsql = "";
             foreach ($this->_select['RIGHT_JOIN'] as $joinLeft) {
-                $joinsql .= sprintf(" RIGHT JOIN  %s ON %s ", $joinLeft['tableName'], $joinLeft['condition']);
+                $joinsql .= sprintf(" RIGHT JOIN  %s AS %s ON %s ", array_values($joinLeft['tableName'])[0], array_keys($joinLeft['tableName'])[0],  $joinLeft['condition']);
             }
             $query = $query . " " . $joinsql;
         }
         if (isset($this->_select['JOIN'])) {
             $joinsql = "";
             foreach ($this->_select['JOIN'] as $joinLeft) {
-                $joinsql .= sprintf(" JOIN  %s ON %s ", $joinLeft['tableName'], $joinLeft['condition']);
+                $joinsql .= sprintf(" JOIN  %s AS %s ON %s ", array_values($joinLeft['tableName'])[0], array_keys($joinLeft['tableName'])[0],  $joinLeft['condition']);
             }
             $query = $query . " " . $joinsql;
         }
@@ -117,7 +121,8 @@ class Core_Model_Resource_Collection_Abstract
         if (isset($this->_select['LIMIT'])) {
             $query = $query . " LIMIT " . $this->_select['LIMIT'];
             if (isset($this->_select['OFFSET'])) {
-                $query = $query . " OFFSET " . $this->_select['OFFSET'];
+
+                $query = $query . " OFFSET " . ($this->_select['OFFSET'] - 1) * $this->_select['LIMIT'];
             }
         }
         // echo $query;
@@ -161,6 +166,10 @@ class Core_Model_Resource_Collection_Abstract
                         $where = "{$field} = '{$_value}'";
                         break;
 
+                    case 'LIKE':
+                        $where = "{$field} LIKE '%{$_value}%'";
+                        break;
+
                     default:
                         if ($_value == NULL) {
                             $where = " {$field} {$operator} NULL ";
@@ -187,7 +196,7 @@ class Core_Model_Resource_Collection_Abstract
     {
         $this->_select['RIGHT_JOIN'][] = ['tableName' => $tableName, 'condition' => $condition, 'columns' => $columns];
         foreach ($columns as $alias => $columnName) {
-            $this->_select['COLUMNS'][] = sprintf("%s.%s AS %s", $tableName, $columnName, $alias);
+            $this->_select['COLUMNS'][] = sprintf("%s.%s AS %s", array_keys($tableName)[0], $columnName, $alias);
         }
 
         return $this;
@@ -196,7 +205,7 @@ class Core_Model_Resource_Collection_Abstract
     {
         $this->_select['JOIN'][] = ['tableName' => $tableName, 'condition' => $condition, 'columns' => $columns];
         foreach ($columns as $alias => $columnName) {
-            $this->_select['COLUMNS'][] = sprintf("%s.%s AS %s", $tableName, $columnName, $alias);
+            $this->_select['COLUMNS'][] = sprintf("%s.%s AS %s", array_keys($tableName)[0], $columnName, $alias);
         }
 
         return $this;
@@ -234,6 +243,7 @@ class Core_Model_Resource_Collection_Abstract
     }
     public function offset($value)
     {
+
         $this->_select['OFFSET'] = $value;
         return $this;
     }

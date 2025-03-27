@@ -3,15 +3,33 @@ class Core_Block_Template
 {
     protected $_child = [];
     protected $_template;
+    protected $_parent = null;
 
     public function toHtml()
     {
         include_once(Mage::getBaseDir() . 'app/design/frontend/template/' . $this->_template);
     }
+
+    public function toHtmlTag()
+    {
+        include(Mage::getBaseDir() . 'app/design/frontend/template/' . $this->_template);
+    }
+    
+    public function getParent()
+    {
+        return $this->_parent;
+    }
+
+    public function setParent($parent)
+    {
+        $this->_parent = $parent;
+        return $this;
+    }
+
     public function addChild($key, $block)
     {
-        if(!isset($this->_child[$key]))
-        {
+        $block->setParent($this);
+        if (!isset($this->_child[$key])) {
             $this->_child[$key] = $block;
         }
         return $this;
@@ -43,9 +61,8 @@ class Core_Block_Template
     }
     public function getUrl($url)
     {
-        if($url == "")
-        {
-            return Mage::getBaseUrl() ;
+        if ($url == "") {
+            return Mage::getBaseUrl();
         }
         $url = explode('/', $url);
         $request = Mage::getModel('core/request');
@@ -65,11 +82,21 @@ class Core_Block_Template
     }
     public function getImageUrl($url)
     {
-        return  Mage::getBaseUrl() .$url;
+        return  Mage::getBaseUrl() . $url;
     }
     public function getLayout()
     {
         return Mage::getBlockSinglton('core/layout');
+    }
+
+    public function getMessage()
+    {
+        return Mage::getSingleton('core/message');
+    }
+
+    public function getRequest()
+    {
+        return Mage::getModel('core/request');
     }
 
     // public function addJs($path)

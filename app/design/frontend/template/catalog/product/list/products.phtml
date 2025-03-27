@@ -1,5 +1,6 @@
 <!-- Product Grid -->
 <?php $products = $this->getProductData(); ?>
+<?php $this->getChildHtml('toolbar'); ?>
     <div class="row">
         <?php if (empty($products)): ?>
             <p class="text-center w-100">No products found.</p>

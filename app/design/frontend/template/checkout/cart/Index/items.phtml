@@ -1,0 +1,48 @@
+<div class="cart-card card p-4">
+    <?php foreach ($this->getCartProductData() as $item): ?>
+        <?php $product = $item->getProductData(); ?>
+        <form method="POST" action="<?php echo $this->getUrl('*/*/update'); ?>" class="cart-form">
+            <input type="hidden" name="cart[item_id]" value="<?php echo $item->getItemId(); ?>">
+
+            <div class="row cart-item py-4 px-2 align-items-center">
+                <!-- Product Image -->
+                <div class="col-md-3 text-center mb-3 mb-md-0">
+                    <img src="<?php echo $this->getImageUrl($product->getImages()['coverImage']) ?>"
+                        alt="Product Image" class="product-image img-fluid rounded">
+                </div>
+
+                <!-- Product Details -->
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <h4 class="product-name mb-2"><?php echo $product->getName() ?></h4>
+                    <p class="product-detail mb-1"><strong>Brand:</strong> <?php echo $product->getBrand() ?></p>
+                    <p class="product-detail mb-1"><strong>Material:</strong> <?php echo $product->getMaterial() ?></p>
+
+                    <p class="product-detail mb-0"><strong>Price:</strong> ₹<?php echo number_format($product->getPrice(), 2) ?></p>
+                </div>
+
+                <!-- Quantity Selector & Actions -->
+                <div class="col-md-3">
+                    <div class="d-flex align-items-center justify-content-center mb-3">
+                        <button type="button" class="qty-btn me-2" onclick="decreaseQuantity(this)">-</button>
+                        <input type="text" class="qty-input" name="cart[product_quantity]"
+                            value="<?php echo $item->getProductQuantity(); ?>" readonly>
+                        <button type="button" class="qty-btn ms-2" onclick="increaseQuantity(this)">+</button>
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <h5 class="mb-0">Total: <span class="total-price">₹<?php echo number_format($item->getSubTotal(), 2) ?></span></h5>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn update-btn" style="display: none;">
+                            <i class="fas fa-sync-alt me-1"></i> Update
+                        </button>
+                        <a href="<?php echo $this->getUrl("*/*/delete") . "/?itemId=" . $item->getItemId(); ?>" class="btn remove-btn">
+                            <i class="fas fa-trash-alt me-1"></i> Remove
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <?php endforeach; ?>
+</div>

@@ -1,0 +1,67 @@
+<?php
+$pages = $this->getPages();
+
+$totalRecords = $this->getTotalRecords();
+$recordsPerPage = $this->getLimit(); // Dynamic limit
+$totalPages = ceil($totalRecords / $recordsPerPage);
+$currentPage = $this->getPage();
+
+$prevPage = max(1, $currentPage - 1);
+$nextPage = min($totalPages, $currentPage + 1);
+
+$prevDisabled = ($currentPage == 1) ? "disabled" : "";
+$nextDisabled = ($currentPage == $totalPages) ? "disabled" : "";
+
+$startPage = max(1, $currentPage - 2);
+$endPage = min($totalPages, $currentPage + 2);
+
+$startRecord = ($currentPage - 1) * $recordsPerPage + 1;
+$endRecord = min($totalRecords, $currentPage * $recordsPerPage);
+
+if ($totalRecords == 0) {
+    $startRecord = 0;
+    $endRecord = 0;
+}
+?>
+
+<nav class="d-flex justify-content-center align-items-center mt-3">
+    <!-- Pagination Summary -->
+    <div class="pe-3 pagination-summary text-muted">
+        Showing <strong><?php echo $startRecord; ?></strong> - <strong><?php echo $endRecord; ?></strong> of
+        <strong><?php echo $totalRecords; ?></strong> records
+    </div>
+
+    <!-- Pagination Controls -->
+    <ul class="pagination pagination-sm mb-0">
+        <li class="page-item <?php echo $prevDisabled; ?>">
+            <a class="page-link" href="<?php echo $this->getUrl("*/*/*") . "/?page=" . $prevPage . "&limit=" . $recordsPerPage; ?>">Prev</a>
+        </li>
+        <?php for ($i = $startPage; $i <= $endPage; $i++) : ?>
+            <li class="page-item <?php echo ($i == $currentPage) ? 'active' : ''; ?>">
+                <a class="page-link" href="<?php echo $this->getUrl("*/*/*") . "/?page=" . $i . "&limit=" . $recordsPerPage; ?>"><?php echo $i; ?></a>
+            </li>
+        <?php endfor; ?>
+        <li class="page-item <?php echo $nextDisabled; ?>">
+            <a class="page-link" href="<?php echo $this->getUrl("*/*/*") . "/?page=" . $nextPage . "&limit=" . $recordsPerPage; ?>">Next</a>
+        </li>
+    </ul>
+    
+    <!-- Limit Dropdown -->
+    <div class="ms-3">
+        <label class="me-2 text-muted">Records per page:</label>
+        <select id="limitSelect" class="form-select form-select-sm d-inline w-auto">
+            <option value="5" <?php echo ($recordsPerPage == 5) ? "selected" : ""; ?>>5</option>
+            <option value="10" <?php echo ($recordsPerPage == 10) ? "selected" : ""; ?>>10</option>
+        </select>
+    </div>
+
+</nav>
+
+<script>
+document.getElementById('limitSelect').addEventListener('change', function() {
+    let selectedLimit = this.value;
+    let currentPage = <?php echo $currentPage; ?>;
+    window.location.href = "<?php echo $this->getUrl("*/*/*"); ?>/?page=" + currentPage + "&limit=" + selectedLimit;
+});
+</script>
+

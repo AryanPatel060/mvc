@@ -45,7 +45,7 @@
         opacity: 0.8;
     }
 
-    .add-product-btn {
+    .add-product-btn,.export-products-btn{
         background: #28a745;
         color: #fff;
         padding: 10px 15px;
@@ -54,15 +54,32 @@
         margin-bottom: 10px;
         text-decoration: none;
     }
+    .export-products-btn{
+        background-color:rgb(53, 131, 220);
+    }
 
     .add-product-btn:hover {
         background: #218838;
         color: #fff;
     }
+    .export-products-btn:hover {
+        background:rgb(33, 72, 136);
+        color: #fff;
+    }
 </style>
 
 <div class="container p-5">
-    <a href="<?= $this->getUrl('admin/product_index/new') ?>" class="add-product-btn">➕ Add Product</a>
+    <div class="row">
+        <div class="col">
+
+            <a href="<?= $this->getUrl('admin/product_index/new') ?>" class="add-product-btn">Add Product</a>
+            <a href="<?php echo $this->getUrl("*/*/exportProducts") ?>" class="export-products-btn " id="exportProductdata">Export Data</a>
+
+        </div>
+        <div class="col mb-2">
+            <?php echo $this->getChildHtml('toolbar'); ?>
+        </div>
+    </div>
 
     <table class="admin-product-list">
         <thead>
@@ -88,20 +105,20 @@
                     <td><?php echo htmlspecialchars($product->getCategoryName()); ?></td>
                     <td>Rs. <?php echo number_format($product->getPrice(), 2); ?></td>
                     <td><?php echo htmlspecialchars($product->getSku()); ?></td>
-                    <td><?php echo htmlspecialchars(substr($product->getDescription(),0,20)); ?>...</td>
+                    <td><?php echo htmlspecialchars(substr($product->getDescription(), 0, 20)); ?>...</td>
 
                     <?php foreach ($this->getAttributeData() as $attribute): ?>
                         <?php $attributecode = $attribute->getAttributeCode() ?>
                         <td><?php echo htmlspecialchars($product->$attributecode); ?></td>
                     <?php endforeach; ?>
-                     
+
                     <td>
                         <div>
                             <div class="m-2">
-                                <a href="<?php echo $this->getUrl('*/*/new')."/?id=".$product->getProductId();?>" class="edit-btn m-2">Edit</a>
+                                <a href="<?php echo $this->getUrl('*/*/new') . "/?id=" . $product->getProductId(); ?>" class="edit-btn m-2">Edit</a>
                             </div>
                             <div class="m-2">
-                                <a href="<?php echo $this->getUrl('*/media_index/view')."/?id=".$product->getProductId();?>" class="edit-btn m-2">Edit Images</a>
+                                <a href="<?php echo $this->getUrl('*/media_index/view') . "/?id=" . $product->getProductId(); ?>" class="edit-btn m-2">Edit Images</a>
                             </div>
                             <div>
                                 <a href="delete/?deleteid=<?php echo $product->getProductId(); ?>" class="delete-btn m-2" onclick="return confirm('Are you sure?')">Delete</a>

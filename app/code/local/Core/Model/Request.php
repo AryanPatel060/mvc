@@ -83,4 +83,11 @@ class Core_Model_Request
             return false;
         }
     }
+
+    public function getIp()
+    {
+    
+        return "192:0:87:32";
+       
+    }
 }

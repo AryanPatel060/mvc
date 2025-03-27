@@ -1,0 +1,83 @@
+<div class="container mt-5 mb-5" id="grid-container">
+
+
+
+    <form action="" id="gridform">
+
+        <table class="table">
+            <thead>
+                <?php foreach ($this->getColumns() as $column): ?>
+                    <td>
+                        <?php echo $column->getLabel() ?>
+                    </td>
+                <?php endforeach; ?>
+            </thead>
+            <tr>
+                <?php foreach ($this->getColumns() as $column): ?>
+                    <td>
+                        <?php echo $column->getFilter()->render() ?>
+                    </td>
+                <?php endforeach ?>
+            </tr>
+            <tbody id="grid-body">
+                <?php foreach ($this->getCollection()->getData() as $data): ?>
+                    <tr>
+                        <?php foreach ($this->getColumns() as $column): ?>
+
+                            <td style="max-width:700px">
+                                <?php $column->setRow($data); ?>
+                                <?php echo $column->render() ?>
+                            </td>
+
+                        <?php endforeach ?>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+
+        </table>
+    </form>
+    <div class="col justify-content-end d-flex m-4">
+        <?php $this->getChildHtml('toolbar') ?>
+    </div>
+</div>
+
+
+<script>
+    console.log($("#gridform").find("input"));
+    data = {};
+    $("#gridform").find("input").on("change", filter);
+    $("#gridform").find("select").on("change", filter);
+
+    function filter(event) {
+        let fieldParts = $(this).attr("id").split("-");
+        let fieldType = fieldParts[1]; // "price", "id", etc.
+        let rangeType = fieldParts[2]; // "from" or "to"
+
+        if (!data[fieldType]) {
+            data[fieldType] = {
+                from: "",
+                to: ""
+            }
+        }
+
+        if (rangeType == "from") {
+            data[fieldType].from = $(this).val();
+        } else if (rangeType == "to") {
+            data[fieldType].to = $(this).val();
+        } else {
+            data[fieldType] = $(this).val();
+        }
+        console.log(data);
+        $.ajax({
+            url: "<?php echo $this->getUrl("*/*/*") . "/" ?>",
+            type: "GET",
+            data: data,
+            success: function(res) {
+                console.log(res);
+                $("#grid-body").html(((res.split(`<tbody id="grid-body">`))[1].split("</tbody>"))[0]);
+            }
+
+
+        })
+    }
+</script>

@@ -18,7 +18,7 @@ class Catalog_Block_Product_Filter extends Core_Block_Layout
             ->getCollection()
             ->addFieldToFilter('attribute_id', $brandid);
 
-        $brand = [];
+        $brand = [];    
         foreach ($productAtribute->getData() as $attribute) {
             if($attribute->getValue() != "")
             {

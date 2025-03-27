@@ -31,7 +31,7 @@ class Core_Model_Resource_Abstract
     public function load($value, $field = NULL)
     {
         $field = (is_null($field)) ? $this->_primaryKey : $field;
-        $sql = "SELECT * FROM {$this->_tableName} WHERE {$field} = '{$value}' LIMIT 1";
+        $sql = "SELECT * FROM `{$this->_tableName}` WHERE {$field} = '{$value}' LIMIT 1";
         return $this->getAdapter()->fetchRow($sql);
     }
     public function save($model)
@@ -46,7 +46,7 @@ class Core_Model_Resource_Abstract
             $primaryId = $data[$this->_primaryKey];
         }
         if ($primaryId) {
-            $sql = "UPDATE {$this->_tableName} SET ";
+            $sql = "UPDATE `{$this->_tableName}` SET ";
             unset($data[$this->_primaryKey]);
             $columns = [];
             foreach ($data as $field => $value) {
@@ -61,7 +61,7 @@ class Core_Model_Resource_Abstract
             return $this->getAdapter()->query($sql);
         } else {
 
-            $sql = "INSERT INTO {$this->_tableName}  ";
+            $sql = "INSERT INTO `{$this->_tableName}`  ";
             $columns = [];
             $values = [];
             foreach ($data as $field => $value) {
@@ -73,6 +73,7 @@ class Core_Model_Resource_Abstract
             }
             $sql .= "(" . implode(',', $columns) . ") VALUES";
             $sql .= "(" . implode(',', $values) . ")";
+
             $insertId = $this->getAdapter()->insert($sql);
 
             $model->{$this->_primaryKey} = $insertId;
@@ -94,5 +95,9 @@ class Core_Model_Resource_Abstract
     public function getTableName()
     {
         return $this->_tableName;
+    }
+    public function getPrimaryKey()
+    {
+        return $this->_primaryKey;
     }
 }

@@ -54,14 +54,14 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src=""></script> -->
 <script>
     filters = {
-        cid: <?php echo $_GET['cid']; ?>
     };
     $(".filter").on('change', function() {
         filters[$(this).attr('name')] = this.value;
     });
+ 
 
     $('#apply-filter').on('click', function() {
 
@@ -82,6 +82,7 @@
             type: 'GET',
             data: filters,
             success: function(response) {
+                console.log(response)
                 $('#product-list').html(response);
             },
             error: function() {

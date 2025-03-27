@@ -1,0 +1,186 @@
+<?php $orders = $this->getOrders(); ?>
+<style>
+    .textedit {
+        display: none;
+    }
+</style>
+<div class="container mt-5 mb-5">
+    <h2 class="mb-3">Order Management</h2>
+
+    <!-- Filters -->
+    <div class="card p-3 mb-4 shadow-sm border-0">
+        <form action="">
+            <div class="row g-2">
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">Status:</label>
+                    <select class="form-select">
+                        <option selected>All</option>
+                        <option>Pending</option>
+                        <option>Delivered</option>
+                        <option>Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">From:</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">To:</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold ">Search:</label>
+                    <input type="text" class="form-control validate-required validate-email" placeholder="Order ID, Customer name">
+                </div>
+                <div class="col-md-1 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100 fw-semibold">Apply</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <a href="<?php echo $this->getUrl("*/*/exportOrders") ?>" class="btn btn-primary fw-semibold" id="exportProductdata">Export Data</a>
+                </div>
+                <div class="col mb-2 d-flex justify-content-center ">
+                    <?php echo $this->getChildHtml('toolbar'); ?>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark p-3">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($orders as $order): ?>
+                            <tr class="cursor-pointer">
+                                <td><?php echo $order->getOrderNumber(); ?></td>
+                                <td><?php echo date("Y-m-d H:i:s", strtotime($order->getCreatedAt())); ?></td>
+                                <td>₹<?php echo number_format($order->getTotalAmount(), 2); ?></td>
+                                <td>
+
+
+                                    <span class="badge text-bg-<?php echo strtolower($order->getStatus()) == 'delivered' ? 'success' : (strtolower($order->getStatus()) == 'pending' ? 'warning' : (strtolower($order->getStatus()) == 'cancelled' ? 'danger' : 'primary')); ?>">
+                                        <div class="edit">
+                                            <?php echo ucfirst($order->getOrderStatus()); ?>
+                                        </div>
+
+                                        <select class="textedit" id="order_status-<?php echo $order->getOrderId(); ?>">
+                                            <?php $statuses = ['Pending', 'Shipped', 'Delivered', 'Cancelled']; ?>
+
+                                            <?php foreach ($statuses as $status): ?>
+                                                <?php $selected = ($order->getOrderStatus() == $status) ? 'selected' : ''; ?>
+                                                <option class="dropdown" value='<?php echo $status ?>' <?php echo $selected ?>><?php echo ucfirst($status) ?> </option>;
+
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </span>
+
+                                </td>
+                                <td>
+                                    <a href="<?php echo $this->getUrl("*/*/view") . "/?id=" . $order->getOrderId()  ?>" class="btn btn-info btn-sm fw-semibold">View</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // $('.edit').click(function() {
+    //     $('.textedit').hide();
+    //     $(this).next('.textedit').show().focus();
+    //     $(this).hide();
+    // });
+
+    // $(".textedit").focusout(function() {
+    //     let id = this.id;
+    //     let split = id.split("-");
+    //     let fieldname = split[0];
+    //     let order_id = split[1];
+    //     let value = $(this).val();
+
+    //     $(this).hide();
+
+    //     console.log(value, split);
+    //     $(this).prev('.edit').show();
+    //     $(this).prev('.edit').text(value);
+    //     let data = [];
+    //     data[fieldname] = value;
+    //     data['order_id'] = order_id
+
+    //     $.ajax({
+    //         url: "<?php echo $this->getUrl("admin/sales_order/updateStatus") ?>",
+    //         type: 'post',
+    //         data: {
+    //             order: data,
+    //             fieldname: fieldname,
+    //             order_id: order_id,
+    //             value: value,
+    //         },
+    //         success: function(responce) {
+    //             console.log(responce);
+    //         }
+    //     })
+    // });
+
+
+
+
+
+    $('.edit').click(function() {
+        $('.textedit').hide();
+        $(this).next('.textedit').show().focus();
+        $(this).hide();
+    });
+
+    $(".textedit").change(function() {
+        let id = this.id;
+        let split = id.split("-");
+        let fieldname = split[0];
+        let order_id = split[1];
+        let value = $(this).val();
+
+        $(this).hide();
+
+        console.log(value, split);
+        $(this).prev('.edit').show();
+        $(this).prev('.edit').text(value);
+
+        let data = {
+            order_id: order_id,
+            fieldname: fieldname,
+            value: value
+        };
+        if (confirm("Are you sure want to update state for selected order ?")) {
+
+            $.ajax({
+                url: "<?php echo $this->getUrl('admin/sales_order/updateStatus'); ?>",
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        } else {
+            alert("status updation canclled");
+        }
+    });
+</script>

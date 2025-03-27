@@ -6,7 +6,7 @@ class Admin_Controller_Media_Index extends Core_Controller_Admin_Action
         $layout = Mage::getBlock('core/layout');
         $view = $layout->createBlock('admin/media_view');
         $layout->getChild('content')->addChild('view', $view);
-        $layout->getChild('head')->addScript('https://code.jquery.com/jquery-3.6.0.min.js');
+        // 
         $layout->getChild('head')->addJs('admin/new.js');
         $layout->toHtml();
     }

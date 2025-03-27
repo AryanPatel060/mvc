@@ -3,6 +3,7 @@ class Catalog_Block_Product_List extends Core_Block_Layout
 {
 
     public $products = [];
+    protected $_collection ;
     public function __construct()
     {
         $this->setTemplate('catalog/product/list.phtml');
@@ -10,8 +11,12 @@ class Catalog_Block_Product_List extends Core_Block_Layout
         $products = $this->getLayout()->createBlock('catalog/product_list_products');
         $this->addChild('filter',$filter);
         $this->addChild('product',$products);
-
     }
+
+
+
+
+
 
     public function getProductData()
     {
@@ -30,8 +35,7 @@ class Catalog_Block_Product_List extends Core_Block_Layout
         //                 ->addFieldToFilter('price',['>'=>$minprice]);
 
         // return (count($this->products))?$product->getData():$this->products;
-        $product = Mage::getModel('catalog/filter')
-            ->getProductCollection();
+        $product =$this->_collection;
         return $product->getData();
     }
 
@@ -41,9 +45,6 @@ class Catalog_Block_Product_List extends Core_Block_Layout
         return $this;
     }
    
-
-
-
     public function getCategoryData()
     {
         $category = Mage::getModel('catalog/category')
@@ -85,6 +86,9 @@ class Catalog_Block_Product_List extends Core_Block_Layout
         // echo $product->prepareQuery();
         // return $product->getData();
     }
+
+  
+
     
 
 

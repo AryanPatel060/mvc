@@ -1,0 +1,26 @@
+<?php $shippingMethods = $this->getMethods(); ?>
+<?php $cartData = $this->getCart(); ?>
+
+<form id="shipping-method-form"
+    class="card p-4 mt-4">
+    <h4 class="fw-bold mb-3">Shipping Method</h4>
+
+    <div id="shipping-methods">
+        <?php foreach ($shippingMethods as $method => $charges): ?>
+            <div class="form-check shipping-option">
+                <input class="form-check-input shippingmethod" type="radio" name="shippingMethod"
+                    id="shipping_<?php echo $method; ?>"
+                    value="<?php echo $method; ?>"
+                    required
+                    <?php
+                    echo ($cartData->getShippingMethod() !=  $method) ? "" : "checked" ?>>
+                <label class="form-check-label" for="shipping_<?php echo $method; ?>">
+                    <strong><?php echo $method; ?></strong>
+
+                    - <span>₹<?php echo number_format($charges, 2); ?></span>
+                </label>
+            </div>
+        <?php endforeach; ?>
+
+    </div>
+</form>

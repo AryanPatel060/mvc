@@ -1,5 +1,5 @@
 <?php
-class Core_Model_Abstract
+class Core_Model_Abstract extends Core_Model_Export
 {
     protected $_resourceClassName;
     protected $_collectionClassName;
@@ -114,5 +114,11 @@ class Core_Model_Abstract
     protected function _beforeSave()
     {
         return $this;
+    }
+
+    public function exportData()
+    {
+        return  $this->setCollection($this->getCollection())
+            ->export();
     }
 }

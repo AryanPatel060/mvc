@@ -13,7 +13,7 @@
                     <?php if (isset($_SESSION['login']) && $_SESSION['login'] == 1): ?>
                         <a class="nav-link" href="<?= $this->getUrl('admin/account/logout') ?>">Logout</a>
                     <?php else: ?>
-                        <a class="nav-link" href="<?= $this->getUrl('admin/account/login') ?>">Login</a>
+                        <!-- <a class="nav-link" href="<?= $this->getUrl('admin/account/login') ?>">Login</a> -->
                     <?php endif; ?>
                 </li>
                 <li class="nav-item dropdown"></li>
@@ -24,8 +24,22 @@
                     </a>
                 </li>
             </ul>
+            <?php if (isset($_SESSION['customerLogin']) && $_SESSION['customerLogin'] == 1): ?>
+                <a class="btn btn-outline-primary" href="<?= $this->getUrl('customer/dashboard/index') ?>">Dashboard</a>
+            <?php endif; ?>
+
             <div class="nav-item ms-2">
-                <a href="<?= $this->getUrl('checkout/cart/index') ?>" class="btn btn-outline-success">Cart <i class="fas fa-shopping-cart"></i></a>
+                <a href="<?= $this->getUrl('checkout/cart/index') ?>" class="btn btn-outline-primary"><i class="fas fa-shopping-cart"></i></a>
+            </div>
+            <div class="nav-item ms-2">
+
+                <?php if (isset($_SESSION['customerLogin']) && $_SESSION['customerLogin'] == 1): ?>
+                    <a class="btn btn-danger" href="<?= $this->getUrl('customer/account/logout') ?>">Logout</a>
+
+                <?php else: ?>
+                    <a class="btn btn-success" href="<?= $this->getUrl('customer/account/login') ?>">Login</a>
+                    <a class="btn btn-success" href="<?= $this->getUrl('customer/account/signup') ?>">Signup</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

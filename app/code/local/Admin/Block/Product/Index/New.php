@@ -5,6 +5,7 @@ class Admin_Block_Product_Index_New extends Core_Block_Template
     public function __construct()
     {
         $this->setTemplate('Admin/Product/Index/New.phtml');
+    
     }
 
     public function getProductData()
